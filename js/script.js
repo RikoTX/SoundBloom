@@ -1,7 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
     const supabaseUrl = 'https://jkedvvvfbpqvokxtcycq.supabase.co'; // замените на свой
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // замените на свой
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprZWR2dnZmYnBxdm9reHRjeWNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkxMjYyNjIsImV4cCI6MjA2NDcwMjI2Mn0.LOvEz9NeJz2CmGpAe_VMw3GYQg2lnov-F_fKTsEc56g'; // замените на свой
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const userInfoDiv = document.getElementById('user-info');
