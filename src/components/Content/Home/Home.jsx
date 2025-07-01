@@ -89,21 +89,6 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div>
-                content
-            </div>
-            <div>
-                content
-            </div>
-            <div>
-                content
-            </div>
-            <div>
-                content
-            </div>
-            <div>
-                content
-            </div>
         </div>
     );
 }
