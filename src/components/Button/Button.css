@@ -1,0 +1,24 @@
+.custom-button {
+  background-color: #121212;
+  color: white;
+  border: 1px solid #121212;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 80%;
+  transition: 0.2s ease;
+}
+
+.custom-button:hover {
+  opacity: 0.8;
+}
+
+.custom-button.active {
+  background: #cb0094;
+  color: white;
+  font-size: 20px;
+  width: 200px;
+}
