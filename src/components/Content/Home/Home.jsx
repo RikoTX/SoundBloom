@@ -9,7 +9,7 @@ const imageWrapperStyle = {
 };
 
 const imageStyle = {
-    paddingRight:'80px',
+    paddingRight: '80px',
     maxWidth: '100%',
     height: 'auto',
     display: 'block',
@@ -57,12 +57,58 @@ const ImageCenter = {
     padding: '20px',
     paddingTop: '50px',
 };
+const linkText = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '30px',
+    marginTop: '20px',
+};
 
+const linkStyle = {
+    fontSize: '17px',
+    color: 'white',
+    textDecoration: 'none',
+};
+
+const Position = {
+    position: 'absolute',
+    top: '2.5%',
+    right: '38%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+}
+
+const ButtonElements = {
+    position: 'absolute',
+    top: '4%',
+    right: '10%'
+}
+
+const styleButtonLogin = {
+    backgroundColor: 'transparent',
+    color: '#cb0094',
+    padding: '11px',
+    width: '150px',
+    border: '1px solid #cb0094',
+    borderRadius: '3px',
+    marginRight: '10px',
+    cursor: 'pointer',
+
+}
+const styleButtonSignUp = {
+    backgroundColor: '#cb0094',
+    padding: '11px',
+    width: '150px',
+    borderRadius: '3px',
+    border: '1px solid #cb0094',
+    cursor: 'pointer',
+}
 export default function Home() {
     const [searchValue, setSearchValue] = useState('');
 
     const handleSearch = () => {
-        console.log('custom', searchValue);
+        console.log(searchValue);
     };
 
     return (
@@ -84,7 +130,23 @@ export default function Home() {
                             style={inputStyle}
                         />
                         <button onClick={handleSearch} style={buttonStyle}>
-                            <SearchOutlined/>
+                            <SearchOutlined />
+                        </button>
+                    </div>
+                    <div style={Position}>
+                        <div style={linkText}>
+                            <a href="#" style={linkStyle}>About Us</a>
+                            <a href="#" style={linkStyle}>Contact</a>
+                            <a href="#" style={linkStyle}>Premium</a>
+                        </div>
+
+                    </div>
+                    <div style={ButtonElements}>
+                        <button style={styleButtonLogin}>
+                            Login
+                        </button>
+                        <button style={styleButtonSignUp}>
+                            Sign Up
                         </button>
                     </div>
                 </div>
