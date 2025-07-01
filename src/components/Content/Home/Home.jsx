@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
     SearchOutlined,
 } from '@ant-design/icons';
+import { FORMAT_RGB } from 'antd/es/color-picker/interface';
 
 const imageWrapperStyle = {
     position: 'relative',
@@ -104,6 +105,55 @@ const styleButtonSignUp = {
     border: '1px solid #cb0094',
     cursor: 'pointer',
 }
+
+const textStyle = {
+    fontWeight: 700,
+    fontSize: 40,
+}
+const textPosition = {
+    position: 'absolute',
+    top: '20%',
+    left: '3%',
+}
+
+const textImage = {
+    width: '380px',
+    position: 'absolute',
+    bottom: '30%',
+    left: '3%',
+    color: '#bdbdbd',
+}
+
+const positionButton = {
+    position: 'absolute',
+    bottom: '20%',
+    left: '3.5%'
+}
+
+const styleDiscoverNow = {
+    color: 'white',
+    backgroundColor: '#cb0094',
+    border: '1px solid #cb0094',
+    padding: '10px',
+    width: '150px',
+    borderRadius: '4px',
+    fontSize: '17px',
+    marginRight: '30px',
+    cursor: 'pointer',
+
+}
+
+const styleCreatePlaylist = {
+    color: '#0E9EEF',
+    backgroundColor: 'transparent',
+    border: '2px solid #0E9EEF',
+    padding: '10px',
+    width: '150px',
+    borderRadius: '4px',
+    fontSize: '17px',
+    cursor: 'pointer',
+
+}
 export default function Home() {
     const [searchValue, setSearchValue] = useState('');
 
@@ -147,6 +197,26 @@ export default function Home() {
                         </button>
                         <button style={styleButtonSignUp}>
                             Sign Up
+                        </button>
+                    </div>
+
+                    <div style={textPosition}>
+                        <p style={textStyle}>
+                            All the <span style={{ color: '#cb0094' }}>Best Songs</span><br />
+                            in One Place
+                        </p>
+                    </div>
+                    <div style={textImage}>
+                        <p>
+                            On our website, you can access an amazing collection of popular and new songs. Stream your favorite tracks in high quality and enjoy without interruptions. Whatever your taste in music, we have it all for you!
+                        </p>
+                    </div>
+                    <div style={positionButton}>
+                        <button style={styleDiscoverNow}>
+                            Discover Now
+                        </button>
+                        <button style={styleCreatePlaylist}>
+                            Create Playlist
                         </button>
                     </div>
                 </div>
