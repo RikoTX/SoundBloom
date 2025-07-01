@@ -221,6 +221,12 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <div>
+                <p style={{fontWeight: 600, fontSize: 35, marginLeft: '4%'}}>
+                    Weekly Top <span style={{color: '#cb0094' }}>Songs</span>
+                </p>
+            </div>
         </div>
+        
     );
 }
