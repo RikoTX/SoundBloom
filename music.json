@@ -1,0 +1,40 @@
+{
+  "WeeklyTopSongs": [
+    {
+      "title": "Whatever It Takes",
+      "artist": "Imagne Dragons",
+      "cover": "/src/assets/musicAvatars/Whatever It Takes.png"
+    },
+     {
+      "title": "Skyfall",
+      "artist": "Adele",
+      "cover": "/src/assets/musicAvatars/skyfall.png"
+    },
+    
+     {
+      "title": "Superman",
+      "artist": "Eminiem",
+      "cover": "/src/assets/musicAvatars/Superman.png"
+    },
+    {
+      "title": "Softcore",
+      "artist": "The Neighberhood",
+      "cover": "/src/assets/musicAvatars/Softcore.png"
+    },
+    {
+      "title": "The Lonliest",
+      "artist": "Måneskin",
+      "cover": "/src/assets/musicAvatars/The Lonliest.png"
+    }
+  ],
+  "NewReleaseSongs": [
+    {
+      "title": "Weightless",
+      "artist": "Marconi Union",
+      "duration": "8:00",
+      "cover": "/images/weightless.jpg",
+      "genre": "Ambient",
+      "audio": "/audio/weightless.mp3"
+    }
+  ] 
+}
