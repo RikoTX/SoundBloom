@@ -235,7 +235,62 @@ export default function Home() {
                                     style={{ width: '150px', height: '150px', borderRadius: '10px' }}
                                 />
                                 <p style={{ margin: '5px 0', fontWeight: 600 }}>{song.title}</p>
-                                <p style={{ margin: 0, color: 'white' }}>{song.artist}</p>
+                                <p style={{ margin: 0, color: 'white', color:'#929292', fontSize: '12px' }}>{song.artist}</p>
+                            </div>
+                        ))}
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '20px' 
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center'
+                            }}>
+                                <button style={{
+                                    backgroundColor: '#1E1E1E',
+                                    width: '70px',
+                                    height: '70px',
+                                    fontSize: '30px',
+                                    borderRadius: '50%',
+                                    border: 'none',
+                                    color: 'white',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer'
+                                }}>
+                                    +
+                                </button>
+                                <p style={{
+                                    marginTop: '8px',
+                                    fontWeight: 500,
+                                    fontSize: '15px',
+                                    color: 'white'
+                                }}>
+                                    View All
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
+                    New Release <span style={{ color: '#cb0094' }}>Songs</span>
+                </p>
+                <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
+                        {musicData.NewReleaseSongs.map((song, index) => (
+                            <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', padding: 10, borderRadius: '10px' }}>
+                                <img
+                                    src={song.cover}
+                                    alt={song.title}
+                                    style={{ width: '150px', height: '150px', borderRadius: '10px' }}
+                                />
+                                <p style={{ margin: '5px 0', fontWeight: 600 }}>{song.title}</p>
+                                <p style={{ margin: 0, color: 'white', color:'#929292', fontSize: '12px' }}>{song.artist}</p>
                             </div>
                         ))}
                         <div style={{
