@@ -131,7 +131,7 @@ export default function FooterPage() {
                 <div>
                     <div style={imageDiv}>
                         <img
-                            src="src/assets/soundBloom.png"
+                            src="../../../../public/soundBloom.png"
                             alt="SoundBloom"
                             style={{
                                 maxWidth: '70%',
@@ -141,17 +141,17 @@ export default function FooterPage() {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 30px' }}>
                         <a href="#" target="_blank" rel="noopener noreferrer">
-                            <img src="../src/assets/FooterContactIcons/facebook1.png" style={{ width: '40px', height: '40px' }} alt="" />
+                            <img src="../../../../public/FooterContactIcons/facebook1.png" style={{ width: '40px', height: '40px' }} alt="" />
                         </a>
                         <a href="#" target="_blank" rel="noopener noreferrer">
-                            <img src="../src/assets/FooterContactIcons/instagram.png" alt="" />
+                            <img src="../../../../public/FooterContactIcons/instagram.png" alt="" />
                         </a>
 
                         <a href="#" target="_blank" rel="noopener noreferrer">
-                            <img src="../src/assets/FooterContactIcons/twitter.png" alt="" />
+                            <img src="../../../../public/FooterContactIcons/twitter.png" alt="" />
                         </a>
                         <a href="#" target="_blank" rel="noopener noreferrer">
-                            <img src="../src/assets/FooterContactIcons/phone.png" style={{ width: '50px', height: '35px' }} alt="" />
+                            <img src="../../../../public/FooterContactIcons/phone.png" style={{ width: '50px', height: '35px' }} alt="" />
                         </a>
                     </div>
                 </div>
