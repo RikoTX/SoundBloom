@@ -1,6 +1,6 @@
-import { Layout } from 'antd';
-const { Footer } = Layout;
 import Home from './Home/Home'
+import Footer from '../Footer/Footer';
+import { Layout } from 'antd';
 
 
 
@@ -9,13 +9,6 @@ const scrollContainerStyle = {
   overflowY: 'auto',
   backgroundColor: '#121212',
   color: 'white',
-};
-
-const footerStyle = {
-  textAlign: 'center',
-  color: 'black',
-  backgroundColor: 'pink',
-  padding: '12px',
 };
 
 export default function ContentPage({ activeButton }) {
@@ -47,7 +40,7 @@ export default function ContentPage({ activeButton }) {
     <Layout>
       <div style={scrollContainerStyle}>
         {renderContent()}
-        <Footer style={footerStyle}>Footer</Footer>
+        <Footer />
       </div>
     </Layout>
   );
