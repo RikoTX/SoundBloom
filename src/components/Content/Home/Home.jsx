@@ -23,7 +23,7 @@ const inputContainerStyle = {
     display: 'flex',
     borderRadius: '8px',
     overflow: 'hidden',
-    width: '400px', // фиксированная ширина для ровного внешнего вида
+    width: '400px', 
     backgroundColor: '#121212',
     border: '1px solid #333',
 };
