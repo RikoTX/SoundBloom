@@ -1,0 +1,86 @@
+{
+  "WeeklyTopSongs": [
+    {
+      "title": "Whatever It Takes",
+      "artist": "Imagine Dragons",
+      "cover": "musicAvatars/Whatever It Takes.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21"
+    },
+    {
+      "title": "Skyfall",
+      "artist": "Adele",
+      "cover": "musicAvatars/Skyfall.png",
+      "releaseDate": "Oct 5, 2012",
+      "album": "Skyfall (Single)",
+      "time": "4:46"
+    },
+    {
+      "title": "Superman",
+      "artist": "Eminem",
+      "cover": "musicAvatars/Superman.png",
+      "releaseDate": "May 26, 2002",
+      "album": "The Eminem Show",
+      "time": "5:50"
+    },
+    {
+      "title": "Softcore",
+      "artist": "The Neighbourhood",
+      "cover": "musicAvatars/Softcore.png",
+      "releaseDate": "Mar 9, 2018",
+      "album": "Hard to Imagine The Neighbourhood Ever Changing",
+      "time": "3:28"
+    },
+    {
+      "title": "The Loneliest",
+      "artist": "Måneskin",
+      "cover": "musicAvatars/The Lonliest.png",
+      "releaseDate": "Oct 7, 2022",
+      "album": "Rush!",
+      "time": "4:05"
+    }
+  ],
+  "NewReleaseSongs": [
+    {
+      "title": "Time",
+      "artist": "Luciano",
+      "cover": "musicAvatars/Time.png",
+      "releaseDate": "Nov 22, 2024",
+      "album": "Seductive",
+      "time": "2:54"
+    },
+    {
+      "title": "112",
+      "artist": "Jazzek",
+      "cover": "musicAvatars/112.png",
+      "releaseDate": "Feb 10, 2025",
+      "album": "Jazzek Vibes",
+      "time": "3:03"
+    },
+    {
+      "title": "We Don’t Care",
+      "artist": "Kyanu & DJ Gullum",
+      "cover": "musicAvatars/We Don”t Care.png",
+      "releaseDate": "Mar 14, 2025",
+      "album": "Club Storm",
+      "time": "2:47"
+    },
+    {
+      "title": "Who I Am",
+      "artist": "Alan Walker & Elias",
+      "cover": "musicAvatars/Who I Am.png",
+      "releaseDate": "Jan 19, 2025",
+      "album": "WalkerWorld",
+      "time": "3:12"
+    },
+    {
+      "title": "Baixo",
+      "artist": "XXAnteria",
+      "cover": "musicAvatars/Baixo.png",
+      "releaseDate": "Apr 8, 2025",
+      "album": "Underground Pulse",
+      "time": "2:36"
+    }
+  ]
+}
