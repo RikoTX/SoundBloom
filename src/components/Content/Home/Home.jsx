@@ -177,7 +177,7 @@ export default function Home() {
             <div style={ImageCenter}>
                 <div style={imageWrapperStyle}>
                     <img
-                        src="../../../public/fon.png"
+                        src="fon.png"
                         alt="SoundBloom"
                         style={imageStyle}
                     />
@@ -469,6 +469,58 @@ export default function Home() {
                                         style={{ width: '140px', height: '140px', borderRadius: '70px' }}
                                     />
                                     <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '18px' }}>{song.artist}</p>
+                                </div>
+                            ))}
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '20px'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center'
+                                }}>
+                                    <button style={{
+                                        backgroundColor: '#1E1E1E',
+                                        width: '70px',
+                                        height: '70px',
+                                        fontSize: '30px',
+                                        borderRadius: '50%',
+                                        border: 'none',
+                                        color: 'white',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer'
+                                    }}>
+                                        +
+                                    </button>
+                                    <p style={{
+                                        marginTop: '8px',
+                                        fontWeight: 500,
+                                        fontSize: '15px',
+                                        color: 'white'
+                                    }}>
+                                        View All
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
+                            Music <span style={{ color: '#cb0094' }}>Video</span>
+                        </p>
+                        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                            {musicData.MusicVideo.map((song, index) => (
+                                <div key={index} style={{ textAlign: 'center', padding: 7,marginLeft: '20px',backgroundColor: '#202020', borderRadius: '10px' }}>
+                                    <iframe style={{borderRadius: '7px'}} width="300" height="195" src={song.src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    <p style={{ margin: '5px 0', fontWeight: 600, fontSize: '18px', display: 'flex', justifyContent: 'flex-start' }}>{song.title}</p>
+                                    <div style={{display:'flex', justifyContent: 'space-between'}}>
+                                        <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '13px' }}>{song.artist}</p>
+                                        <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '13px' }}>{song.views}</p>
+                                    </div>
                                 </div>
                             ))}
                             <div style={{
