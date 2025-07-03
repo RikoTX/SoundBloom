@@ -162,5 +162,25 @@
       "artist": "Billie Eilish",
       "cover": "popularArtists/Billie Eilish.png"
     }
+  ],
+  "MusicVideo": [
+    {
+      "title": "Gossip",
+      "artist": "Måneskin",
+      "views": "3M views",
+      "src": "https://www.youtube.com/embed/7mW4FUe_ySc?si=u5YeW9YgYOmayxvN"
+    },
+    {
+      "title": "Shape Of You",
+      "artist": "Ed Sheeran",
+      "views": "5M views",
+      "src": "https://www.youtube.com/embed/JGwWNGJdvx8?si=LxpmDn6dn1IOg5y0"
+    },
+    {
+      "title": "Someone Like You",
+      "artist": "Adele",
+      "views": "3M views",
+      "src": "https://www.youtube.com/embed/hLQl3WQQoQ0?si=CpZ65SFP-g0dvQRW"
+    }
   ]
 }
