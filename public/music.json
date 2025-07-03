@@ -82,5 +82,63 @@
       "album": "Underground Pulse",
       "time": "2:36"
     }
+  ],
+  "TrendingSongs": [
+    {
+      "title": "Sorfcore",
+      "artist": "The neighberhood",
+      "cover": "musicAvatars/Sorfcore.png",
+      "releaseDate": "Nov 4, 2023",
+      "album": "Hard to Imagine the Neighbourhood Ever Changing",
+      "time": "3:26"
+    },
+    {
+      "title": "Skyfall Beats",
+      "artist": "nightmares",
+      "cover": "musicAvatars/Skyfall Beats.png",
+      "releaseDate": "Oct 26, 2023",
+      "album": "nightmares",
+      "time": "2:45"
+    },
+    {
+      "title": "Greedy",
+      "artist": "tate mcrae",
+      "cover": "musicAvatars/Greedy.png",
+      "releaseDate": "Dec 30, 2023",
+      "album": "Greedy",
+      "time": "2:11"
+    },
+    {
+      "title": "Lovin On me",
+      "artist": " jack harlow",
+      "cover": "musicAvatars/Lovin On me.png",
+      "releaseDate": "Dec 30, 2023",
+      "album": "Lovin On me",
+      "time": "2:18"
+    },
+    {
+      "title": "pain the town red",
+      "artist": "Doja Cat",
+      "cover": "musicAvatars/pain the town red.png",
+      "releaseDate": "Dec 29, 2023",
+      "album": "Paint The Town Red",
+      "time": "3:51"
+    },
+    {
+      "title": "Dancin On Night",
+      "artist": "Dualipa",
+      "cover": "musicAvatars/Dancin On Night.png",
+      "releaseDate": "may 27, 2023",
+      "album": "Dance The Night(From Barbie Movie)",
+      "time": "2:56"
+    },
+    {
+      "title": "Water",
+      "artist": "Tyla",
+      "cover": "musicAvatars/Water.png",
+      "releaseDate": "Dec 10, 2023",
+      "album": "Water",
+      "time": "3:20"
+    }
   ]
 }
