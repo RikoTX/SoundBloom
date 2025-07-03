@@ -140,5 +140,27 @@
       "album": "Water",
       "time": "3:20"
     }
+  ],
+  "PopularArtists": [
+    {
+      "artist": "Eminiem",
+      "cover": "popularArtists/Eminiem.png"
+    },
+    {
+      "artist": "The Weekend",
+      "cover": "popularArtists/The Weekend.png"
+    },{
+      "artist": "Adele",
+      "cover": "popularArtists/Adele.png"
+    },{
+      "artist": "Lana Del Ray",
+      "cover": "popularArtists/Lana Del Ray.png"
+    },{
+      "artist": "Harry Styles",
+      "cover": "popularArtists/Harry Styles.png"
+    },{
+      "artist": "Billie Eilish",
+      "cover": "popularArtists/Billie Eilish.png"
+    }
   ]
 }
