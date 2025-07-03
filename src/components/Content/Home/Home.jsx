@@ -399,9 +399,10 @@ export default function Home() {
                                                 width: '200px',
                                                 margin: '5px 0',
                                                 fontWeight: 400,
-                                                whiteSpace: 'nowrap',
                                                 overflow: 'hidden',
-                                                textOverflow: 'ellipsis'
+                                                textOverflow: 'ellipsis',
+                                                display: 'flex',
+                                                justifyContent: 'center'
                                             }}>
                                                 {song.album}
                                             </p>
@@ -452,6 +453,60 @@ export default function Home() {
                                 View All
                             </p>
                         </button>
+                    </div>
+                </div>
+                <div>
+                    <p style={{ fontWeight: 600, fontSize: 35, margin: '35px 10px 0px 4%', paddingBottom: '25px' }}>
+                        Popular <span style={{ color: '#cb0094' }}>Artists</span>
+                    </p>
+                    <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
+                            {musicData.PopularArtists.map((song, index) => (
+                                <div key={index} style={{ textAlign: 'center', padding: 10, borderRadius: '10px' }}>
+                                    <img
+                                        src={song.cover}
+                                        alt={song.artist}
+                                        style={{ width: '140px', height: '140px', borderRadius: '70px' }}
+                                    />
+                                    <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '18px' }}>{song.artist}</p>
+                                </div>
+                            ))}
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '20px'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center'
+                                }}>
+                                    <button style={{
+                                        backgroundColor: '#1E1E1E',
+                                        width: '70px',
+                                        height: '70px',
+                                        fontSize: '30px',
+                                        borderRadius: '50%',
+                                        border: 'none',
+                                        color: 'white',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer'
+                                    }}>
+                                        +
+                                    </button>
+                                    <p style={{
+                                        marginTop: '8px',
+                                        fontWeight: 500,
+                                        fontSize: '15px',
+                                        color: 'white'
+                                    }}>
+                                        View All
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
