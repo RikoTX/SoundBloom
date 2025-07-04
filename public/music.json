@@ -182,5 +182,47 @@
       "views": "3M views",
       "src": "https://www.youtube.com/embed/hLQl3WQQoQ0?si=CpZ65SFP-g0dvQRW"
     }
+  ],
+  "TopAlbums": [
+    {
+      "title": "Adele 21",
+      "artist": "Adele",
+      "cover": "TopAlbums/Adele 21.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21"
+    },
+    {
+      "title": "Scorpion",
+      "artist": "Drake",
+      "cover": "TopAlbums/Scorpion.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21"
+    },
+    {
+      "title": "Harry’s House",
+      "artist": "Harry Styles",
+      "cover": "TopAlbums/Harry’s House.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21"
+    },
+    {
+      "title": "Born To Die",
+      "artist": "Lana Del Ray",
+      "cover": "TopAlbums/Born To Die.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21"
+    },
+    {
+      "title": "Beauty Behind the...",
+      "artist": "The Weekend",
+      "cover": "TopAlbums/Beauty Behind the....png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21"
+    }
   ]
 }
