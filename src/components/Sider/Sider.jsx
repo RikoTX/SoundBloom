@@ -51,7 +51,7 @@ const menuStyle = {
 
 export default function SiderMenu({ activeButton, setActiveButton }) {
     return (
-        <AntSider width="20%" style={siderStyle}>
+        <AntSider width="18%" style={siderStyle}>
             <div style={contentWrapperStyle}>
                 <img
                     src="soundBloom.png"
