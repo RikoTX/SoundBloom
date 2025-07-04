@@ -514,10 +514,10 @@ export default function Home() {
                         </p>
                         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
                             {musicData.MusicVideo.map((song, index) => (
-                                <div key={index} style={{ textAlign: 'center', padding: 7,marginLeft: '20px',backgroundColor: '#202020', borderRadius: '10px' }}>
-                                    <iframe style={{borderRadius: '7px'}} width="300" height="195" src={song.src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <div key={index} style={{ textAlign: 'center', padding: 7, marginLeft: '20px', backgroundColor: '#202020', borderRadius: '10px' }}>
+                                    <iframe style={{ borderRadius: '7px' }} width="300" height="195" src={song.src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                     <p style={{ margin: '5px 0', fontWeight: 600, fontSize: '18px', display: 'flex', justifyContent: 'flex-start' }}>{song.title}</p>
-                                    <div style={{display:'flex', justifyContent: 'space-between'}}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '13px' }}>{song.artist}</p>
                                         <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '13px' }}>{song.views}</p>
                                     </div>
@@ -556,6 +556,61 @@ export default function Home() {
                                     }}>
                                         View All
                                     </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
+                            Top<span style={{ color: '#cb0094' }}> Albums</span>
+                        </p>
+                        <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
+                                {musicData.TopAlbums.map((song, index) => (
+                                    <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', padding: 10, borderRadius: '10px' }}>
+                                        <img
+                                            src={song.cover}
+                                            alt={song.title}
+                                            style={{ width: '150px', height: '150px', borderRadius: '10px' }}
+                                        />
+                                        <p style={{ margin: '5px 0', fontWeight: 600 }}>{song.title}</p>
+                                        <p style={{ margin: 0, color: '#929292', fontSize: '12px' }}>{song.artist}</p>
+                                    </div>
+                                ))}
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '20px'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center'
+                                    }}>
+                                        <button style={{
+                                            backgroundColor: '#1E1E1E',
+                                            width: '70px',
+                                            height: '70px',
+                                            fontSize: '30px',
+                                            borderRadius: '50%',
+                                            border: 'none',
+                                            color: 'white',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer'
+                                        }}>
+                                            +
+                                        </button>
+                                        <p style={{
+                                            marginTop: '8px',
+                                            fontWeight: 500,
+                                            fontSize: '15px',
+                                            color: 'white'
+                                        }}>
+                                            View All
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
