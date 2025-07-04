@@ -224,5 +224,27 @@
       "album": "Evolve",
       "time": "3:21"
     }
+  ],
+  "MoodPlaylist": [
+    {
+      "titlePlaylist": "Sad Playlist",
+      "cover": "MoodPlaylist/Sad Playlist.png"
+    },
+    {
+      "titlePlaylist": "Chill Playlist",
+      "cover": "MoodPlaylist/Chill Playlist.png"
+    },
+    {
+      "titlePlaylist": "Workout Playlist",
+      "cover": "MoodPlaylist/Workout Playlist.png"
+    },
+    {
+      "titlePlaylist": "Love Playlist",
+      "cover": "MoodPlaylist/Love Playlist.png"
+    },
+    {
+      "titlePlaylist": "Happy Playlist",
+      "cover": "MoodPlaylist/Happy Playlist.png"
+    }
   ]
 }
