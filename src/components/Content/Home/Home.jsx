@@ -615,6 +615,60 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
+                            Mood <span style={{ color: '#cb0094' }}> Playlist</span>
+                        </p>
+                        <div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
+                                {musicData.MoodPlaylist.map((song, index) => (
+                                    <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', borderRadius: '10px' }}>
+                                        <img
+                                            src={song.cover}
+                                            alt={song.titlePlaylist}
+                                            style={{ width: '170px', height: '160px', borderRadius: '10px' }}
+                                        />
+                                        <p style={{ margin: '5px 0', fontWeight: 600, display: 'flex' ,justifyContent: 'flex-start', padding:' 3px', paddingLeft: '8px' }}>{song.titlePlaylist}</p>
+                                    </div>
+                                ))}
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '20px'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center'
+                                    }}>
+                                        <button style={{
+                                            backgroundColor: '#1E1E1E',
+                                            width: '70px',
+                                            height: '70px',
+                                            fontSize: '30px',
+                                            borderRadius: '50%',
+                                            border: 'none',
+                                            color: 'white',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            cursor: 'pointer'
+                                        }}>
+                                            +
+                                        </button>
+                                        <p style={{
+                                            marginTop: '8px',
+                                            fontWeight: 500,
+                                            fontSize: '15px',
+                                            color: 'white'
+                                        }}>
+                                            View All
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
