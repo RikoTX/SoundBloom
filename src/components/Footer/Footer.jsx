@@ -13,7 +13,7 @@ export default function FooterPage() {
         backgroundColor: '#121212',
         padding: '12px',
         height: '44%',
-        boxShadow: '1px 0 40px rgb(45, 45, 45)',
+        boxShadow: '1px 0 40px rgb(0, 0, 0)',
     }
 
     const containerStyle = {
