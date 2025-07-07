@@ -10,10 +10,10 @@ export default function FooterPage() {
     const footerStyle = {
         marginTop: '100px',
         color: 'black',
-        backgroundColor: '#121212',
+        backgroundColor: '#181818',
         padding: '12px',
         height: '44%',
-        boxShadow: '1px 0 40px rgb(0, 0, 0)',
+        boxShadow: '1px 0 40px rgb(8, 8, 8)',
     }
 
     const containerStyle = {
