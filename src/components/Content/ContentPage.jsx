@@ -8,7 +8,7 @@ import { Layout } from 'antd';
 const scrollContainerStyle = {
   flex: 1,
   overflowY: 'auto',
-  backgroundColor: '#121212',
+  backgroundColor: '#181818',
   color: 'white',
 };
 
