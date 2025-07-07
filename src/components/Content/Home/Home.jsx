@@ -46,8 +46,9 @@ const imageWrapperStyle = {
 };
 
 const imageStyle = {
-    paddingRight: '80px',
+    paddingRight: '50px',
     maxWidth: '100%',
+    width: '1300px',
     height: 'auto',
     display: 'block',
 };
@@ -92,7 +93,7 @@ const ImageCenter = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '20px',
-    paddingTop: '50px',
+    paddingTop: '40px',
 };
 const linkText = {
     display: 'flex',
@@ -542,61 +543,95 @@ export default function Home() {
                         <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
                             Music <span style={{ color: '#cb0094' }}>Video</span>
                         </p>
-                        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-                            {musicData.MusicVideo.map((song, index) => (
-                                <div key={index} style={{ textAlign: 'center', padding: 7, marginLeft: '20px', backgroundColor: '#202020', borderRadius: '10px' }}>
-                                    <iframe style={{ borderRadius: '7px' }} width="300" height="195" src={song.src} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                    <p style={{ margin: '5px 0', fontWeight: 600, fontSize: '18px', display: 'flex', justifyContent: 'flex-start' }}>{song.title}</p>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                        <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '13px' }}>{song.artist}</p>
-                                        <p style={{ margin: '5px 0', fontWeight: 300, fontSize: '13px' }}>{song.views}</p>
+                        <div style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'center',
+                            gap: '60px',
+                            padding: '0 40px'
+                        }}>
+                            {musicData.MusicVideo.slice(0, 3).map((song, index) => (
+                                <div
+                                    key={index}
+                                    style={{
+                                        width: '300px',
+                                        backgroundColor: '#1F1F1F',
+                                        borderRadius: '10px',
+                                        padding: '10px',
+                                        boxSizing: 'border-box',
+                                    }}
+                                >
+                                    <iframe
+                                        style={{ borderRadius: '7px' }}
+                                        width="100%"
+                                        height="175"
+                                        src={song.src}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerPolicy="strict-origin-when-cross-origin"
+                                        allowFullScreen
+                                    ></iframe>
+                                    <p style={{
+                                        margin: '5px 0',
+                                        fontWeight: 600,
+                                        fontSize: '18px',
+                                        textAlign: 'left'
+                                    }}>
+                                        {song.title}
+                                    </p>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        fontSize: '13px',
+                                        fontWeight: 300
+                                    }}>
+                                        <p>{song.artist}</p>
+                                        <p>{song.views}</p>
                                     </div>
                                 </div>
                             ))}
+
                             <div style={{
                                 display: 'flex',
+                                flexDirection: 'column',
                                 alignItems: 'center',
-                                gap: '20px'
+                                justifyContent: 'center'
                             }}>
-                                <div style={{
+                                <button style={{
+                                    backgroundColor: '#1E1E1E',
+                                    width: '70px',
+                                    height: '70px',
+                                    fontSize: '30px',
+                                    borderRadius: '50%',
+                                    border: 'none',
+                                    color: 'white',
                                     display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'center'
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer'
                                 }}>
-                                    <button style={{
-                                        backgroundColor: '#1E1E1E',
-                                        width: '70px',
-                                        height: '70px',
-                                        fontSize: '30px',
-                                        borderRadius: '50%',
-                                        border: 'none',
-                                        color: 'white',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        cursor: 'pointer'
-                                    }}>
-                                        +
-                                    </button>
-                                    <p style={{
-                                        marginTop: '8px',
-                                        fontWeight: 500,
-                                        fontSize: '15px',
-                                        color: 'white'
-                                    }}>
-                                        View All
-                                    </p>
-                                </div>
+                                    +
+                                </button>
+                                <p style={{
+                                    marginTop: '8px',
+                                    fontWeight: 500,
+                                    fontSize: '15px',
+                                    color: 'white'
+                                }}>
+                                    View All
+                                </p>
                             </div>
                         </div>
                     </div>
+
                     <div>
                         <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
                             Top<span style={{ color: '#cb0094' }}> Albums</span>
                         </p>
                         <div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
-                                {musicData.TopAlbums.map((song, index) => (
+                                {musicData.TopAlbums.slice(0, 5).map((song, index) => (
                                     <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', padding: 10, borderRadius: '10px' }}>
                                         <img
                                             src={song.cover}
@@ -728,7 +763,7 @@ export default function Home() {
                                 boxSizing: 'border-box',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                alignItems:'center'
+                                alignItems: 'center'
                             }}>
                                 <div style={{ display: 'flex' }}>
                                     {['signup', 'login'].map((tab) => (
@@ -763,7 +798,7 @@ export default function Home() {
                                                         }`
                                             }
                                         </style>
-                                        
+
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '20px', width: '425px' }}>
                                             <label style={{ fontWeight: 500, fontSize: '17px', margin: 0 }}>Number</label>
                                             <input type="tel" placeholder="Format: +7 (123) 456 78 99" style={fieldStyle} />
