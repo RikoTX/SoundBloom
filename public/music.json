@@ -246,5 +246,23 @@
       "titlePlaylist": "Happy Playlist",
       "cover": "MoodPlaylist/Happy Playlist.png"
     }
-  ]
+  ],
+  "MusicGenres":[
+    {
+      "genres": "Rap Tracks",
+      "cover": "MusicGenres/Rap Tracks.png"
+  },
+  {
+      "genres": "Pop Tracks",
+      "cover": "MusicGenres/Pop Tracks.png"
+  },
+  {
+      "genres": "Rock Tracks",
+      "cover": "MusicGenres/Rock Tracks.png"
+  },
+  {
+      "genres": "Classic Tracks",
+      "cover": "MusicGenres/Classic Tracks.png"
+  }
+]
 }
