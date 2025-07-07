@@ -10,7 +10,9 @@ const containerStyle = {
     gap: '50px',
     paddingTop: '40px',
     width: '100%',
+    position: 'relative',
 };
+
 
 const inputContainerStyle = {
     display: 'flex',
@@ -84,6 +86,20 @@ export default function Search() {
     const handleSearch = () => {
         console.log(searchValue);
     };
+    const allSongs = [
+        ...(musicData.NewReleaseSongs || []),
+        ...(musicData.TopAlbums || []),
+        ...(musicData.WeeklyTopSongs || []),
+        ...(musicData.TrendingSongs || []),
+    ];
+
+    const filteredSongs = allSongs.filter((song) => {
+        const query = searchValue.toLowerCase();
+        return (
+            song.title?.toLowerCase().includes(query) ||
+            song.artist?.toLowerCase().includes(query)
+        );
+    });
 
     return (
         <div>
@@ -100,6 +116,37 @@ export default function Search() {
                         <SearchOutlined />
                     </button>
                 </div>
+                {searchValue && (
+                    <div style={{
+                        position: 'absolute',
+                        top: '80px',
+                        left: '22.5%',
+                        transform: 'translateX(-50%)',
+                        backgroundColor: '#1a1a1a',
+                        border: '1px solid #333',
+                        borderRadius: '8px',
+                        padding: '10px',
+                        width: '400px',
+                        zIndex: 10,
+                        color: 'white'
+                    }}>
+                        {filteredSongs.length > 0 ? (
+                            filteredSongs.map((song, index) => (
+                                <div key={index} style={{ padding: '5px 0', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '10px' }}>
+                                    <img
+                                        src={song.cover}
+                                        style={{ width: '30px', height: '30px', borderRadius: '5px' }}
+                                    />
+                                    <strong>{song.title}</strong>
+                                    {song.artist && <span style={{ marginLeft: '10px', color: '#888' }}>by {song.artist}</span>}
+                                </div>
+                            ))
+                        ) : (
+                            <p style={{ color: '#888' }}>No results found.</p>
+                        )}
+                    </div>
+                )}
+
 
                 <div style={linkText}>
                     <a href="#" style={linkStyle}>About Us</a>
