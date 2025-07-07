@@ -14,7 +14,7 @@ import {
 const { Sider: AntSider } = Layout;
 
 const siderStyle = {
-    backgroundColor: '#121212',
+    backgroundColor: '#181818',
     borderRight: '2px solid #cb0094',
     boxShadow: '1px 0 10px #cb0094',
     height: '100vh',
