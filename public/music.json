@@ -181,6 +181,22 @@
       "artist": "Adele",
       "views": "3M views",
       "src": "https://www.youtube.com/embed/hLQl3WQQoQ0?si=CpZ65SFP-g0dvQRW"
+    },
+    {
+      "title": "Roar",
+      "artist": "Katy Perry",
+      "views": "4.6M views",
+      "src": "https://www.youtube.com/embed/CevxZvSJLk8?si=hLk-4vBy0LHfxrCd"
+    },{
+      "title": "Shake It Off",
+      "artist": "Taylor Swift",
+      "views": "4.2M views",
+      "src": "https://www.youtube.com/embed/nfWlot6h_JM?si=1zsU7DtPiPWzF0hV"
+    },{
+      "title": "Waka Waka",
+      "artist": "Shakira",
+      "views": "3.5M views",
+      "src": "https://www.youtube.com/embed/czWcyZRAMtk?si=tzwAuP1A6GK9jf1h"
     }
   ],
   "TopAlbums": [
@@ -222,6 +238,41 @@
       "cover": "TopAlbums/Beauty Behind the....png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
+      "time": "3:21"
+    },{
+      "title": "I Got Heaven",
+      "artist": "Mannequin",
+      "cover": "TopAlbums/I Got Heaven.png",
+      "releaseDate": "Oct 1, 2017",
+      "album": "Mannequin",
+      "time": "3:21"
+    },{
+      "title": "Saviors",
+      "artist": "Drake",
+      "cover": "TopAlbums/Saviors.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Green Day",
+      "time": "3:21"
+    },{
+      "title": "Loss Of Life",
+      "artist": "Drake",
+      "cover": "TopAlbums/Loss Of Life.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "MGMT",
+      "time": "3:21"
+    },{
+      "title": "All Quite On The ...",
+      "artist": "Drake",
+      "cover": "TopAlbums/All Quite On The ....png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "The Liberitnes",
+      "time": "3:21"
+    },{
+      "title": "Little Rope",
+      "artist": "Drake",
+      "cover": "TopAlbums/Little Rope.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Sleater-Kinney",
       "time": "3:21"
     }
   ],
