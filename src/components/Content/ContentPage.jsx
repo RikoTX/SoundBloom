@@ -2,6 +2,7 @@ import Home from './Home/Home'
 import Search from './Search/Search';
 import Footer from '../Footer/Footer';
 import { Layout } from 'antd';
+import Popular from './Popular/Popular';
 
 
 
@@ -21,7 +22,7 @@ export default function ContentPage({ activeButton }) {
       case 'Search':
         return <Search />
       case 'Popular':
-        return <div>Популярное</div>;
+        return <Popular />
       case 'Artist':
         return <div>Артисты</div>;
       case 'LikedSongs':
