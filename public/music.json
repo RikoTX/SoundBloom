@@ -84,70 +84,70 @@
     }
   ],
   "TrendingSongs": [
-  {
-    "title": "Sorfcore",
-    "artist": "The neighberhood",
-    "cover": "musicAvatars/Sorfcore.png",
-    "releaseDate": "Nov 4, 2023",
-    "album": "Hard to Imagine the Neighbourhood Ever Changing",
-    "time": "3:26",
-    "plays": 1524300
-  },
-  {
-    "title": "Skyfall Beats",
-    "artist": "nightmares",
-    "cover": "musicAvatars/Skyfall Beats.png",
-    "releaseDate": "Oct 26, 2023",
-    "album": "nightmares",
-    "time": "2:45",
-    "plays": 984200
-  },
-  {
-    "title": "Greedy",
-    "artist": "tate mcrae",
-    "cover": "musicAvatars/Greedy.png",
-    "releaseDate": "Dec 30, 2023",
-    "album": "Greedy",
-    "time": "2:11",
-    "plays": 2187600
-  },
-  {
-    "title": "Lovin On me",
-    "artist": "jack harlow",
-    "cover": "musicAvatars/Lovin On me.png",
-    "releaseDate": "Dec 30, 2023",
-    "album": "Lovin On me",
-    "time": "2:18",
-    "plays": 1938500
-  },
-  {
-    "title": "pain the town red",
-    "artist": "Doja Cat",
-    "cover": "musicAvatars/pain the town red.png",
-    "releaseDate": "Dec 29, 2023",
-    "album": "Paint The Town Red",
-    "time": "3:51",
-    "plays": 2753200
-  },
-  {
-    "title": "Dancin On Night",
-    "artist": "Dualipa",
-    "cover": "musicAvatars/Dancin On Night.png",
-    "releaseDate": "May 27, 2023",
-    "album": "Dance The Night(From Barbie Movie)",
-    "time": "2:56",
-    "plays": 3121400
-  },
-  {
-    "title": "Water",
-    "artist": "Tyla",
-    "cover": "musicAvatars/Water.png",
-    "releaseDate": "Dec 10, 2023",
-    "album": "Water",
-    "time": "3:20",
-    "plays": 2386700
-  }
-],
+    {
+      "title": "Sorfcore",
+      "artist": "The neighberhood",
+      "cover": "musicAvatars/Sorfcore.png",
+      "releaseDate": "Nov 4, 2023",
+      "album": "Hard to Imagine the Neighbourhood Ever Changing",
+      "time": "3:26",
+      "plays": 1524300
+    },
+    {
+      "title": "Skyfall Beats",
+      "artist": "nightmares",
+      "cover": "musicAvatars/Skyfall Beats.png",
+      "releaseDate": "Oct 26, 2023",
+      "album": "nightmares",
+      "time": "2:45",
+      "plays": 984200
+    },
+    {
+      "title": "Greedy",
+      "artist": "tate mcrae",
+      "cover": "musicAvatars/Greedy.png",
+      "releaseDate": "Dec 30, 2023",
+      "album": "Greedy",
+      "time": "2:11",
+      "plays": 2187600
+    },
+    {
+      "title": "Lovin On me",
+      "artist": "jack harlow",
+      "cover": "musicAvatars/Lovin On me.png",
+      "releaseDate": "Dec 30, 2023",
+      "album": "Lovin On me",
+      "time": "2:18",
+      "plays": 1938500
+    },
+    {
+      "title": "pain the town red",
+      "artist": "Doja Cat",
+      "cover": "musicAvatars/pain the town red.png",
+      "releaseDate": "Dec 29, 2023",
+      "album": "Paint The Town Red",
+      "time": "3:51",
+      "plays": 2753200
+    },
+    {
+      "title": "Dancin On Night",
+      "artist": "Dualipa",
+      "cover": "musicAvatars/Dancin On Night.png",
+      "releaseDate": "May 27, 2023",
+      "album": "Dance The Night(From Barbie Movie)",
+      "time": "2:56",
+      "plays": 3121400
+    },
+    {
+      "title": "Water",
+      "artist": "Tyla",
+      "cover": "musicAvatars/Water.png",
+      "releaseDate": "Dec 10, 2023",
+      "album": "Water",
+      "time": "3:20",
+      "plays": 2386700
+    }
+  ],
   "PopularArtists": [
     {
       "artist": "Eminiem",
@@ -156,16 +156,20 @@
     {
       "artist": "The Weekend",
       "cover": "popularArtists/The Weekend.png"
-    },{
+    },
+    {
       "artist": "Adele",
       "cover": "popularArtists/Adele.png"
-    },{
+    },
+    {
       "artist": "Lana Del Ray",
       "cover": "popularArtists/Lana Del Ray.png"
-    },{
+    },
+    {
       "artist": "Harry Styles",
       "cover": "popularArtists/Harry Styles.png"
-    },{
+    },
+    {
       "artist": "Billie Eilish",
       "cover": "popularArtists/Billie Eilish.png"
     }
@@ -194,12 +198,14 @@
       "artist": "Katy Perry",
       "views": "4.6M views",
       "src": "https://www.youtube.com/embed/CevxZvSJLk8?si=hLk-4vBy0LHfxrCd"
-    },{
+    },
+    {
       "title": "Shake It Off",
       "artist": "Taylor Swift",
       "views": "4.2M views",
       "src": "https://www.youtube.com/embed/nfWlot6h_JM?si=1zsU7DtPiPWzF0hV"
-    },{
+    },
+    {
       "title": "Waka Waka",
       "artist": "Shakira",
       "views": "3.5M views",
@@ -246,35 +252,40 @@
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21"
-    },{
+    },
+    {
       "title": "I Got Heaven",
       "artist": "Mannequin",
       "cover": "TopAlbums/I Got Heaven.png",
       "releaseDate": "Oct 1, 2017",
       "album": "Mannequin",
       "time": "3:21"
-    },{
+    },
+    {
       "title": "Saviors",
       "artist": "Drake",
       "cover": "TopAlbums/Saviors.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Green Day",
       "time": "3:21"
-    },{
+    },
+    {
       "title": "Loss Of Life",
       "artist": "Drake",
       "cover": "TopAlbums/Loss Of Life.png",
       "releaseDate": "Oct 6, 2017",
       "album": "MGMT",
       "time": "3:21"
-    },{
+    },
+    {
       "title": "All Quite On The ...",
       "artist": "Drake",
       "cover": "TopAlbums/All Quite On The ....png",
       "releaseDate": "Oct 6, 2017",
       "album": "The Liberitnes",
       "time": "3:21"
-    },{
+    },
+    {
       "title": "Little Rope",
       "artist": "Drake",
       "cover": "TopAlbums/Little Rope.png",
@@ -305,114 +316,276 @@
       "cover": "MoodPlaylist/Happy Playlist.png"
     }
   ],
-  "MusicGenres":[
+  "MusicGenres": [
     {
       "genres": "Rap Tracks",
       "cover": "MusicGenres/Rap Tracks.png"
-  },
-  {
+    },
+    {
       "genres": "Pop Tracks",
       "cover": "MusicGenres/Pop Tracks.png"
-  },
-  {
+    },
+    {
       "genres": "Rock Tracks",
       "cover": "MusicGenres/Rock Tracks.png"
-  },
-  {
+    },
+    {
       "genres": "Classic Tracks",
       "cover": "MusicGenres/Classic Tracks.png"
-  }
-],
-"PopularAlbums": [
-  {
-    "title": "Adele 21",
-    "artist": "Adele",
-    "cover": "TopAlbums/Adele 21.png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "Evolve",
-    "time": "3:21",
-    "plays": 4810000
-  },
-  {
-    "title": "Scorpion",
-    "artist": "Drake",
-    "cover": "TopAlbums/Scorpion.png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "Evolve",
-    "time": "3:21",
-    "plays": 6732000
-  },
-  {
-    "title": "Harry’s House",
-    "artist": "Harry Styles",
-    "cover": "TopAlbums/Harry’s House.png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "Evolve",
-    "time": "3:21",
-    "plays": 5290000
-  },
-  {
-    "title": "Born To Die",
-    "artist": "Lana Del Ray",
-    "cover": "TopAlbums/Born To Die.png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "Evolve",
-    "time": "3:21",
-    "plays": 6147000
-  },
-  {
-    "title": "Beauty Behind the...",
-    "artist": "The Weekend",
-    "cover": "TopAlbums/Beauty Behind the....png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "Evolve",
-    "time": "3:21",
-    "plays": 7001000
-  },
-  {
-    "title": "I Got Heaven",
-    "artist": "Mannequin",
-    "cover": "TopAlbums/I Got Heaven.png",
-    "releaseDate": "Oct 1, 2017",
-    "album": "Mannequin",
-    "time": "3:21",
-    "plays": 2123000
-  },
-  {
-    "title": "Saviors",
-    "artist": "Drake",
-    "cover": "TopAlbums/Saviors.png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "Green Day",
-    "time": "3:21",
-    "plays": 3890000
-  },
-  {
-    "title": "Loss Of Life",
-    "artist": "Drake",
-    "cover": "TopAlbums/Loss Of Life.png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "MGMT",
-    "time": "3:21",
-    "plays": 4027000
-  },
-  {
-    "title": "All Quite On The ...",
-    "artist": "Drake",
-    "cover": "TopAlbums/All Quite On The ....png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "The Liberitnes",
-    "time": "3:21",
-    "plays": 3774000
-  },
-  {
-    "title": "Little Rope",
-    "artist": "Drake",
-    "cover": "TopAlbums/Little Rope.png",
-    "releaseDate": "Oct 6, 2017",
-    "album": "Sleater-Kinney",
-    "time": "3:21",
-    "plays": 3459000
-  }
-]
+    }
+  ],
+  "PopularAlbums": [
+    {
+      "title": "Adele 21",
+      "artist": "Adele",
+      "cover": "TopAlbums/Adele 21.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21",
+      "plays": 4810000
+    },
+    {
+      "title": "Scorpion",
+      "artist": "Drake",
+      "cover": "TopAlbums/Scorpion.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21",
+      "plays": 6732000
+    },
+    {
+      "title": "Harry’s House",
+      "artist": "Harry Styles",
+      "cover": "TopAlbums/Harry’s House.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21",
+      "plays": 5290000
+    },
+    {
+      "title": "Born To Die",
+      "artist": "Lana Del Ray",
+      "cover": "TopAlbums/Born To Die.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Evolve",
+      "time": "3:21",
+      "plays": 6147000
+    },
+    {
+      "title": "Trending songs mix",
+      "artist": "Kareika",
+      "cover": "TopAlbums/Trending songs mix .png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Trending songs mix",
+      "infoAlbums": "tate mcree, nightmares, the neighberhood, doja cat and ...",
+      "plays": 7001000,
+      "tracks": [
+        {
+          "title": "Sorfcore",
+          "artist": "The Neighbourhood",
+          "duration": "3:26",
+          "releaseDate": "Nov 4, 2023",
+          "album": "Hard to Imagine Neighbourhood Ever Changing",
+          "cover": "PopularAlbums/Sorfcore.png"
+        },
+        {
+          "title": "nightmares",
+          "artist": "nightmares",
+          "duration": "2:45",
+          "releaseDate": "Oct 26, 2023",
+          "album": "Skyfall Beats",
+          "cover": "PopularAlbums/nightmares.png"
+        },
+        {
+          "title": "Greedy",
+          "artist": "tate mcrae",
+          "duration": "2:11",
+          "releaseDate": "Nov 30, 2023",
+          "album": "Greedy",
+          "cover": "PopularAlbums/Greedy.png"
+        },
+        {
+          "title": "Lovin On me",
+          "artist": "jack harlow",
+          "duration": "2:18",
+          "releaseDate": "Dec 15, 2023",
+          "album": "Lovin On me",
+          "cover": "PopularAlbums/Lovin On me.png"
+        },
+        {
+          "title": "Paint The Town Red",
+          "artist": "Doja Cat",
+          "duration": "3:51",
+          "releaseDate": "Dec 29, 2023",
+          "album": "pain the town red",
+          "cover": "PopularAlbums/Paint The Town Red.png"
+        },
+        {
+          "title": "Dance The Night(From Barbie Movie)",
+          "artist": "Dualipa",
+          "duration": "2:56",
+          "releaseDate": "May 27, 2023",
+          "album": "Dancin On Night",
+          "cover": "PopularAlbums/Dance The Night(From Barbie Movie).png"
+        },
+        {
+          "title": "Water",
+          "artist": "Tyla",
+          "duration": "3:20",
+          "releaseDate": "Oct 21, 2023",
+          "album": "Water",
+          "cover": "PopularAlbums/Water.png"
+        },
+        {
+          "title": "Push your limits",
+          "artist": "Brian michael",
+          "duration": "2:24",
+          "releaseDate": "Jan 2, 2024",
+          "album": "Push your limits",
+          "cover": "PopularAlbums/Push your limits.png"
+        },
+        {
+          "title": "Houdini",
+          "artist": "Dualipa",
+          "duration": "3:05",
+          "releaseDate": "Dec 12, 2023",
+          "album": "Houdini",
+          "cover": "PopularAlbums/Houdini.png"
+        },
+        {
+          "title": "La vida es una",
+          "artist": "myke towers",
+          "duration": "3:17",
+          "releaseDate": "Nov 20, 2023",
+          "album": "Lala",
+          "cover": "PopularAlbums/La vida es una.png"
+        },
+        {
+          "title": "AM",
+          "artist": "arctic monkeys",
+          "duration": "3:03",
+          "releaseDate": "Sep 9, 2023",
+          "album": "I Wanaa Be Yours",
+          "cover": "PopularAlbums/AM.png"
+        },
+        {
+          "title": "Paradise",
+          "artist": "braaheim",
+          "duration": "2:30",
+          "releaseDate": "Jul 5, 2023",
+          "album": "Paradise",
+          "cover": "PopularAlbums/Paradise.png"
+        },
+        {
+          "title": "As It Was",
+          "artist": "Harry Styles",
+          "duration": "2:47",
+          "releaseDate": "Sep 14, 2022",
+          "album": "As It Was",
+          "cover": "PopularAlbums/As It Was.png"
+        },
+        {
+          "title": "Another Love",
+          "artist": "Tom Odell",
+          "duration": "4:06",
+          "releaseDate": "Dec 19, 2013",
+          "album": "Another Love",
+          "cover": "PopularAlbums/Another Love.png"
+        },
+        {
+          "title": "Daylight",
+          "artist": "david kushner",
+          "duration": "3:32",
+          "releaseDate": "Jun 16, 2022",
+          "album": "Daylight",
+          "cover": "PopularAlbums/Daylight.png"
+        },
+        {
+          "title": "Beggin",
+          "artist": "Måneskin",
+          "duration": "3:31",
+          "releaseDate": "Feb 27, 2017",
+          "album": "Chosen",
+          "cover": "PopularAlbums/Beggin.png"
+        },
+        {
+          "title": "What Was I Made For",
+          "artist": "Billie eilish",
+          "duration": "3:42",
+          "releaseDate": "Sep 6, 2023",
+          "album": "What Was I Made F...",
+          "cover": "PopularAlbums/What Was I Made For.png"
+        },
+        {
+          "title": "Daddy Issues",
+          "artist": "The Neighbourhood",
+          "duration": "4:20",
+          "releaseDate": "Aug 21, 2015",
+          "album": "Wiped out",
+          "cover": "PopularAlbums/Daddy Issues.png"
+        },
+        {
+          "title": "Rolling In The Deep",
+          "artist": "Adele",
+          "duration": "3:48",
+          "releaseDate": "Jun 5, 2011",
+          "album": "Adele 21",
+          "cover": "PopularAlbums/Rolling In The Deep.png"
+        },
+        {
+          "title": "OneShot",
+          "artist": "mhst",
+          "duration": "1:15",
+          "releaseDate": "Dec 14, 2023",
+          "album": "Toca Donka",
+          "cover": "PopularAlbums/OneShot.png"
+        }
+      ]
+    },
+    {
+      "title": "I Got Heaven",
+      "artist": "Mannequin",
+      "cover": "TopAlbums/I Got Heaven.png",
+      "releaseDate": "Oct 1, 2017",
+      "album": "Mannequin",
+      "time": "3:21",
+      "plays": 2123000
+    },
+    {
+      "title": "Saviors",
+      "artist": "Drake",
+      "cover": "TopAlbums/Saviors.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Green Day",
+      "time": "3:21",
+      "plays": 3890000
+    },
+    {
+      "title": "Loss Of Life",
+      "artist": "Drake",
+      "cover": "TopAlbums/Loss Of Life.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "MGMT",
+      "time": "3:21",
+      "plays": 4027000
+    },
+    {
+      "title": "All Quite On The ...",
+      "artist": "Drake",
+      "cover": "TopAlbums/All Quite On The ....png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "The Liberitnes",
+      "time": "3:21",
+      "plays": 3774000
+    },
+    {
+      "title": "Little Rope",
+      "artist": "Drake",
+      "cover": "TopAlbums/Little Rope.png",
+      "releaseDate": "Oct 6, 2017",
+      "album": "Sleater-Kinney",
+      "time": "3:21",
+      "plays": 3459000
+    }
+  ]
 }
