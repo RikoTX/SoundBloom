@@ -10,7 +10,13 @@ import {
 
 
 
-export default function Popular() {
+
+export default function Popular({setActiveButton, setSelectedAlbum}) {
+
+    const openAlbums = (album) => {
+        setSelectedAlbum(album);
+        setActiveButton('PageAlbums');
+    };
 
     const numbers = [];
     for (let i = 1; i <= 7; i++) {
@@ -213,22 +219,37 @@ export default function Popular() {
                     Popular<span style={{ color: '#cb0094' }}> Albums</span>
                 </p>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '85%', gap: '30px' }}>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        width: '85%',
+                        gap: '30px'
+                    }}>
                         {[...musicData.PopularAlbums]
                             .sort((a, b) => b.plays - a.plays)
-                            .slice(0,10)
-                            .map((song, index) => (
-                                <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', padding: 10, borderRadius: '10px' }}>
+                            .slice(0, 10)
+                            .map((album, index) => (
+                                <div
+                                    key={index}
+                                    onClick={() => openAlbums(album)}
+                                    style={{
+                                        textAlign: 'center',
+                                        backgroundColor: '#1F1F1F',
+                                        padding: 10,
+                                        borderRadius: '10px',
+                                        cursor: 'pointer'
+                                    }}
+                                >
                                     <img
-                                        src={song.cover}
-                                        alt={song.title}
+                                        src={album.cover}
+                                        alt={album.title}
                                         style={{ width: '150px', height: '150px', borderRadius: '10px' }}
                                     />
-                                    <p style={{ margin: '5px 0', fontWeight: 600 }}>{song.title}</p>
-                                    <p style={{ margin: 0, color: '#929292', fontSize: '12px' }}>{song.artist}</p>
+                                    <p style={{ margin: '5px 0', fontWeight: 600 }}>{album.title}</p>
+                                    <p style={{ margin: 0, color: '#929292', fontSize: '12px' }}>{album.artist}</p>
                                 </div>
                             ))}
-
                     </div>
                     <div style={{
                         display: 'flex',
