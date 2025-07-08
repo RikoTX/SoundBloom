@@ -3,6 +3,7 @@ import Search from './Search/Search';
 import Footer from '../Footer/Footer';
 import { Layout } from 'antd';
 import Popular from './Popular/Popular';
+import PageAlbums from '../PageAlbums/PageAlbums'; 
 
 
 
@@ -13,16 +14,18 @@ const scrollContainerStyle = {
   color: 'white',
 };
 
-export default function ContentPage({ activeButton }) {
+export default function ContentPage({ activeButton, setActiveButton, selectedAlbum, setSelectedAlbum }) {
+
 
   const renderContent = () => {
     switch (activeButton) {
       case 'Home':
-        return <Home/>
+        return <Home />
       case 'Search':
         return <Search />
       case 'Popular':
-        return <Popular />
+        return <Popular setActiveButton={setActiveButton}
+          setSelectedAlbum={setSelectedAlbum} />
       case 'Artist':
         return <div>Артисты</div>;
       case 'LikedSongs':
@@ -33,8 +36,8 @@ export default function ContentPage({ activeButton }) {
         return <div>Настройки</div>;
       case 'Logout':
         return <div>Выход</div>;
-      default:
-        return <div>Страница не найдена</div>;
+      case 'PageAlbums':
+        return <PageAlbums selectedAlbum={selectedAlbum} />;
     }
   };
 
