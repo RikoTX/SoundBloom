@@ -3,8 +3,7 @@ import Search from './Search/Search';
 import Footer from '../Footer/Footer';
 import { Layout } from 'antd';
 import Popular from './Popular/Popular';
-import PageAlbums from '../PageAlbums/PageAlbums'; 
-
+import PageAlbums from '../PageAlbums/PageAlbums';
 
 
 const scrollContainerStyle = {
@@ -37,7 +36,7 @@ export default function ContentPage({ activeButton, setActiveButton, selectedAlb
       case 'Logout':
         return <div>Выход</div>;
       case 'PageAlbums':
-        return <PageAlbums selectedAlbum={selectedAlbum} />;
+        return <PageAlbums selectedAlbum={selectedAlbum} setActiveButton={setActiveButton} />;
     }
   };
 

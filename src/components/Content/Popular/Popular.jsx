@@ -1,9 +1,4 @@
-import { useState } from 'react';
-import {
-    SearchOutlined,
-} from '@ant-design/icons';
 import musicData from '../../../../public/music.json';
-import { Tabs } from 'antd';
 import {
     HeartOutlined
 } from '@ant-design/icons';
