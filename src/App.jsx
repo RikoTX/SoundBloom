@@ -9,11 +9,13 @@ const outerLayoutStyle = {
 
 export default function App() {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [selectedArtists, setSelectedArtists] = useState(null);
+
 
   return (
     <div style={outerLayoutStyle}>
       <Sider />
-      <ContentPage selectedAlbum={selectedAlbum} setSelectedAlbum={setSelectedAlbum} />
+      <ContentPage selectedAlbum={selectedAlbum} setSelectedAlbum={setSelectedAlbum} selectedArtists={selectedArtists} setSelectedArtists={setSelectedArtists} />
     </div>
   );
 }
