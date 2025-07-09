@@ -342,7 +342,7 @@
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21",
-      "plays": 4810000
+      "plays": 4813826
     },
     {
       "title": "Scorpion",
@@ -360,7 +360,7 @@
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21",
-      "plays": 5290000
+      "plays": 5293826
     },
     {
       "title": "Born To Die",
@@ -558,7 +558,7 @@
       "releaseDate": "Oct 6, 2017",
       "album": "Green Day",
       "time": "3:21",
-      "plays": 3890000
+      "plays": 3893826
     },
     {
       "title": "Loss Of Life",
@@ -586,6 +586,266 @@
       "album": "Sleater-Kinney",
       "time": "3:21",
       "plays": 3459000
+    }
+  ],
+  "LegendsArtists": [
+    {
+      "artist": "Eminem",
+      "title": "Eminem Greatest Hits",
+      "cover": "LegendsArtists/Eminiem.png",
+      "plays": 2259000,
+      "country": "USA",
+      "birthDate": "17.10.1972",
+      "infoAlbums": "Legendary rapper from Detroit, known for his fast lyrics and deep storytelling.",
+      "releaseDate": "12.11.2005",
+      "album": "Curtain Call: The Hits",
+      "tracks": [
+        {
+          "title": "Lose Yourself",
+          "cover": "Tracks/Eminem_LoseYourself.png",
+          "artist": "Eminem",
+          "releaseDate": "28.10.2002",
+          "duration": "5:20"
+        },
+        {
+          "title": "Without Me",
+          "cover": "Tracks/Eminem_WithoutMe.png",
+          "artist": "Eminem",
+          "releaseDate": "14.05.2002",
+          "duration": "4:50"
+        },
+        {
+          "title": "The Real Slim Shady",
+          "cover": "Tracks/Eminem_SlimShady.png",
+          "artist": "Eminem",
+          "releaseDate": "16.05.2000",
+          "duration": "4:45"
+        },
+        {
+          "title": "Stan",
+          "cover": "Tracks/Eminem_Stan.png",
+          "artist": "Eminem feat. Dido",
+          "releaseDate": "20.11.2000",
+          "duration": "6:44"
+        },
+        {
+          "title": "Not Afraid",
+          "cover": "Tracks/Eminem_NotAfraid.png",
+          "artist": "Eminem",
+          "releaseDate": "29.04.2010",
+          "duration": "4:08"
+        }
+      ],
+      "albums": [
+        {
+          "title": "The Marshall Mathers LP",
+          "year": 2000,
+          "cover": "Albums/MarshallMathersLP.png"
+        },
+        {
+          "title": "The Eminem Show",
+          "year": 2002,
+          "cover": "Albums/EminemShow.png"
+        },
+        {
+          "title": "Encore",
+          "year": 2004,
+          "cover": "Albums/Encore.png"
+        },
+        {
+          "title": "Relapse",
+          "year": 2009,
+          "cover": "Albums/Relapse.png"
+        }
+      ],
+      "singles": [
+        {
+          "title": "Rap God",
+          "releaseDate": "15.10.2013",
+          "duration": "6:04",
+          "cover": "Singles/RapGod.png"
+        },
+        {
+          "title": "Venom",
+          "releaseDate": "21.09.2018",
+          "duration": "4:29",
+          "cover": "Singles/Venom.png"
+        }
+      ],
+      "playlist": [
+        {
+          "title": "Ultimate Eminem",
+          "description": "Best tracks from every era",
+          "cover": "Playlists/UltimateEminem.png"
+        },
+        {
+          "title": "Workout with Eminem",
+          "description": "High energy tracks for your workout",
+          "cover": "Playlists/WorkoutEminem.png"
+        }
+      ],
+      "fansAlsoListen": [
+        {
+          "artist": "Dr. Dre",
+          "cover": "FansAlso/Dre.png"
+        },
+        {
+          "artist": "50 Cent",
+          "cover": "FansAlso/50Cent.png"
+        },
+        {
+          "artist": "Snoop Dogg",
+          "cover": "FansAlso/SnoopDogg.png"
+        },
+        {
+          "artist": "Jay-Z",
+          "cover": "FansAlso/JayZ.png"
+        },
+        {
+          "artist": "Tupac",
+          "cover": "FansAlso/Tupac.png"
+        }
+      ]
+    },
+    {
+      "artist": "BEE GEES",
+      "cover": "LegendsArtists/bee-gees.jpg",
+      "plays": 3238260,
+      "country": "UK/Australia",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "BARBARA STREISAND",
+      "cover": "LegendsArtists/BARBARA STREISAND.jpg",
+      "plays": 2938260,
+      "country": "USA",
+      "birthDate": "24.04.1942"
+    },
+    {
+      "artist": "LISA STANSFIELD",
+      "cover": "LegendsArtists/LISA-STANSFIELD.jpg",
+      "plays": 2438260,
+      "country": "UK",
+      "birthDate": "11.04.1966"
+    },
+    {
+      "artist": "CHRIS ISAAK",
+      "cover": "LegendsArtists/CHRIS ISAAK.jpg",
+      "plays": 2238260,
+      "country": "USA",
+      "birthDate": "26.06.1956"
+    },
+    {
+      "artist": "BELINDA CARLISLE",
+      "cover": "LegendsArtists/BELINDA CARLISLE.png",
+      "plays": 2382600,
+      "country": "USA",
+      "birthDate": "17.08.1958"
+    },
+    {
+      "artist": "DESIRELESS",
+      "cover": "LegendsArtists/XDESIRELESS.jpg",
+      "plays": 1838260,
+      "country": "France",
+      "birthDate": "25.12.1952"
+    },
+    {
+      "artist": "JIMMY SOMERVILLE",
+      "cover": "LegendsArtists/JIMMY-SOMERVILLE.jpg",
+      "plays": 1638260,
+      "country": "UK",
+      "birthDate": "22.06.1961"
+    },
+    {
+      "artist": "DIETER BOHLEN",
+      "cover": "LegendsArtists/DIETER BOHLEN.jpg",
+      "plays": 1538260,
+      "country": "Germany",
+      "birthDate": "07.02.1954"
+    },
+    {
+      "artist": "PATTY RYAN",
+      "cover": "LegendsArtists/PATTY RYAN.jpg",
+      "plays": 1438260,
+      "country": "Germany",
+      "birthDate": "06.05.1961"
+    },
+    {
+      "artist": "DSCHINGHIS KHAN",
+      "cover": "LegendsArtists/DSCHINGHIS KHAN.jpg",
+      "plays": 1338260,
+      "country": "Germany",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "Francesco Napoli",
+      "cover": "LegendsArtists/FRANCESCO NAPOLI.jpg",
+      "plays": 1253826,
+      "country": "Italy",
+      "birthDate": "26.02.1963"
+    },
+    {
+      "artist": "SANTA ESMERALDA",
+      "cover": "LegendsArtists/SANTA ESMERALDA.jpg",
+      "plays": 1238260,
+      "country": "USA/France",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "MARCIA BARRETT",
+      "cover": "LegendsArtists/marcia-barrett.jpg",
+      "plays": 1138260,
+      "country": "Jamaica/UK",
+      "birthDate": "14.10.1948"
+    },
+    {
+      "artist": "N-Trance",
+      "cover": "LegendsArtists/N-Trance.jpg",
+      "plays": 1382600,
+      "country": "UK",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "Music Instructor",
+      "cover": "LegendsArtists/Music-Instructor.jpg",
+      "plays": 953826,
+      "country": "Germany",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "ZODIAC",
+      "cover": "LegendsArtists/Zodiac.jpg",
+      "plays": 938260,
+      "country": "Latvia (USSR)",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "ROCKETS",
+      "cover": "LegendsArtists/ROCKETS.jpg",
+      "plays": 853826,
+      "country": "France/Italy",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "KEVIN MCCOY",
+      "cover": "LegendsArtists/Bad_Boys_Blue.jpg",
+      "plays": 838260,
+      "country": "USA",
+      "birthDate": "05.10.1971"
+    },
+    {
+      "artist": "Shaggy",
+      "cover": "LegendsArtists/Shaggy.jpg",
+      "plays": 223826,
+      "country": "Jamaica/USA",
+      "birthDate": "22.10.1968"
+    },
+    {
+      "artist": "Elvis Costello & Band",
+      "cover": "LegendsArtists/Elvis-Costello-Band.jpg",
+      "plays": 438260,
+      "country": "UK",
+      "birthDate": "25.08.1954"
     }
   ]
 }
