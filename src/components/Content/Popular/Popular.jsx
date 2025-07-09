@@ -1,16 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import musicData from '../../../../public/music.json';
-import {
-    HeartOutlined
-} from '@ant-design/icons';
+import { HeartOutlined } from '@ant-design/icons';
 
 
-
-
-export default function Popular({setActiveButton, setSelectedAlbum}) {
+export default function Popular({ setSelectedAlbum }) {
+    const navigate = useNavigate();
 
     const openAlbums = (album) => {
         setSelectedAlbum(album);
-        setActiveButton('PageAlbums');
+        navigate('/PageAlbums');
     };
 
     const numbers = [];

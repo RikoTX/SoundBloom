@@ -1,7 +1,8 @@
-import Home from './Home/Home'
-import Search from './Search/Search';
-import Footer from '../Footer/Footer';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Layout } from 'antd';
+import Footer from '../Footer/Footer';
+import Home from './Home/Home';
+import Search from './Search/Search';
 import Popular from './Popular/Popular';
 import PageAlbums from '../PageAlbums/PageAlbums';
 
@@ -13,37 +14,22 @@ const scrollContainerStyle = {
   color: 'white',
 };
 
-export default function ContentPage({ activeButton, setActiveButton, selectedAlbum, setSelectedAlbum }) {
-
-
-  const renderContent = () => {
-    switch (activeButton) {
-      case 'Home':
-        return <Home />
-      case 'Search':
-        return <Search />
-      case 'Popular':
-        return <Popular setActiveButton={setActiveButton}
-          setSelectedAlbum={setSelectedAlbum} />
-      case 'Artist':
-        return <div>Артисты</div>;
-      case 'LikedSongs':
-        return <div>Понравившиеся песни</div>;
-      case 'Playlist':
-        return <div>Плейлист</div>;
-      case 'Settings':
-        return <div>Настройки</div>;
-      case 'Logout':
-        return <div>Выход</div>;
-      case 'PageAlbums':
-        return <PageAlbums selectedAlbum={selectedAlbum} setActiveButton={setActiveButton} />;
-    }
-  };
-
+export default function ContentPage({ selectedAlbum, setSelectedAlbum }) {
   return (
     <Layout>
       <div style={scrollContainerStyle}>
-        {renderContent()}
+        <Routes>
+          <Route path="/Home" element={<Home />} />
+          <Route path="/Search" element={<Search />} />
+          <Route path="/Popular" element={<Popular setSelectedAlbum={setSelectedAlbum} />} />
+          <Route path="/Artist" element={<div>Артисты</div>} />
+          <Route path="/LikedSongs" element={<div>Понравившиеся песни</div>} />
+          <Route path="/Playlist" element={<div>Плейлист</div>} />
+          <Route path="/Settings" element={<div>Настройки</div>} />
+          <Route path="/Logout" element={<div>Выход</div>} />
+          <Route path="/PageAlbums" element={<PageAlbums selectedAlbum={selectedAlbum} setSelectedAlbum={setSelectedAlbum} />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
         <Footer />
       </div>
     </Layout>
