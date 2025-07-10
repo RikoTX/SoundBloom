@@ -593,6 +593,7 @@
       "artist": "Eminem",
       "title": "Eminem Greatest Hits",
       "cover": "LegendsArtists/Eminiem.png",
+      "backgroundImage": "LegendsArtists/EminemFon.png",
       "plays": 2259000,
       "country": "USA",
       "birthDate": "17.10.1972",
@@ -601,109 +602,138 @@
       "album": "Curtain Call: The Hits",
       "tracks": [
         {
-          "title": "Lose Yourself",
-          "cover": "Tracks/Eminem_LoseYourself.png",
+          "title": "Without Me",
+          "cover": "EminemTracks/Without Me.png",
           "artist": "Eminem",
           "releaseDate": "28.10.2002",
-          "duration": "5:20"
+          "duration": "5:20",
+          "plays": 225923232
         },
         {
-          "title": "Without Me",
-          "cover": "Tracks/Eminem_WithoutMe.png",
+          "title": "mockingbird",
+          "cover": "EminemTracks/mockingbird.png",
           "artist": "Eminem",
           "releaseDate": "14.05.2002",
-          "duration": "4:50"
+          "duration": "4:50",
+          "plays": 21231455
         },
         {
           "title": "The Real Slim Shady",
-          "cover": "Tracks/Eminem_SlimShady.png",
+          "cover": "EminemTracks/The Real Slim Shady.png",
           "artist": "Eminem",
           "releaseDate": "16.05.2000",
-          "duration": "4:45"
+          "duration": "4:45",
+          "plays": 523561212
         },
         {
-          "title": "Stan",
-          "cover": "Tracks/Eminem_Stan.png",
+          "title": "Lose Yourself",
+          "cover": "EminemTracks/Lose Yourself.png",
           "artist": "Eminem feat. Dido",
           "releaseDate": "20.11.2000",
-          "duration": "6:44"
+          "duration": "6:44",
+          "plays": 657547175
         },
         {
-          "title": "Not Afraid",
-          "cover": "Tracks/Eminem_NotAfraid.png",
+          "title": "Godzila",
+          "cover": "EminemTracks/Godzila.png",
           "artist": "Eminem",
           "releaseDate": "29.04.2010",
-          "duration": "4:08"
+          "duration": "4:08",
+          "plays": 364636322
         }
       ],
       "albums": [
         {
-          "title": "The Marshall Mathers LP",
-          "year": 2000,
-          "cover": "Albums/MarshallMathersLP.png"
-        },
-        {
           "title": "The Eminem Show",
-          "year": 2002,
-          "cover": "Albums/EminemShow.png"
+          "year": 2000,
+          "cover": "EminemAlbums/The Eminem Show.png"
         },
         {
           "title": "Encore",
-          "year": 2004,
-          "cover": "Albums/Encore.png"
+          "year": 2002,
+          "cover": "EminemAlbums/Encore.png"
         },
         {
-          "title": "Relapse",
+          "title": "Music To Be Mrde...",
+          "year": 2004,
+          "cover": "EminemAlbums/Music To Be Mrde....png"
+        },
+        {
+          "title": "ReRecoverylapse",
           "year": 2009,
-          "cover": "Albums/Relapse.png"
+          "cover": "EminemAlbums/Recovery.png"
+        },
+        {
+          "title": "Eminem The Slim...",
+          "year": 1999,
+          "cover": "EminemAlbums/Eminem The Slim....png"
         }
       ],
       "singles": [
         {
-          "title": "Rap God",
-          "releaseDate": "15.10.2013",
-          "duration": "6:04",
-          "cover": "Singles/RapGod.png"
+          "title": "Lace It",
+          "releaseDate": "2023",
+          "cover": "SinglesEminem/Lace It.png"
         },
         {
-          "title": "Venom",
-          "releaseDate": "21.09.2018",
-          "duration": "4:29",
-          "cover": "Singles/Venom.png"
+          "title": "Releast",
+          "releaseDate": "2022",
+          "cover": "SinglesEminem/Releast.png"
+        },
+        {
+          "title": "From The D 2 Th...",
+          "releaseDate": "2023",
+          "cover": "SinglesEminem/From The D 2 Th....png"
+        },
+        {
+          "title": "911",
+          "releaseDate": "2022",
+          "cover": "SinglesEminem/911.png"
+        },
+        {
+          "title": "Killshot",
+          "releaseDate": "2018",
+          "cover": "SinglesEminem/Killshot.png"
         }
       ],
       "playlist": [
         {
-          "title": "Ultimate Eminem",
-          "description": "Best tracks from every era",
-          "cover": "Playlists/UltimateEminem.png"
+          "title": "Full Collection",
+          "cover": "PlaylistsEminem/Full Collection.png"
         },
         {
-          "title": "Workout with Eminem",
-          "description": "High energy tracks for your workout",
-          "cover": "Playlists/WorkoutEminem.png"
+          "title": "Best Of Eminem",
+          "cover": "PlaylistsEminem/Best Of Eminem.png"
+        },
+        {
+         "title": "Old Songs",
+          "cover": "PlaylistsEminem/Old Songs.png"
+        },
+        {
+          "title": "Fan’s Favorite",
+          "cover": "PlaylistsEminem/Fan’s Favorite.png"
+        },
+        {
+          "title": "New Releases",
+          "cover": "PlaylistsEminem/New Releases.png"
         }
       ],
       "fansAlsoListen": [
         {
-          "artist": "Dr. Dre",
-          "cover": "FansAlso/Dre.png"
-        },
-        {
           "artist": "50 Cent",
-          "cover": "FansAlso/50Cent.png"
+          "cover": "FansAlsoEminem/50 Cent.png"
         },
         {
-          "artist": "Snoop Dogg",
-          "cover": "FansAlso/SnoopDogg.png"
-        },
-        {
-          "artist": "Jay-Z",
-          "cover": "FansAlso/JayZ.png"
+          "artist": "Snoop Dog",
+          "cover": "FansAlsoEminem/Snoop Dog.png"
         },
         {
           "artist": "Tupac",
-          "cover": "FansAlso/Tupac.png"
+          "cover": "FansAlsoEminem/Tupac.png"
+        },
+        {
+          "artist": "Jay+z",
+          "cover": "FansAlsoEminem/Jay+z.png"
         }
       ]
     },
