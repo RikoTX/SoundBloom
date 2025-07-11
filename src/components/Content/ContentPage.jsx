@@ -13,7 +13,7 @@ const scrollContainerStyle = {
   overflowY: 'auto',
   backgroundColor: '#181818',
   color: 'white',
-  paddingBottom: '120px', 
+  paddingBottom: '120px',
 };
 
 export default function ContentPage({
@@ -22,13 +22,14 @@ export default function ContentPage({
   selectedArtists,
   setSelectedArtists,
   currentTrackIndex,
-  setCurrentTrackIndex
+  setCurrentTrackIndex,
+  setCurrentPlaylist
 }) {
   return (
     <Layout>
       <div style={scrollContainerStyle}>
         <Routes>
-          <Route path="/Home" element={<Home setCurrentTrackIndex={setCurrentTrackIndex} />} />
+          <Route path="/Home" element={<Home setCurrentTrackIndex={setCurrentTrackIndex} setCurrentPlaylist={setCurrentPlaylist} />} />
           <Route path="/Search" element={<Search />} />
           <Route path="/Popular" element={<Popular setSelectedAlbum={setSelectedAlbum} />} />
           <Route path="/Artist" element={<Artists setSelectedArtists={setSelectedArtists} />} />

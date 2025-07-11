@@ -13,6 +13,7 @@ const outerLayoutStyle = {
 export default function App() {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [selectedArtists, setSelectedArtists] = useState(null);
+  const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
 
   return (
@@ -24,18 +25,21 @@ export default function App() {
           setSelectedAlbum={setSelectedAlbum}
           selectedArtists={selectedArtists}
           setSelectedArtists={setSelectedArtists}
-          setCurrentTrackIndex={setCurrentTrackIndex}
           currentTrackIndex={currentTrackIndex}
+          setCurrentTrackIndex={setCurrentTrackIndex}
+          setCurrentPlaylist={setCurrentPlaylist}
         />
+
       </div>
 
-      {currentTrackIndex !== null && (
+      {currentTrackIndex !== null && currentPlaylist && (
         <MusicPlayer
-          playlist={musicData.WeeklyTopSongs} 
+          playlist={currentPlaylist}
           currentIndex={currentTrackIndex}
           setCurrentIndex={setCurrentTrackIndex}
         />
       )}
+
     </>
   );
 }

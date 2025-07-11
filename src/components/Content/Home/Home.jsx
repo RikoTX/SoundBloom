@@ -191,15 +191,17 @@ const styleCreatePlaylist = {
     cursor: 'pointer',
 
 }
-export default function Home({ currentTrackIndex, setCurrentTrackIndex }) {
+export default function Home({ currentTrackIndex, setCurrentTrackIndex, setCurrentPlaylist }) {
     const [activeTab, setActiveTab] = useState('signup');
     const [searchValue, setSearchValue] = useState('');
 
-    const handlePlaySong = (index) => {
-        setCurrentTrackIndex(null); 
+    const handlePlaySong = (playlist, index) => {
+        setCurrentTrackIndex(null);
+        setCurrentPlaylist(null)
         setTimeout(() => {
-            setCurrentTrackIndex(index); 
-        }, 10); 
+            setCurrentPlaylist(playlist);
+            setCurrentTrackIndex(index);
+        }, 10);
     };
     const handleSearch = () => {
         console.log(searchValue);
@@ -324,7 +326,7 @@ export default function Home({ currentTrackIndex, setCurrentTrackIndex }) {
                         {musicData.WeeklyTopSongs.map((song, index) => (
                             <div
                                 key={index}
-                                onClick={() => handlePlaySong(index)}
+                                onClick={() => handlePlaySong(musicData.WeeklyTopSongs, index)}
                                 style={{
                                     textAlign: 'center',
                                     backgroundColor: '#1F1F1F',
@@ -378,13 +380,7 @@ export default function Home({ currentTrackIndex, setCurrentTrackIndex }) {
                             </div>
                         </div>
                     </div>
-                    {currentTrackIndex !== null && (
-                        <MusicPlayer
-                            playlist={musicData.WeeklyTopSongs}
-                            currentIndex={currentTrackIndex}
-                            setCurrentIndex={setCurrentTrackIndex}
-                        />
-                    )}
+
                 </div>
             </div>
             <div>
@@ -394,7 +390,17 @@ export default function Home({ currentTrackIndex, setCurrentTrackIndex }) {
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
                         {musicData.NewReleaseSongs.map((song, index) => (
-                            <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', padding: 10, borderRadius: '10px' }}>
+                            <div
+                                key={index}
+                                onClick={() => handlePlaySong(musicData.NewReleaseSongs, index)}
+                                style={{
+                                    textAlign: 'center',
+                                    backgroundColor: '#1F1F1F',
+                                    padding: 10,
+                                    borderRadius: '10px',
+                                    cursor: 'pointer'
+                                }}
+                            >
                                 <img
                                     src={song.cover}
                                     alt={song.title}
