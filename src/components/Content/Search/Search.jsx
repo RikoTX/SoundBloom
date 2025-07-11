@@ -121,7 +121,7 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
                 </div>
                 {searchValue && (
                     <div
-                        
+
                         style={{
                             position: 'absolute',
                             top: '80px',
@@ -134,7 +134,10 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
                             width: '400px',
                             zIndex: 10,
                             color: 'white',
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            maxHeight: '400px',
+                            overflowY: 'auto',
+                            scrollbarWidth: 'thin'
                         }}>
                         {filteredSongs.length > 0 ? (
                             filteredSongs.map((song, index) => (

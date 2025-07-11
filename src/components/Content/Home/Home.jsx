@@ -195,8 +195,8 @@ const styleCreatePlaylist = {
 export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
     const [activeTab, setActiveTab] = useState('signup');
     const [searchValue, setSearchValue] = useState('');
-     const { handlePlaySong } = usePlayerControls(setCurrentPlaylist, setCurrentTrackIndex);
-   
+    const { handlePlaySong } = usePlayerControls(setCurrentPlaylist, setCurrentTrackIndex);
+
     const handleSearch = () => {
         console.log(searchValue);
     };
@@ -222,7 +222,7 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
     }
 
     return (
-        <div>
+        <div style={{}}>
             <div style={ImageCenter}>
                 <div style={imageWrapperStyle}>
                     <img
@@ -255,7 +255,10 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
                             padding: '10px',
                             width: '400px',
                             zIndex: 10,
-                            color: 'white'
+                            color: 'white',
+                            maxHeight: '400px',          
+                            overflowY: 'auto',           
+                            scrollbarWidth: 'thin'
                         }}>
                             {filteredSongs.length > 0 ? (
                                 filteredSongs.map((song, index) => (
