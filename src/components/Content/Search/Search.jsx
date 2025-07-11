@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import musicData from '../../../../public/music.json';
+import usePlayerControls from '../hooks/usePlayerControls';
 
 
 const containerStyle = {
@@ -80,8 +81,10 @@ const styleButtonSignUp = {
     cursor: 'pointer',
 };
 
-export default function Search() {
+export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
     const [searchValue, setSearchValue] = useState('');
+    const { handlePlaySong } = usePlayerControls(setCurrentPlaylist, setCurrentTrackIndex);
+
 
     const handleSearch = () => {
         console.log(searchValue);
@@ -117,22 +120,25 @@ export default function Search() {
                     </button>
                 </div>
                 {searchValue && (
-                    <div style={{
-                        position: 'absolute',
-                        top: '80px',
-                        left: '22.5%',
-                        transform: 'translateX(-50%)',
-                        backgroundColor: '#1a1a1a',
-                        border: '1px solid #333',
-                        borderRadius: '8px',
-                        padding: '10px',
-                        width: '400px',
-                        zIndex: 10,
-                        color: 'white'
-                    }}>
+                    <div
+                        
+                        style={{
+                            position: 'absolute',
+                            top: '80px',
+                            left: '22.5%',
+                            transform: 'translateX(-50%)',
+                            backgroundColor: '#1a1a1a',
+                            border: '1px solid #333',
+                            borderRadius: '8px',
+                            padding: '10px',
+                            width: '400px',
+                            zIndex: 10,
+                            color: 'white',
+                            cursor: 'pointer'
+                        }}>
                         {filteredSongs.length > 0 ? (
                             filteredSongs.map((song, index) => (
-                                <div key={index} style={{ padding: '5px 0', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '10px' }}>
+                                <div key={index} onClick={() => handlePlaySong(filteredSongs, index)} style={{ padding: '5px 0', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '10px' }}>
                                     <img
                                         src={song.cover}
                                         style={{ width: '30px', height: '30px', borderRadius: '5px' }}
@@ -434,7 +440,17 @@ export default function Search() {
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
                         {musicData.NewReleaseSongs.map((song, index) => (
-                            <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', padding: 10, borderRadius: '10px' }}>
+                            <div
+                                key={index}
+                                onClick={() => handlePlaySong(musicData.NewReleaseSongs, index)}
+                                style={{
+                                    textAlign: 'center',
+                                    backgroundColor: '#1F1F1F',
+                                    padding: 10,
+                                    borderRadius: '10px',
+                                    cursor: 'pointer'
+                                }}
+                            >
                                 <img
                                     src={song.cover}
                                     alt={song.title}

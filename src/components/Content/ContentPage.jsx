@@ -23,7 +23,7 @@ export default function ContentPage({
     }}>
       <Routes>
         <Route path="/Home" element={<Home setCurrentTrackIndex={setCurrentTrackIndex} setCurrentPlaylist={setCurrentPlaylist} />} />
-        <Route path="/Search" element={<Search />} />
+        <Route path="/Search" element={<Search setCurrentTrackIndex={setCurrentTrackIndex} setCurrentPlaylist={setCurrentPlaylist} />} />
         <Route path="/Popular" element={<Popular setSelectedAlbum={setSelectedAlbum} />} />
         <Route path="/Artist" element={<Artists setSelectedArtists={setSelectedArtists} />} />
         <Route path="/LikedSongs" element={<div>Понравившиеся песни</div>} />

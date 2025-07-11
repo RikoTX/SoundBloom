@@ -259,7 +259,7 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
                         }}>
                             {filteredSongs.length > 0 ? (
                                 filteredSongs.map((song, index) => (
-                                    <div key={index} style={{ padding: '5px 0', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '10px' }}>
+                                    <div key={index} onClick={() => handlePlaySong(filteredSongs, index)} style={{ padding: '5px 0', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'start', alignItems: 'center', gap: '10px' }}>
                                         <img
                                             src={song.cover}
                                             style={{ width: '30px', height: '30px', borderRadius: '5px' }}
