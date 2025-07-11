@@ -7,6 +7,7 @@ import {
     HeartOutlined
 } from '@ant-design/icons';
 import MusicPlayer from '../../MusicPlayer/MusicPlayer';
+import usePlayerControls from '../hooks/usePlayerControls';
 
 const submitGoogleButtonStyle = {
     padding: '15px',
@@ -191,18 +192,11 @@ const styleCreatePlaylist = {
     cursor: 'pointer',
 
 }
-export default function Home({ currentTrackIndex, setCurrentTrackIndex, setCurrentPlaylist }) {
+export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
     const [activeTab, setActiveTab] = useState('signup');
     const [searchValue, setSearchValue] = useState('');
-
-    const handlePlaySong = (playlist, index) => {
-        setCurrentTrackIndex(null);
-        setCurrentPlaylist(null)
-        setTimeout(() => {
-            setCurrentPlaylist(playlist);
-            setCurrentTrackIndex(index);
-        }, 10);
-    };
+     const { handlePlaySong } = usePlayerControls(setCurrentPlaylist, setCurrentTrackIndex);
+   
     const handleSearch = () => {
         console.log(searchValue);
     };
