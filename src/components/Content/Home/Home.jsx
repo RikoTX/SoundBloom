@@ -222,7 +222,7 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
     }
 
     return (
-        <div style={{}}>
+        <div>
             <div style={ImageCenter}>
                 <div style={imageWrapperStyle}>
                     <img

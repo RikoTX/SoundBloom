@@ -83,14 +83,14 @@ export default function SiderMenu() {
 
         <label style={labelStyle}>Playlist and favorite</label>
         <div style={menuStyle}>
-          {createButton('LikedSongs', <HeartOutlined />, 'Liked songs')}
-          {createButton('Playlist', <ProfileOutlined />, 'Playlist')}
+          {createButton('Liked Songs', <HeartOutlined />, '/LikedSongs')}
+          {createButton('Playlist', <ProfileOutlined />, '/Playlist')}
         </div>
 
         <label style={labelStyle}>General</label>
         <div style={menuStyle}>
-          {createButton('Settings', <SettingOutlined />, 'Settings')}
-          {createButton('Logout', <LogoutOutlined />, 'Logout')}
+          {createButton('Settings', <SettingOutlined />, '/Settings')}
+          {createButton('Logout', <LogoutOutlined />, '/Logout')}
         </div>
       </div>
     </AntSider>
