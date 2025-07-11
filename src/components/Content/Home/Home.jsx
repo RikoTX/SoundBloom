@@ -3,10 +3,10 @@ import {
     SearchOutlined,
 } from '@ant-design/icons';
 import musicData from '../../../../public/music.json';
-import { Tabs } from 'antd';
 import {
     HeartOutlined
 } from '@ant-design/icons';
+import MusicPlayer from '../../MusicPlayer/MusicPlayer';
 
 const submitGoogleButtonStyle = {
     padding: '15px',
@@ -191,10 +191,16 @@ const styleCreatePlaylist = {
     cursor: 'pointer',
 
 }
-export default function Home() {
+export default function Home({ currentTrackIndex, setCurrentTrackIndex }) {
     const [activeTab, setActiveTab] = useState('signup');
     const [searchValue, setSearchValue] = useState('');
 
+    const handlePlaySong = (index) => {
+        setCurrentTrackIndex(null); 
+        setTimeout(() => {
+            setCurrentTrackIndex(index); 
+        }, 10); 
+    };
     const handleSearch = () => {
         console.log(searchValue);
     };
@@ -316,7 +322,17 @@ export default function Home() {
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
                         {musicData.WeeklyTopSongs.map((song, index) => (
-                            <div key={index} style={{ textAlign: 'center', backgroundColor: '#1F1F1F', padding: 10, borderRadius: '10px' }}>
+                            <div
+                                key={index}
+                                onClick={() => handlePlaySong(index)}
+                                style={{
+                                    textAlign: 'center',
+                                    backgroundColor: '#1F1F1F',
+                                    padding: 10,
+                                    borderRadius: '10px',
+                                    cursor: 'pointer'
+                                }}
+                            >
                                 <img
                                     src={song.cover}
                                     alt={song.title}
@@ -362,6 +378,13 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+                    {currentTrackIndex !== null && (
+                        <MusicPlayer
+                            playlist={musicData.WeeklyTopSongs}
+                            currentIndex={currentTrackIndex}
+                            setCurrentIndex={setCurrentTrackIndex}
+                        />
+                    )}
                 </div>
             </div>
             <div>

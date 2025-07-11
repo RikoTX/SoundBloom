@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import Footer from '../Footer/Footer';
 import Home from './Home/Home';
@@ -8,20 +8,27 @@ import PageAlbums from '../PageAlbums/PageAlbums';
 import PageArtists from '../PageArtists/PageArtists';
 import Artists from './Artists/Artists';
 
-
 const scrollContainerStyle = {
   flex: 1,
   overflowY: 'auto',
   backgroundColor: '#181818',
   color: 'white',
+  paddingBottom: '120px', 
 };
 
-export default function ContentPage({ selectedAlbum, setSelectedAlbum, selectedArtists, setSelectedArtists }) {
+export default function ContentPage({
+  selectedAlbum,
+  setSelectedAlbum,
+  selectedArtists,
+  setSelectedArtists,
+  currentTrackIndex,
+  setCurrentTrackIndex
+}) {
   return (
     <Layout>
       <div style={scrollContainerStyle}>
         <Routes>
-          <Route path="/Home" element={<Home />} />
+          <Route path="/Home" element={<Home setCurrentTrackIndex={setCurrentTrackIndex} />} />
           <Route path="/Search" element={<Search />} />
           <Route path="/Popular" element={<Popular setSelectedAlbum={setSelectedAlbum} />} />
           <Route path="/Artist" element={<Artists setSelectedArtists={setSelectedArtists} />} />
@@ -29,10 +36,27 @@ export default function ContentPage({ selectedAlbum, setSelectedAlbum, selectedA
           <Route path="/Playlist" element={<div>Плейлист</div>} />
           <Route path="/Settings" element={<div>Настройки</div>} />
           <Route path="/Logout" element={<div>Выход</div>} />
-          <Route path="/PageAlbums" element={<PageAlbums selectedAlbum={selectedAlbum} setSelectedAlbum={setSelectedAlbum} />} />
-          <Route path="/PageArtists" element={<PageArtists selectedArtists={selectedArtists} setSelectedArtists={setSelectedArtists} />} />
-          <Route path="*" element={<Home />} />
+          <Route
+            path="/PageAlbums"
+            element={
+              <PageAlbums
+                selectedAlbum={selectedAlbum}
+                setSelectedAlbum={setSelectedAlbum}
+              />
+            }
+          />
+          <Route
+            path="/PageArtists"
+            element={
+              <PageArtists
+                selectedArtists={selectedArtists}
+                setSelectedArtists={setSelectedArtists}
+              />
+            }
+          />
+          <Route path="*" element={<Home setCurrentTrackIndex={setCurrentTrackIndex} />} />
         </Routes>
+
         <Footer />
       </div>
     </Layout>
