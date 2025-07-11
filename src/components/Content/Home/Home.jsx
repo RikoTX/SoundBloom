@@ -256,8 +256,8 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
                             width: '400px',
                             zIndex: 10,
                             color: 'white',
-                            maxHeight: '400px',          
-                            overflowY: 'auto',           
+                            maxHeight: '400px',
+                            overflowY: 'auto',
                             scrollbarWidth: 'thin'
                         }}>
                             {filteredSongs.length > 0 ? (

@@ -15,7 +15,7 @@ const siderStyle = {
   height: '100vh',
   display: 'flex',
   flexDirection: 'column',
-  position: 'relative', 
+  position: 'relative',
   zIndex: 10,
 };
 
@@ -50,14 +50,15 @@ export default function SiderMenu() {
 
   const current = location.pathname.replace('/', '') || 'Home';
 
-  const createButton = (name, icon, label) => (
+  const createButton = (label, icon, route, activePaths = [route]) => (
     <CustomButton
-      active={current === name}
-      onClick={() => navigate(`/${name}`)}
+      active={activePaths.some((path) => location.pathname.startsWith(path))}
+      onClick={() => navigate(route)}
     >
       {icon} {label}
     </CustomButton>
   );
+
 
   return (
     <AntSider width="18%" style={siderStyle}>
@@ -73,11 +74,12 @@ export default function SiderMenu() {
         />
         <label style={labelStyle}>Menu</label>
         <div style={menuStyle}>
-          {createButton('Home', <HomeOutlined />, 'Home')}
-          {createButton('Search', <SearchOutlined />, 'Search')}
-          {createButton('Popular', <StarOutlined />, 'Popular')}
-          {createButton('Artist', <UserOutlined />, 'Artist')}
+          {createButton('Home', <HomeOutlined />, '/Home')}
+          {createButton('Search', <SearchOutlined />, '/Search')}
+          {createButton('Popular', <StarOutlined />, '/Popular', ['/Popular', '/PageAlbums'])}
+          {createButton('Artist', <UserOutlined />, '/Artist', ['/Artist', '/PageArtists'])}
         </div>
+
 
         <label style={labelStyle}>Playlist and favorite</label>
         <div style={menuStyle}>
