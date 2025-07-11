@@ -5,7 +5,8 @@ import {
     StepBackwardOutlined,
     StepForwardOutlined,
     SoundOutlined,
-    CloseOutlined
+    CloseOutlined,
+    MutedOutlined
 } from '@ant-design/icons';
 
 export default function MusicPlayer({ playlist, currentIndex, setCurrentIndex }) {
@@ -43,12 +44,28 @@ export default function MusicPlayer({ playlist, currentIndex, setCurrentIndex })
         };
     }, [currentIndex]);
 
-
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = volume;
         }
     }, [volume]);
+
+    useEffect(() => {
+        const audio = audioRef.current;
+        if (!audio) return;
+
+        const updateProgress = () => {
+            if (audio.duration) {
+                setProgress(audio.currentTime / audio.duration);
+            }
+        };
+
+        audio.addEventListener('timeupdate', updateProgress);
+
+        return () => {
+            audio.removeEventListener('timeupdate', updateProgress);
+        };
+    }, [currentIndex]);
 
     const togglePlayPause = () => {
         if (!audioRef.current) return;
@@ -117,7 +134,11 @@ export default function MusicPlayer({ playlist, currentIndex, setCurrentIndex })
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <SoundOutlined />
+                    {volume === 0 ? (
+                        <MutedOutlined onClick={() => setVolume(1)} style={{ cursor: 'pointer' }} />
+                    ) : (
+                        <SoundOutlined onClick={() => setVolume(0)} style={{ cursor: 'pointer' }} />
+                    )}
                     <input
                         type="range"
                         min="0"
@@ -125,7 +146,14 @@ export default function MusicPlayer({ playlist, currentIndex, setCurrentIndex })
                         step="0.01"
                         value={volume}
                         onChange={handleVolumeChange}
-                        style={{ width: '100px' }}
+                        style={{
+                            width: '100px',
+                            height: '4px',
+                            borderRadius: '2px',
+                            background: '#444',
+                            cursor: 'pointer',
+                            accentColor: '#cb0094',
+                        }}
                     />
                     <CloseOutlined
                         onClick={() => {
@@ -147,7 +175,7 @@ export default function MusicPlayer({ playlist, currentIndex, setCurrentIndex })
                         height: '100%',
                         width: `${progress * 100}%`,
                         backgroundColor: '#cb0094',
-                        transition: 'width 0.3s',
+                        transition: 'width 0.2s linear',
                     }}
                 />
             </div>
