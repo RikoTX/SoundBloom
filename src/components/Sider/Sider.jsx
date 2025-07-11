@@ -15,6 +15,8 @@ const siderStyle = {
   height: '100vh',
   display: 'flex',
   flexDirection: 'column',
+  position: 'relative', 
+  zIndex: 10,
 };
 
 const contentWrapperStyle = {

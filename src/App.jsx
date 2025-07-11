@@ -4,22 +4,21 @@ import ContentPage from './components/Content/ContentPage';
 import MusicPlayer from './components/MusicPlayer/MusicPlayer';
 import musicData from '../public/music.json';
 
-const outerLayoutStyle = {
-  height: '100vh',
-  display: 'flex',
-  paddingBottom: '80px',
-};
-
 export default function App() {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [selectedArtists, setSelectedArtists] = useState(null);
-  const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
+  const [currentPlaylist, setCurrentPlaylist] = useState(null);
 
   return (
-    <>
-      <div style={outerLayoutStyle}>
-        <Sider />
+    <div style={{ display: 'flex', height: '100vh', backgroundColor: '#181818' }}>
+      <Sider />
+      <div style={{
+        flex: 1,
+        overflowY: 'auto',
+        paddingBottom: currentTrackIndex !== null ? '120px' : '0',
+        position: 'relative',
+      }}>
         <ContentPage
           selectedAlbum={selectedAlbum}
           setSelectedAlbum={setSelectedAlbum}
@@ -29,7 +28,6 @@ export default function App() {
           setCurrentTrackIndex={setCurrentTrackIndex}
           setCurrentPlaylist={setCurrentPlaylist}
         />
-
       </div>
 
       {currentTrackIndex !== null && currentPlaylist && (
@@ -39,7 +37,6 @@ export default function App() {
           setCurrentIndex={setCurrentTrackIndex}
         />
       )}
-
-    </>
+    </div>
   );
 }

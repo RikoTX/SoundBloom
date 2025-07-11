@@ -49,7 +49,7 @@ const imageWrapperStyle = {
 const imageStyle = {
     paddingRight: '50px',
     maxWidth: '100%',
-    width: '1300px',
+    width: '1170px',
     height: 'auto',
     display: 'block',
 };
