@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Home from './Home/Home';
 import Search from './Search/Search';
@@ -22,6 +22,7 @@ export default function ContentPage({
       color: 'white',
     }}>
       <Routes>
+        <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/Home" element={<Home setCurrentTrackIndex={setCurrentTrackIndex} setCurrentPlaylist={setCurrentPlaylist} />} />
         <Route path="/Search" element={<Search setCurrentTrackIndex={setCurrentTrackIndex} setCurrentPlaylist={setCurrentPlaylist} />} />
         <Route path="/Popular" element={<Popular setSelectedAlbum={setSelectedAlbum} />} />
