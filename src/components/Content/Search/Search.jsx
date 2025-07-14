@@ -442,7 +442,7 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
                 </p>
                 <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
-                        {musicData.NewReleaseSongs.map((song, index) => (
+                        {musicData.NewReleaseSongs.slice(0,5).map((song, index) => (
                             <div
                                 key={index}
                                 onClick={() => handlePlaySong(musicData.NewReleaseSongs, index)}

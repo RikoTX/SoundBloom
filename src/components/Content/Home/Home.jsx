@@ -197,6 +197,13 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
     const [searchValue, setSearchValue] = useState('');
     const { handlePlaySong } = usePlayerControls(setCurrentPlaylist, setCurrentTrackIndex);
 
+    const [showWeeklyAll, setShowWeeklyAll] = useState(false);
+    const [showNewReleaseAll, setShowNewReleaseAll] = useState(false);
+
+
+
+
+
     const handleSearch = () => {
         console.log(searchValue);
     };
@@ -316,11 +323,17 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
             </div>
             <div>
                 <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
-                    Weekly Top <span style={{ color: '#cb0094' }}>Songs</span>
+                    Weekly Top<span style={{ color: '#cb0094' }}> Songs</span>
                 </p>
-                <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
-                        {musicData.WeeklyTopSongs.map((song, index) => (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        width: '85%',
+                        gap: '20px'
+                    }}>
+                        {(showWeeklyAll ? musicData.WeeklyTopSongs : musicData.WeeklyTopSongs.slice(0, 5)).map((song, index) => (
                             <div
                                 key={index}
                                 onClick={() => handlePlaySong(musicData.WeeklyTopSongs, index)}
@@ -341,29 +354,35 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
                                 <p style={{ margin: 0, color: '#929292', fontSize: '12px' }}>{song.artist}</p>
                             </div>
                         ))}
+                    </div>
+                    {!showWeeklyAll && (
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '20px'
+                            gap: '20px',
+                            paddingLeft: '30px'
                         }}>
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center'
-                            }}>
-                                <button style={{
-                                    backgroundColor: '#1E1E1E',
-                                    width: '70px',
-                                    height: '70px',
-                                    fontSize: '30px',
-                                    borderRadius: '50%',
-                                    border: 'none',
-                                    color: 'white',
+                            <div
+                                style={{
                                     display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    cursor: 'pointer'
+                                    flexDirection: 'column',
+                                    alignItems: 'center'
                                 }}>
+                                <button
+                                    onClick={() => setShowWeeklyAll(true)}
+                                    style={{
+                                        backgroundColor: '#1E1E1E',
+                                        width: '70px',
+                                        height: '70px',
+                                        fontSize: '30px',
+                                        borderRadius: '50%',
+                                        border: 'none',
+                                        color: 'white',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer'
+                                    }}>
                                     +
                                 </button>
                                 <p style={{
@@ -376,17 +395,23 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                 </div>
             </div>
             <div>
                 <p style={{ fontWeight: 600, fontSize: 35, marginLeft: '4%' }}>
-                    New Release <span style={{ color: '#cb0094' }}>Songs</span>
+                    New Release  <span style={{ color: '#cb0094' }}> Songs</span>
                 </p>
-                <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', paddingRight: '40px', paddingLeft: '40px' }}>
-                        {musicData.NewReleaseSongs.map((song, index) => (
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        width: '85%',
+                        gap: '20px'
+                    }}>
+                        {(showNewReleaseAll ? musicData.NewReleaseSongs : musicData.NewReleaseSongs.slice(0, 5)).map((song, index) => (
                             <div
                                 key={index}
                                 onClick={() => handlePlaySong(musicData.NewReleaseSongs, index)}
@@ -407,29 +432,35 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
                                 <p style={{ margin: 0, color: '#929292', fontSize: '12px' }}>{song.artist}</p>
                             </div>
                         ))}
+                    </div>
+                    {!showNewReleaseAll && (
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '20px'
+                            gap: '20px',
+                            paddingLeft: '30px'
                         }}>
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center'
-                            }}>
-                                <button style={{
-                                    backgroundColor: '#1E1E1E',
-                                    width: '70px',
-                                    height: '70px',
-                                    fontSize: '30px',
-                                    borderRadius: '50%',
-                                    border: 'none',
-                                    color: 'white',
+                            <div
+                                style={{
                                     display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    cursor: 'pointer'
+                                    flexDirection: 'column',
+                                    alignItems: 'center'
                                 }}>
+                                <button
+                                    onClick={() => setShowNewReleaseAll(true)}
+                                    style={{
+                                        backgroundColor: '#1E1E1E',
+                                        width: '70px',
+                                        height: '70px',
+                                        fontSize: '30px',
+                                        borderRadius: '50%',
+                                        border: 'none',
+                                        color: 'white',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer'
+                                    }}>
                                     +
                                 </button>
                                 <p style={{
@@ -442,7 +473,8 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    )}
+
                 </div>
             </div>
             <div>
