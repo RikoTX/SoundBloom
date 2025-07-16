@@ -7,9 +7,12 @@ const SongsTable = ({
   pinkTitle,
   songs = [],
   columns = [],
-  onHeartClick = () => {},
-  onViewAllClick = () => {},
+  showAll, 
+  setShowAll
 }) => {
+
+  const itemsToShow = showAll ? songs : songs.slice(0, 4);
+
   return (
     <div>
       <p style={{ fontWeight: 600, fontSize: 35, margin: "35px 10px 0px 4%" }}>
@@ -50,7 +53,7 @@ const SongsTable = ({
             width: "90%",
           }}
         >
-          {songs.map((song, index) => (
+          {itemsToShow.map((song, index) => (
             <div
               key={index}
               style={{
@@ -139,7 +142,9 @@ const SongsTable = ({
         </div>
       </div>
 
-      <ViewAllButtonRectangle onClick={onViewAllClick} />
+       {!showAll && songs.length > 3 && (
+          <ViewAllButtonRectangle onToggle={() => setShowAll(true)} />
+        )}
 
     </div>
   );

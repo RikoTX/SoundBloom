@@ -1,10 +1,10 @@
 import React from "react";
 
-const ViewAllButtonRectangle = ({ onClick }) => {
+const ViewAllButtonRectangle = ({ onToggle }) => {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
       <button
-        onClick={onClick}
+        onClick={onToggle}
         style={{
           backgroundColor: "#1E1E1E",
           width: "120px",
