@@ -1,17 +1,22 @@
 import React from "react";
 import { HeartOutlined } from "@ant-design/icons";
-import ViewAllButtonRectangle from '../../components/ViewAllButtonRectangle/ViewAllButtonRectangle'
+import ViewAllButtonRectangle from "../../components/ViewAllButtonRectangle/ViewAllButtonRectangle";
 
 const SongsTable = ({
   title,
   pinkTitle,
   songs = [],
   columns = [],
-  showAll, 
-  setShowAll
+  showAll,
+  setShowAll,
 }) => {
+  // если у песен есть поле plays, сортируем по нему
+  const sortedSongs =
+    songs.length > 0 && songs[0].plays !== undefined
+      ? [...songs].sort((a, b) => b.plays - a.plays)
+      : songs;
 
-  const itemsToShow = showAll ? songs : songs.slice(0, 4);
+  const itemsToShow = showAll ? sortedSongs : sortedSongs.slice(0, 4);
 
   return (
     <div>
@@ -121,6 +126,7 @@ const SongsTable = ({
                     </p>
                   </div>
                 </div>
+
                 {columns.map((col, i) => (
                   <div
                     key={i}
@@ -142,10 +148,9 @@ const SongsTable = ({
         </div>
       </div>
 
-       {!showAll && songs.length > 3 && (
-          <ViewAllButtonRectangle onToggle={() => setShowAll(true)} />
-        )}
-
+      {!showAll && songs.length > 4 && (
+        <ViewAllButtonRectangle onToggle={() => setShowAll(true)} />
+      )}
     </div>
   );
 };
