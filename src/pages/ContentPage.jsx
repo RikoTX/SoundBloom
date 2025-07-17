@@ -58,16 +58,16 @@ export default function ContentPage({
         <Route path="/PageAlbums" element={<Navigate to="/" replace />} />
         <Route path="/PageAlbums/:artist" element={<PageAlbums />} />
         <Route
-          path="/PageArtists"
+          path="/PageArtists/:artist"
           element={
             <PageArtists
-              selectedArtists={selectedArtists}
               setCurrentTrackIndex={setCurrentTrackIndex}
               setCurrentPlaylist={setCurrentPlaylist}
               setSelectedAlbum={setSelectedAlbum}
             />
           }
         />
+
         <Route
           path="*"
           element={<Home setCurrentTrackIndex={setCurrentTrackIndex} />}

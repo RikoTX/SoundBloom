@@ -1,43 +1,45 @@
 import { useState } from "react";
-import SongGrid from "../../components/SongGrid/SongGrid";
+import { useParams, useNavigate } from "react-router-dom";
 import usePlayerControls from "../../hooks/usePlayerControls";
 import ArtistBanner from "../../components/ArtistBanner/ArtistBanner";
-
-import {
-  HeartOutlined,
-  ArrowLeftOutlined,
-  MoreOutlined,
-} from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 import SongsTable from "../../components/SongsTable/SongsTable";
 import AlbumGridLess from "../../components/AlbumGridLess/AlbumGridLess";
 import PlaylistGrid from "../../components/PlaylistGrid/PlaylistGrid";
+import SongGrid from "../../components/SongGrid/SongGrid";
 import SongGridCircleBig from "../../components/SongGridCircleBig/SongGridCircleBig";
+import { HeartOutlined } from "@ant-design/icons";
+import musicData from "../../data/music.json";
+
 export default function PageArtists({
-  selectedArtists,
   setSelectedAlbum,
   setCurrentPlaylist,
   setCurrentTrackIndex,
 }) {
+  const { artist: artistName } = useParams();
   const navigate = useNavigate();
   const [showPopularTableAll, setShowPopularTableAll] = useState(false);
   const [showAlbumsAll, setShowAlbumsAll] = useState(false);
   const [showPopularAll, setShowPopularAll] = useState(false);
   const [showNewReleaseAll, setShowNewReleaseAll] = useState(false);
   const [showAllPlaylist, setShowAllPlaylist] = useState(false);
+
   const { handlePlaySong } = usePlayerControls(
     setCurrentPlaylist,
     setCurrentTrackIndex
   );
-  if (!selectedArtists) {
-    return (
-      <div style={{ color: "white", padding: "40px" }}>Artist not selected</div>
-    );
+
+  const allArtists = [
+    ...musicData.LegendsArtists,
+    ...musicData.PopularArtists,
+  ];
+  const artistData = allArtists.find(
+    (a) => a.artist.toLowerCase() === decodeURIComponent(artistName).toLowerCase()
+  );
+
+  if (!artistData) {
+    return <div style={{ color: "white", padding: "40px" }}>Artist not found: {artistName}</div>;
   }
-  const openAlbums = (album) => {
-    setSelectedAlbum(album);
-    navigate("/PageAlbums", { state: { album } });
-  };
+
   const {
     backgroundImage,
     artist,
@@ -46,7 +48,12 @@ export default function PageArtists({
     singles,
     playlist,
     fansAlsoListen,
-  } = selectedArtists;
+  } = artistData;
+
+  const openAlbums = (album) => {
+    setSelectedAlbum(album);
+    navigate("/PageAlbums", { state: { album } });
+  };
 
   return (
     <div
@@ -59,8 +66,6 @@ export default function PageArtists({
     >
       <div style={{ color: "white" }}>
         <ArtistBanner backgroundImage={backgroundImage} artist={artist} />
-
-
         <SongsTable
           title="Popular"
           pinkTitle=""
@@ -89,47 +94,43 @@ export default function PageArtists({
               width: "100px",
             },
           ]}
-          onViewAllClick={() => console.log("View All нажалась")}
-          onHeartClick={(song) => console.log("понравилось: ", song)}
         />
       </div>
-      <div>
-        <AlbumGridLess
-          title="Artist’s "
-          pinkTitle="Albums"
-          albums={albums}
-          showAll={showAlbumsAll}
-          setShowAll={setShowAlbumsAll}
-          onClickAlbum={openAlbums}
-          setSelectedAlbum={setSelectedAlbum}
-        />
 
-        {/* ОТОБРАЖЕНИЕ Single Songs */}
-        <SongGrid
-          title="Single"
-          pinkTitle="Songs"
-          songs={singles}
-          showAll={showNewReleaseAll}
-          setShowAll={setShowNewReleaseAll}
-          handlePlaySong={handlePlaySong}
-        />
+      <AlbumGridLess
+        title="Artist’s "
+        pinkTitle="Albums"
+        albums={albums}
+        showAll={showAlbumsAll}
+        setShowAll={setShowAlbumsAll}
+        onClickAlbum={openAlbums}
+        setSelectedAlbum={setSelectedAlbum}
+      />
 
-        {/* ПЛЭЙЛИСТЫ */}
-        <PlaylistGrid
-          title="Artist’s "
-          pinkTitle="Playlist"
-          playlist={playlist}
-          showAll={showAllPlaylist}
-          setShowAll={setShowAllPlaylist}
-        />
-        <SongGridCircleBig
-          title="Eminem Fans"
-          pinkTitle="Also Listen To"
-          items={fansAlsoListen}
-          showAll={showPopularAll}
-          setShowAll={setShowPopularAll}
-        />
-      </div>
+      <SongGrid
+        title="Single"
+        pinkTitle="Songs"
+        songs={singles}
+        showAll={showNewReleaseAll}
+        setShowAll={setShowNewReleaseAll}
+        handlePlaySong={handlePlaySong}
+      />
+
+      <PlaylistGrid
+        title="Artist’s "
+        pinkTitle="Playlist"
+        playlist={playlist}
+        showAll={showAllPlaylist}
+        setShowAll={setShowAllPlaylist}
+      />
+
+      <SongGridCircleBig
+        title={`${artist} Fans`}
+        pinkTitle="Also Listen To"
+        items={fansAlsoListen}
+        showAll={showPopularAll}
+        setShowAll={setShowPopularAll}
+      />
     </div>
   );
 }

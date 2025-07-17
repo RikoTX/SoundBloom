@@ -7,9 +7,10 @@ import SongGridCircle from "../../components/SongGridCircle/SongGridCircle";
 export default function Artists({ setSelectedArtists }) {
   const navigate = useNavigate();
   const openArtists = (artist) => {
-    setSelectedArtists(artist);
-    navigate("/PageArtists");
+    const encodedName = encodeURIComponent(artist.artist);
+    navigate(`/PageArtists/${encodedName}`);
   };
+
   const [showPopularTableAll, setShowPopularTableAll] = useState(false);
   const [showPopularAll, setShowPopularAll] = useState(false);
   return (
