@@ -30,6 +30,7 @@ export default function ContentPage({
             <Home
               setCurrentTrackIndex={setCurrentTrackIndex}
               setCurrentPlaylist={setCurrentPlaylist}
+              setSelectedAlbum={setSelectedAlbum}
             />
           }
         />

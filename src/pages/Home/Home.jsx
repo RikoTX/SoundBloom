@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
 import musicData from "../../data/music.json";
 import { HeartOutlined } from "@ant-design/icons";
@@ -12,12 +13,23 @@ import AlbumGrid from "../../components/AlbumGrid/AlbumGrid";
 import PlaylistGrid from "../../components/PlaylistGrid/PlaylistGrid";
 import SignInAndLogin from "../../components/SignInAndLogin/SignInAndLogin";
 
-export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
+export default function Home({
+  setCurrentTrackIndex,
+  setCurrentPlaylist,
+  setSelectedAlbum,
+}) {
   const [searchValue, setSearchValue] = useState("");
   const { handlePlaySong } = usePlayerControls(
     setCurrentPlaylist,
     setCurrentTrackIndex
   );
+  const navigate = useNavigate();
+
+  const openAlbums = (album) => {
+    setSelectedAlbum(album);
+    navigate("/PageAlbums", { state: { album } });
+  };
+
   const [showPopularAll, setShowPopularAll] = useState(false);
   const [showTrendingAll, setShowTrendingAll] = useState(false);
   const [showAllVideos, setShowAllVideos] = useState(false);
@@ -135,6 +147,8 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
           albums={musicData.TopAlbums}
           showAll={showAllAlbums}
           setShowAll={setShowAllAlbums}
+          onClickAlbum={openAlbums}
+          setSelectedAlbum={setSelectedAlbum}
         />
 
         {/* ПЛЭЙЛИСТЫ */}
