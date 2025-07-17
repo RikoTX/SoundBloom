@@ -13,8 +13,7 @@ export default function Popular({ setSelectedAlbum }) {
   const navigate = useNavigate();
 
   const openAlbums = (album) => {
-    setSelectedAlbum(album); 
-    navigate("/PageAlbums", { state: { album } });
+    navigate(`/PageAlbums/${album.artist}`);
   };
 
   return (
@@ -28,7 +27,6 @@ export default function Popular({ setSelectedAlbum }) {
         setShowAll={setShowPopularAll}
       />
 
-      
       <SongsTable
         title="Popular"
         pinkTitle="Songs"

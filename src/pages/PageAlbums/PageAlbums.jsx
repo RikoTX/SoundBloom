@@ -1,17 +1,36 @@
-import {
-  HeartOutlined,
-  ArrowLeftOutlined,
-  PlayCircleOutlined,
-} from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import musicData from "../../data/music.json";
 import AlbumHeader from "../../components/AlbumHeader/AlbumHeader";
 import SongsTableAll from "../../components/SongsTableAll/SongsTableAll";
+import { HeartOutlined } from "@ant-design/icons";
 
-export default function PageAlbums({ selectedAlbum }) {
+export default function PageAlbums() {
+  const { artist } = useParams();
   const navigate = useNavigate();
+
+  if (!artist) {
+    return (
+      <div style={{ color: "white", padding: "40px" }}>
+        ❌ Artist not provided in URL
+      </div>
+    );
+  }
+
+  const allAlbums = [
+    ...musicData.PopularAlbums,
+  ];
+
+  const selectedAlbum = allAlbums.find(
+    (album) =>
+      album.artist &&
+      album.artist.toLowerCase().trim() === artist.toLowerCase().trim()
+  );
+
   if (!selectedAlbum) {
     return (
-      <div style={{ color: "white", padding: "40px" }}>Album not selected</div>
+      <div style={{ color: "white", padding: "40px" }}>
+        Album not found: {artist}
+      </div>
     );
   }
 
@@ -19,7 +38,6 @@ export default function PageAlbums({ selectedAlbum }) {
 
   const getTotalDuration = (trackList) => {
     let totalSeconds = 0;
-
     trackList.forEach((track) => {
       const [min, sec] = track.duration.split(":").map(Number);
       totalSeconds += min * 60 + sec;
@@ -29,13 +47,8 @@ export default function PageAlbums({ selectedAlbum }) {
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
-    if (hours > 0) {
-      return `${hours}h ${minutes}m`;
-    } else {
-      return `${minutes}m ${seconds}s`;
-    }
+    return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m ${seconds}s`;
   };
-
 
   return (
     <div
@@ -43,7 +56,7 @@ export default function PageAlbums({ selectedAlbum }) {
         margin: "40px",
         paddingBottom: "100px",
         borderRadius: "15px",
-        background: "linear-gradient(to right,rgb(3, 98, 152),rgb(1, 37, 57))",
+        background: "linear-gradient(to right, rgb(3, 98, 152), rgb(1, 37, 57))",
       }}
     >
       <div style={{ color: "white" }}>
@@ -55,7 +68,6 @@ export default function PageAlbums({ selectedAlbum }) {
           tracks={tracks}
           getTotalDuration={getTotalDuration}
         />
-
         <SongsTableAll
           songs={tracks}
           columns={[

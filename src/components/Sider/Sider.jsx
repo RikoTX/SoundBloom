@@ -67,7 +67,7 @@ export default function SiderMenu() {
     <AntSider width="18%" style={siderStyle}>
       <div style={contentWrapperStyle}>
         <img
-          src="soundBloom.png"
+          src="/soundBloom.png"
           alt="SoundBloom"
           style={{
             maxWidth: "90%",

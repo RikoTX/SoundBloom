@@ -55,10 +55,8 @@ export default function ContentPage({
         <Route path="/Playlist" element={<div>Плейлист</div>} />
         <Route path="/Settings" element={<div>Настройки</div>} />
         <Route path="/Logout" element={<div>Выход</div>} />
-        <Route
-          path="/PageAlbums"
-          element={<PageAlbums selectedAlbum={selectedAlbum} />}
-        />
+        <Route path="/PageAlbums" element={<Navigate to="/" replace />} />
+        <Route path="/PageAlbums/:artist" element={<PageAlbums />} />
         <Route
           path="/PageArtists"
           element={
