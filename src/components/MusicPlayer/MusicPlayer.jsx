@@ -17,7 +17,10 @@ export default function MusicPlayer({
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [volume, setVolume] = useState(1);
+  const [volume, setVolume] = useState(() => {
+    const saved = localStorage.getItem("playerVolume");
+    return saved !== null ? parseFloat(saved) : 1;
+  });
   const [isVisible, setIsVisible] = useState(true);
 
   const currentSong = playlist[currentIndex];
@@ -30,6 +33,7 @@ export default function MusicPlayer({
     }
 
     const newAudio = new Audio(currentSong.music);
+    newAudio.volume = volume; 
     audioRef.current = newAudio;
 
     const playPromise = newAudio.play();
@@ -52,6 +56,7 @@ export default function MusicPlayer({
     if (audioRef.current) {
       audioRef.current.volume = volume;
     }
+    localStorage.setItem("playerVolume", volume.toString());
   }, [volume]);
 
   useEffect(() => {
