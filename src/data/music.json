@@ -902,23 +902,23 @@
       ],
       "playlist": [
         {
-          "title": "Full Collection",
+          "titlePlaylist": "Full Collection",
           "cover": "PlaylistsEminem/Full Collection.png"
         },
         {
-          "title": "Best Of Eminem",
+          "titlePlaylist": "Best Of Eminem",
           "cover": "PlaylistsEminem/Best Of Eminem.png"
         },
         {
-         "title": "Old Songs",
+         "titlePlaylist": "Old Songs",
           "cover": "PlaylistsEminem/Old Songs.png"
         },
         {
-          "title": "Fan’s Favorite",
+          "titlePlaylist": "Fan’s Favorite",
           "cover": "PlaylistsEminem/Fan’s Favorite.png"
         },
         {
-          "title": "New Releases",
+          "titlePlaylist": "New Releases",
           "cover": "PlaylistsEminem/New Releases.png"
         }
       ],

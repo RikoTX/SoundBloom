@@ -49,7 +49,7 @@ const SongGrid = ({ title, songs, showAll, setShowAll, handlePlaySong, pinkTitle
           ))}
         </div>
 
-        {!showAll && songs.length > 5 && (
+        {!showAll && songs.length > 3 && (
           <ViewAllCircleButton onToggle={() => setShowAll(true)} />
         )}
       </div>

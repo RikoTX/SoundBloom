@@ -1,14 +1,13 @@
-import React from "react";
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
 
-const AlbumGrid = ({
+export default function AlbumGridLess({
   title,
   pinkTitle,
   albums = [],
   showAll,
   setShowAll,
   onClickAlbum,
-}) => {
+}) {
   const sortedAlbums =
     albums.length > 0 && albums[0].plays !== undefined
       ? [...albums].sort((a, b) => b.plays - a.plays)
@@ -25,10 +24,10 @@ const AlbumGrid = ({
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-start",
+          justifyContent: "space-between",
           flexWrap: "wrap",
-          padding: "0 40px",
-          gap: "30px",
+          paddingRight: "40px",
+          paddingLeft: "40px",
         }}
       >
         {albumsToShow.map((album, index) => (
@@ -36,12 +35,9 @@ const AlbumGrid = ({
             key={index}
             onClick={() => onClickAlbum?.(album)}
             style={{
-              textAlign: "center",
               backgroundColor: "#1F1F1F",
               padding: 10,
               borderRadius: "10px",
-              cursor: "pointer",
-              width: "160px",
             }}
           >
             <img
@@ -55,26 +51,20 @@ const AlbumGrid = ({
             />
             <p style={{ margin: "5px 0", fontWeight: 600 }}>{album.title}</p>
             <p style={{ margin: 0, color: "#929292", fontSize: "12px" }}>
-              {album.artist}
+              {album.year}
             </p>
           </div>
         ))}
-
-        {!showAll && albums.length > 2 && (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <ViewAllCircleButton onToggle={() => setShowAll(true)} />
-          </div>
-        )}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          <ViewAllCircleButton onToggle={() => setShowAll(true)} />
+        </div>
       </div>
     </div>
   );
-};
-
-export default AlbumGrid;
+}

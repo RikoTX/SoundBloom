@@ -9,7 +9,6 @@ const SongsTable = ({
   columns = [],
   showAll,
   setShowAll,
-  columnsImg,
 }) => {
   const sortedSongs =
     songs.length > 0 && songs[0].plays !== undefined

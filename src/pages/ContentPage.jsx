@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Footer from '../components/Footer/Footer';
+import Footer from "../components/Footer/Footer";
 import Home from "./Home/Home";
 import Search from "./Search/Search";
 import Popular from "./Popular/Popular";
@@ -61,7 +61,14 @@ export default function ContentPage({
         />
         <Route
           path="/PageArtists"
-          element={<PageArtists selectedArtists={selectedArtists} />}
+          element={
+            <PageArtists
+              selectedArtists={selectedArtists}
+              setCurrentTrackIndex={setCurrentTrackIndex}
+              setCurrentPlaylist={setCurrentPlaylist}
+              setSelectedAlbum={setSelectedAlbum}
+            />
+          }
         />
         <Route
           path="*"
