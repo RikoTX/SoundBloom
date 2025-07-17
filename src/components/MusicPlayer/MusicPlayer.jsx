@@ -212,6 +212,17 @@ export default function MusicPlayer({
           width: "100%",
           backgroundColor: "#333",
           marginTop: "10px",
+          position: "relative",
+          cursor: "pointer",
+        }}
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const newTime =
+            (clickX / rect.width) * (audioRef.current?.duration || 0);
+          if (audioRef.current) {
+            audioRef.current.currentTime = newTime;
+          }
         }}
       >
         <div
