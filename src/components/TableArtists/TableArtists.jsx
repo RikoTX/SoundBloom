@@ -2,21 +2,20 @@ import React from "react";
 import { HeartOutlined } from "@ant-design/icons";
 import ViewAllButtonRectangle from "../../components/ViewAllButtonRectangle/ViewAllButtonRectangle";
 
-const SongsTable = ({
+const TableArtists = ({
   title,
   pinkTitle,
   songs = [],
   columns = [],
   showAll,
   setShowAll,
-  columnsImg,
 }) => {
   const sortedSongs =
     songs.length > 0 && songs[0].plays !== undefined
       ? [...songs].sort((a, b) => b.plays - a.plays)
       : songs;
 
-  const itemsToShow = showAll ? sortedSongs : sortedSongs.slice(0, 4);
+  const itemsToShow = showAll ? sortedSongs : sortedSongs.slice(0, 8);
 
   return (
     <div>
@@ -113,15 +112,6 @@ const SongsTable = ({
                         fontSize: "120%",
                       }}
                     >
-                      {song.title}
-                    </p>
-                    <p
-                      style={{
-                        margin: 0,
-                        color: "#929292",
-                        fontSize: "12px",
-                      }}
-                    >
                       {song.artist}
                     </p>
                   </div>
@@ -155,4 +145,4 @@ const SongsTable = ({
   );
 };
 
-export default SongsTable;
+export default TableArtists;
