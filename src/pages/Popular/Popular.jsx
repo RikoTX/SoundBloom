@@ -13,7 +13,7 @@ export default function Popular({ setSelectedAlbum }) {
   const navigate = useNavigate();
 
   const openAlbums = (album) => {
-    navigate(`/PageAlbums/${album.artist}`);
+    navigate(`/PageAlbums/${album.artist}`, { state: { from: "popular" } });
   };
 
   return (

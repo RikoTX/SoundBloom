@@ -25,7 +25,7 @@ const AlbumGrid = ({
       <div
         style={{
           display: "flex",
-          justifyContent: "flex-start",
+          justifyContent: "space-between",
           flexWrap: "wrap",
           padding: "0 40px",
           gap: "30px",

@@ -26,8 +26,7 @@ export default function Home({
   const navigate = useNavigate();
 
   const openAlbums = (album) => {
-    setSelectedAlbum(album);
-    navigate("/PageAlbums", { state: { album } });
+        navigate(`/PageAlbums/${album.artist}`, { state: { from: "home" } });
   };
 
   const [showPopularAll, setShowPopularAll] = useState(false);
@@ -44,10 +43,7 @@ export default function Home({
 
   const allSongs = [
     ...(musicData.NewReleaseSongs || []),
-    ...(musicData.TopAlbums || []),
     ...(musicData.WeeklyTopSongs || []),
-    ...(musicData.TrendingSongs || []),
-    ...(musicData.PopularSongs || []),
   ];
 
   const filteredSongs = allSongs.filter((song) => {
@@ -145,7 +141,7 @@ export default function Home({
         <AlbumGrid
           title="Top"
           pinkTitle="Albums"
-          albums={musicData.TopAlbums}
+          albums={musicData.PopularAlbums}
           showAll={showAllAlbums}
           setShowAll={setShowAllAlbums}
           onClickAlbum={openAlbums}

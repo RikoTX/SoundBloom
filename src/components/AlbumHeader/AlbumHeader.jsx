@@ -7,6 +7,7 @@ export default function AlbumHeader({
   infoAlbums,
   tracks,
   getTotalDuration,
+  from,
 }) {
   return (
     <div
@@ -17,7 +18,7 @@ export default function AlbumHeader({
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <button
-          onClick={() => navigate("/Popular")}
+          onClick={() => navigate(from === "popular" ? "/Popular" : "/Home")}
           style={{
             cursor: "pointer",
             width: "100px",

@@ -52,7 +52,8 @@ const menuStyle = {
 
 export default function SiderMenu() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); 
+  const from = location.state?.from;
 
   const createButton = (label, icon, route, activePaths = [route]) => (
     <CustomButton
@@ -77,12 +78,22 @@ export default function SiderMenu() {
         />
         <label style={labelStyle}>Menu</label>
         <div style={menuStyle}>
-          {createButton("Home", <HomeOutlined />, "/Home")}
+          {createButton("Home", <HomeOutlined />, "/Home", [
+            "/Home",
+            ...(location.pathname.startsWith("/PageAlbums") && from === "home"
+              ? ["/PageAlbums"]
+              : []),
+          ])}
+
           {createButton("Search", <SearchOutlined />, "/Search")}
           {createButton("Popular", <StarOutlined />, "/Popular", [
             "/Popular",
-            "/PageAlbums",
+            ...(location.pathname.startsWith("/PageAlbums") &&
+            from === "popular"
+              ? ["/PageAlbums"]
+              : []),
           ])}
+
           {createButton("Artist", <UserOutlined />, "/Artist", [
             "/Artist",
             "/PageArtists",

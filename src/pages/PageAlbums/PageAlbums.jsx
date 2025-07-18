@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import musicData from "../../data/music.json";
 import AlbumHeader from "../../components/AlbumHeader/AlbumHeader";
 import SongsTableAll from "../../components/SongsTableAll/SongsTableAll";
@@ -7,6 +7,8 @@ import { HeartOutlined } from "@ant-design/icons";
 export default function PageAlbums() {
   const { artist } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "home";
 
   if (!artist) {
     return (
@@ -67,6 +69,7 @@ export default function PageAlbums() {
           infoAlbums={infoAlbums}
           tracks={tracks}
           getTotalDuration={getTotalDuration}
+          from={from}
         />
         <SongsTableAll
           songs={tracks}
