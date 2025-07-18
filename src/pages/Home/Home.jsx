@@ -47,6 +47,7 @@ export default function Home({
     ...(musicData.TopAlbums || []),
     ...(musicData.WeeklyTopSongs || []),
     ...(musicData.TrendingSongs || []),
+    ...(musicData.PopularSongs || []),
   ];
 
   const filteredSongs = allSongs.filter((song) => {

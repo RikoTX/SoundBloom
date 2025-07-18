@@ -46,96 +46,50 @@
       "time": "4:05"
     },
     {
-      "title": "Whatever It Takes",
-      "artist": "Imagine Dragons",
-      "cover": "/musicAvatars/Whatever It Takes.png",
-      "music": "WeeklyTopSongsMusic/Whatever It Takes.mp3",
-      "releaseDate": "Oct 6, 2017",
-      "album": "Evolve",
-      "time": "3:21"
-    },
-    {
-      "title": "Skyfall",
-      "artist": "Adele",
-      "cover": "/musicAvatars/Skyfall.png",
-      "releaseDate": "Oct 5, 2012",
-      "music": "WeeklyTopSongsMusic/Skyfall.mp3",
-      "album": "Skyfall (Single)",
+      "title": "Страх",
+      "artist": "Полина Крапива",
+      "cover": "/musicAvatars/Страх - Полина Крапива.jpeg",
+      "releaseDate": "Oct 12, 2022",
+      "music": "WeeklyTopSongsMusic/Полина Крапива - Страх.mp3",
+      "album": "Полина Крапива",
       "time": "4:46"
     },
     {
-      "title": "Superman",
-      "artist": "Eminem",
-      "cover": "/musicAvatars/Superman.png",
-      "music": "WeeklyTopSongsMusic/Superman.mp3",
-      "releaseDate": "May 26, 2002",
-      "album": "The Eminem Show",
-      "time": "5:50"
-    },
-    {
-      "title": "Softcore",
-      "artist": "The Neighbourhood",
-      "cover": "/musicAvatars/Softcore.png",
-      "music": "WeeklyTopSongsMusic/Softcore.mp3",
-      "releaseDate": "Mar 9, 2018",
-      "album": "Hard to Imagine The Neighbourhood Ever Changing",
-      "time": "3:28"
-    },
-    {
-      "title": "The Loneliest",
-      "artist": "Måneskin",
-      "cover": "/musicAvatars/The Lonliest.png",
-      "music": "WeeklyTopSongsMusic/The Loneliest.mp3",
-      "releaseDate": "Oct 7, 2022",
-      "album": "Rush!",
-      "time": "4:05"
-    },
-    {
-      "title": "Whatever It Takes",
-      "artist": "Imagine Dragons",
-      "cover": "/musicAvatars/Whatever It Takes.png",
-      "music": "WeeklyTopSongsMusic/Whatever It Takes.mp3",
-      "releaseDate": "Oct 6, 2017",
-      "album": "Evolve",
-      "time": "3:21"
-    },
-    {
-      "title": "Skyfall",
-      "artist": "Adele",
-      "cover": "/musicAvatars/Skyfall.png",
-      "releaseDate": "Oct 5, 2012",
-      "music": "WeeklyTopSongsMusic/Skyfall.mp3",
-      "album": "Skyfall (Single)",
+      "title": "I Loved You",
+      "artist": "DJ KAI",
+      "cover": "/musicAvatars/DJ KAI - I Loved You.jpg",
+      "releaseDate": "Oct 25, 2017",
+      "music": "WeeklyTopSongsMusic/Dj Sava - I Loved You (feat. Irina Rimes. Javier Lopez Remix).mp3",
+      "album": "DJ KAI",
       "time": "4:46"
     },
     {
-      "title": "Superman",
-      "artist": "Eminem",
-      "cover": "/musicAvatars/Superman.png",
-      "music": "WeeklyTopSongsMusic/Superman.mp3",
-      "releaseDate": "May 26, 2002",
-      "album": "The Eminem Show",
-      "time": "5:50"
-    },
-    {
-      "title": "Skyfall",
-      "artist": "Adele",
-      "cover": "/musicAvatars/Skyfall.png",
-      "releaseDate": "Oct 5, 2012",
-      "music": "WeeklyTopSongsMusic/Skyfall.mp3",
-      "album": "Skyfall (Single)",
+      "title": "I Never Felt so Right",
+      "artist": "Ben Delay",
+      "cover": "/musicAvatars/I Never Felt so Right (Radio Mix).jpeg",
+      "releaseDate": "Oct 25, 2017",
+      "music": "WeeklyTopSongsMusic/Ben Delay - I Never Felt so Right - Radio Mix.mp3",
+      "album": "Ben Delay",
       "time": "4:46"
     },
     {
-      "title": "Superman",
-      "artist": "Eminem",
-      "cover": "/musicAvatars/Superman.png",
-      "music": "WeeklyTopSongsMusic/Superman.mp3",
-      "releaseDate": "May 26, 2002",
-      "album": "The Eminem Show",
-      "time": "5:50"
+      "title": "Will Be Fine",
+      "artist": "Kvpv",
+      "cover": "/musicAvatars/KVPV Will Be Fine (Dub Mix).webp",
+      "releaseDate": "Oct 25, 2017",
+      "music": "WeeklyTopSongsMusic/Kvpv - Will Be Fine (club mix).mp3",
+      "album": "Kvpv",
+      "time": "4:46"
+    },
+    {
+      "title": "Desire",
+      "artist": "Morris",
+      "cover": "/musicAvatars/Morris - Desire.jpeg",
+      "releaseDate": "Oct 25, 2017",
+      "music": "WeeklyTopSongsMusic/Kvpv - Will Be Fine (club mix).mp3",
+      "album": "Morris",
+      "time": "4:46"
     }
-    
   ],
   "NewReleaseSongs": [
     {
@@ -184,50 +138,50 @@
       "time": "2:36"
     },
     {
-      "title": "112",
-      "artist": "Jazzek",
-      "cover": "/musicAvatars/112.png",
-      "music": "NewReleaseSongsMusic/112.mp3",
-      "releaseDate": "Feb 10, 2025",
-      "album": "Jazzek Vibes",
-      "time": "3:03"
+      "title": "Over You",
+      "artist": "Francesco Ricci",
+      "cover": "/musicAvatars/Francesco Ricci - Over You.jpg",
+      "music": "NewReleaseSongsMusic/Ricci Lompeurs - Lost On You (feat. Francesco Ray).mp3",
+      "releaseDate": "Apr 8, 2025",
+      "album": "Francesco Ricci",
+      "time": "2:36"
     },
     {
-      "title": "We Don’t Care",
-      "artist": "Kyanu & DJ Gullum",
-      "cover": "/musicAvatars/We Don”t Care.png",
-      "music": "NewReleaseSongsMusic/We Don’t Care.mp3",
-      "releaseDate": "Mar 14, 2025",
-      "album": "Club Storm",
-      "time": "2:47"
+      "title": "Deja Vu",
+      "artist": "Inna",
+      "cover": "/musicAvatars/Inna - Deja Vu.jpeg",
+      "music": "NewReleaseSongsMusic/Inna feat Bob Taylor - Deja Vu.mp3",
+      "releaseDate": "Apr 8, 2025",
+      "album": "Inna",
+      "time": "2:36"
+    } ,
+    {
+      "title": "jjuusstt oonnee",
+      "artist": "Izzamusic",
+      "cover": "/musicAvatars/Izzamusic - jjuusstt oonnee.jpg",
+      "music": "NewReleaseSongsMusic/Izzamuzzic Jjuusstt Oonnee.mp3",
+      "releaseDate": "Apr 8, 2025",
+      "album": "Izzamusic",
+      "time": "2:36"
     },
     {
-      "title": "Who I Am",
-      "artist": "Alan Walker & Elias",
-      "cover": "/musicAvatars/Who I Am.png",
-      "music": "NewReleaseSongsMusic/Who I Am.mp3",
-      "releaseDate": "Jan 19, 2025",
-      "album": "WalkerWorld",
-      "time": "3:12"
-    },
+      "title": "West",
+      "artist": "KVPV",
+      "cover": "/musicAvatars/KVPV - West.jpg",
+      "music": "NewReleaseSongsMusic/Kvpv - West.mp3",
+      "releaseDate": "Apr 8, 2025",
+      "album": "KVPV",
+      "time": "2:36"
+    } ,
     {
-      "title": "112",
-      "artist": "Jazzek",
-      "cover": "/musicAvatars/112.png",
-      "music": "NewReleaseSongsMusic/112.mp3",
-      "releaseDate": "Feb 10, 2025",
-      "album": "Jazzek Vibes",
-      "time": "3:03"
-    },
-    {
-      "title": "We Don’t Care",
-      "artist": "Kyanu & DJ Gullum",
-      "cover": "/musicAvatars/We Don”t Care.png",
-      "music": "NewReleaseSongsMusic/We Don’t Care.mp3",
-      "releaseDate": "Mar 14, 2025",
-      "album": "Club Storm",
-      "time": "2:47"
-    }
+      "title": "Lamp",
+      "artist": "Raggi Luminosi",
+      "cover": "/musicAvatars/Raggi Luminosi - Lamp (slowed to perfection by kirman).jpeg",
+      "music": "NewReleaseSongsMusic/Raggi Luminosi - Da Vinci.mp3",
+      "releaseDate": "Apr 8, 2025",
+      "album": "Raggi Luminosi",
+      "time": "2:36"
+    } 
   ],
   "TrendingSongs": [
     {
