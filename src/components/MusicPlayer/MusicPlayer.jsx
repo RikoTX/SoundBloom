@@ -33,7 +33,7 @@ export default function MusicPlayer({
     }
 
     const newAudio = new Audio(currentSong.music);
-    newAudio.volume = volume; 
+    newAudio.volume = volume;
     audioRef.current = newAudio;
 
     const playPromise = newAudio.play();
@@ -43,7 +43,7 @@ export default function MusicPlayer({
           setIsPlaying(true);
         })
         .catch((error) => {
-          console.warn("музыка остановилась:", error);
+          console.warn(error);
         });
     }
 
@@ -73,6 +73,24 @@ export default function MusicPlayer({
 
     return () => {
       audio.removeEventListener("timeupdate", updateProgress);
+    };
+  }, [currentIndex]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => {
+      setTimeout(() => {
+        const nextIndex = (currentIndex + 1) % playlist.length;
+        setCurrentIndex(nextIndex);
+      }, 1000);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
     };
   }, [currentIndex]);
 
