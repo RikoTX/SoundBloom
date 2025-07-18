@@ -36,8 +36,8 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
 
       {/* ПРЯМОУГОЛЬНЫЕ КАРТЫ */}
       <RectangleGrid
-        title="Top"
-        pinkTitle="Albums"
+        title="Music"
+        pinkTitle="Genres"
         rectangle={musicData.MusicGenres}
         showAll={showAllRectangle}
         setShowAll={setShowAllRectangle}

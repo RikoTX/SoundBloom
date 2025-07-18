@@ -27,6 +27,7 @@ export default function Popular({ setSelectedAlbum }) {
         setShowAll={setShowPopularAll}
       />
 
+      {/* ТАБЛИЦА ПОПУЛЯРНЫХ ПЕСЕН */}
       <SongsTable
         title="Popular"
         pinkTitle="Songs"
@@ -58,6 +59,8 @@ export default function Popular({ setSelectedAlbum }) {
         onViewAllClick={() => console.log("View All нажалась")}
         onHeartClick={(song) => console.log("понравилось: ", song)}
       />
+
+      {/* АЛЬБОМЫ */}
       <AlbumGrid
         title="Popular"
         pinkTitle="Albums"
