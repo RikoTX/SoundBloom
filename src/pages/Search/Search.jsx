@@ -23,9 +23,7 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
 
   const allSongs = [
     ...(musicData.NewReleaseSongs || []),
-    ...(musicData.TopAlbums || []),
     ...(musicData.WeeklyTopSongs || []),
-    ...(musicData.TrendingSongs || []),
   ];
 
   return (
