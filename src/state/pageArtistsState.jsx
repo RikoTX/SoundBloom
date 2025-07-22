@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useSearchState() {
+export default function usePageArtistsState() {
   const [showPopularTableAll, setShowPopularTableAll] = useState(false);
   const [showAlbumsAll, setShowAlbumsAll] = useState(false);
   const [showPopularAll, setShowPopularAll] = useState(false);

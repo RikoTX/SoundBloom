@@ -8,7 +8,7 @@ import SongGrid from "../../components/SongGrid/SongGrid";
 import SongGridCircleBig from "../../components/SongGridCircleBig/SongGridCircleBig";
 import { HeartOutlined } from "@ant-design/icons";
 import musicData from "../../data/music.json";
-import useHomeState from "../../state/homeState";
+import usePageArtistsState from "../../state/pageArtistsState";
 
 export default function PageArtists({
   setSelectedAlbum,
@@ -26,7 +26,7 @@ export default function PageArtists({
     setShowNewReleaseAll,
     showAllPlaylist,
     setShowAllPlaylist,
-  } = useHomeState();
+  } = usePageArtistsState();
 
   const { artist: artistName } = useParams();
   const navigate = useNavigate();
