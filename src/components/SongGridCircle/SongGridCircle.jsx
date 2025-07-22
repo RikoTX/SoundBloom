@@ -1,8 +1,15 @@
 import React from "react";
+import { Row, Col } from "antd";
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
+import ViewAllButtonRectangle from "../ViewAllButtonRectangle/ViewAllButtonRectangle";
 
-
-const SongGridCircle = ({ title, pinkTitle, items = [], showAll, setShowAll }) => {
+const SongGridCircle = ({
+  title,
+  pinkTitle,
+  items = [],
+  showAll,
+  setShowAll,
+}) => {
   const itemsToShow = showAll ? items : items.slice(0, 6);
 
   return (
@@ -17,50 +24,47 @@ const SongGridCircle = ({ title, pinkTitle, items = [], showAll, setShowAll }) =
       >
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
-      <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            paddingRight: "40px",
-            paddingLeft: "40px",
-          }}
-        >
+
+      <div style={{ paddingRight: "40px", paddingLeft: "40px" }}>
+        <Row gutter={[20, 20]}>
           {itemsToShow.map((song, index) => (
-            <div
-              key={index}
-              style={{
-                textAlign: "center",
-                padding: 10,
-                borderRadius: "10px",
-              }}
-            >
-              <img
-                src={song.cover}
-                alt={song.artist}
+            <Col key={index} span={4}>
+              <div
                 style={{
-                  width: "140px",
-                  height: "140px",
-                  borderRadius: "70px",
-                }}
-              />
-              <p
-                style={{
-                  margin: "5px 0",
-                  fontWeight: 300,
-                  fontSize: "18px",
+                  textAlign: "center",
+                  padding: 10,
+                  borderRadius: "10px",
+                  maxWidth: "160px",
+                  margin: "0 auto",
                 }}
               >
-                {song.artist}
-              </p>
-            </div>
+                <img
+                  src={song.cover}
+                  alt={song.artist}
+                  style={{
+                    width: "140px",
+                    height: "140px",
+                    borderRadius: "70px",
+                    objectFit: "cover",
+                  }}
+                />
+                <p
+                  style={{
+                    margin: "5px 0",
+                    fontWeight: 300,
+                    fontSize: "18px",
+                  }}
+                >
+                  {song.artist}
+                </p>
+              </div>
+            </Col>
           ))}
+        </Row>
 
-          {!showAll && items.length > 5 && (
-            <ViewAllCircleButton onToggle={() => setShowAll(true)} />
-          )}
-        </div>
+        {!showAll && items.length > 3 && (
+          <ViewAllButtonRectangle onToggle={() => setShowAll(true)} />
+        )}
       </div>
     </div>
   );
