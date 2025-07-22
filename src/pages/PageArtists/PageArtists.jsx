@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import usePlayerControls from "../../hooks/usePlayerControls";
 import ArtistBanner from "../../components/ArtistBanner/ArtistBanner";
@@ -9,35 +8,46 @@ import SongGrid from "../../components/SongGrid/SongGrid";
 import SongGridCircleBig from "../../components/SongGridCircleBig/SongGridCircleBig";
 import { HeartOutlined } from "@ant-design/icons";
 import musicData from "../../data/music.json";
+import useHomeState from "../../state/homeState";
 
 export default function PageArtists({
   setSelectedAlbum,
   setCurrentPlaylist,
   setCurrentTrackIndex,
 }) {
+  const {
+    showPopularTableAll,
+    setShowPopularTableAll,
+    showAlbumsAll,
+    setShowAlbumsAll,
+    showPopularAll,
+    setShowPopularAll,
+    showNewReleaseAll,
+    setShowNewReleaseAll,
+    showAllPlaylist,
+    setShowAllPlaylist,
+  } = useHomeState();
+
   const { artist: artistName } = useParams();
   const navigate = useNavigate();
-  const [showPopularTableAll, setShowPopularTableAll] = useState(false);
-  const [showAlbumsAll, setShowAlbumsAll] = useState(false);
-  const [showPopularAll, setShowPopularAll] = useState(false);
-  const [showNewReleaseAll, setShowNewReleaseAll] = useState(false);
-  const [showAllPlaylist, setShowAllPlaylist] = useState(false);
 
   const { handlePlaySong } = usePlayerControls(
     setCurrentPlaylist,
     setCurrentTrackIndex
   );
 
-  const allArtists = [
-    ...musicData.LegendsArtists,
-    ...musicData.PopularArtists,
-  ];
+  const allArtists = [...musicData.LegendsArtists, ...musicData.PopularArtists];
   const artistData = allArtists.find(
-    (a) => a.artist.toLowerCase() === decodeURIComponent(artistName).toLowerCase()
+    (a) =>
+      a.artist.toLowerCase() === decodeURIComponent(artistName).toLowerCase()
   );
 
   if (!artistData) {
-    return <div style={{ color: "white", padding: "40px" }}>Artist not found: {artistName}</div>;
+    return (
+      <div style={{ color: "white", padding: "40px" }}>
+        Artist not found: {artistName}
+      </div>
+    );
   }
 
   const {
