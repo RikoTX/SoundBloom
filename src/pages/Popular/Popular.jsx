@@ -5,17 +5,22 @@ import { HeartOutlined } from "@ant-design/icons";
 import SongGridCircle from "../../components/SongGridCircle/SongGridCircle";
 import SongsTable from "../../components/SongsTable/SongsTable";
 import AlbumGrid from "../../components/AlbumGrid/AlbumGrid";
+import usePopularState from "../../state/popularState";
 
 export default function Popular({ setSelectedAlbum }) {
-  const [showPopularAll, setShowPopularAll] = useState(false);
-  const [showPopularTableAll, setShowPopularTableAll] = useState(false);
-  const [showPopularAlbumsAll, setShowPopularAlbumsAll] = useState(false);
   const navigate = useNavigate();
 
   const openAlbums = (album) => {
     navigate(`/PageAlbums/${album.artist}`, { state: { from: "popular" } });
   };
-
+  const {
+    showPopularAll,
+    setShowPopularAll,
+    showPopularTableAll,
+    setShowPopularTableAll,
+    showPopularAlbumsAll,
+    setShowPopularAlbumsAll,
+  } = usePopularState();
   return (
     <div>
       {/* КРУГЛЫЕ ФОРМЫ, ОТОБРАЖЕНИЕ ПОПУЛЯРНЫХ АРТИСТОВ */}
