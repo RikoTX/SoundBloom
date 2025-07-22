@@ -330,6 +330,41 @@
     {
       "artist": "Billie Eilish",
       "cover": "/popularArtists/Billie Eilish.png"
+    },
+    {
+      "artist": "JIMMY SOMERVILLE",
+      "cover": "/LegendsArtists/JIMMY-SOMERVILLE.jpg",
+      "plays": 1638260,
+      "country": "UK",
+      "birthDate": "22.06.1961"
+    },
+    {
+      "artist": "DIETER BOHLEN",
+      "cover": "/LegendsArtists/DIETER BOHLEN.jpg",
+      "plays": 1538260,
+      "country": "Germany",
+      "birthDate": "07.02.1954"
+    },
+    {
+      "artist": "PATTY RYAN",
+      "cover": "/LegendsArtists/PATTY RYAN.jpg",
+      "plays": 1438260,
+      "country": "Germany",
+      "birthDate": "06.05.1961"
+    },
+    {
+      "artist": "DSCHINGHIS KHAN",
+      "cover": "/LegendsArtists/DSCHINGHIS KHAN.jpg",
+      "plays": 1338260,
+      "country": "Germany",
+      "birthDate": "27.02.1998"
+    },
+    {
+      "artist": "Francesco Napoli",
+      "cover": "/LegendsArtists/FRANCESCO NAPOLI.jpg",
+      "plays": 1253826,
+      "country": "Italy",
+      "birthDate": "26.02.1963"
     }
   ],
   "MusicVideo": [

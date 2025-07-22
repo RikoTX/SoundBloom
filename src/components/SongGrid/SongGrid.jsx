@@ -36,7 +36,7 @@ const SongGrid = ({
         <div style={{ width: "95%" }}>
           <Row gutter={[40, 40]}>
             {songsToShow.map((song, index) => (
-              <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4}>
+              <Col key={index} xl={4}>
                 <div
                   onClick={() => handlePlaySong(songs, index)}
                   style={{
@@ -71,7 +71,7 @@ const SongGrid = ({
             ))}
 
             {!showAll && songs.length > 3 && (
-              <Col xs={24} sm={12} md={8} lg={6} xl={4}>
+              <Col xl={4}>
                 <div
                   style={{
                     display: "flex",
