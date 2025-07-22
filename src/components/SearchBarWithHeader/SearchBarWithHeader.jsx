@@ -14,7 +14,7 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
   });
 
   return (
-    <div style={{ padding: "40px", width: "100%", position: "relative" }}>
+    <div style={{ padding: "40px", width: "90%", position: "relative" }}>
       <Row
         gutter={[60, 24]}
         align="middle"
