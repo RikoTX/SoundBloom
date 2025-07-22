@@ -10,7 +10,7 @@ const SongGrid = ({
   handlePlaySong,
   pinkTitle,
 }) => {
-  const songsToShow = showAll ? songs : songs.slice(0, 4);
+  const songsToShow = showAll ? songs : songs.slice(0, 5);
 
   return (
     <div>
@@ -26,37 +26,39 @@ const SongGrid = ({
         }}
       >
         <div style={{ width: "85%" }}>
-          <Row gutter={[0, 20]}>
+          <Row gutter={[150, 20]}>
             {songsToShow.map((song, index) => (
-              <Col key={index} span={6}>
-                <div
-                  onClick={() => handlePlaySong(songs, index)}
-                  style={{
-                    textAlign: "center",
-                    backgroundColor: "#1F1F1F",
-                    padding: 10, 
-                    borderRadius: "10px",
-                    cursor: "pointer",
-                    maxWidth: "160px", 
-                    margin: "0 auto", 
-                  }}
-                >
-                  <img
-                    src={song.cover}
-                    alt={song.title}
+              <Col key={index} span={4}>
+                  <div
+                    onClick={() => handlePlaySong(songs, index)}
                     style={{
-                      width: "150px",
-                      height: "150px",
+                      textAlign: "center",
+                      backgroundColor: "#1F1F1F",
+                      padding: 10,
                       borderRadius: "10px",
+                      cursor: "pointer",
+                      width: "300%",
+                      margin: "0 auto",
                     }}
-                  />
-                  <p style={{ margin: "5px 0", fontWeight: 600 }}>
-                    {song.title}
-                  </p>
-                  <p style={{ margin: 0, color: "#929292", fontSize: "12px" }}>
-                    {song.artist}
-                  </p>
-                </div>
+                  >
+                    <img
+                      src={song.cover}
+                      alt={song.title}
+                      style={{
+                        width: "150px",
+                        height: "150px",
+                        borderRadius: "10px",
+                      }}
+                    />
+                    <p style={{ margin: "5px 0", fontWeight: 600 }}>
+                      {song.title}
+                    </p>
+                    <p
+                      style={{ margin: 0, color: "#929292", fontSize: "12px" }}
+                    >
+                      {song.artist}
+                    </p>
+                  </div>
               </Col>
             ))}
           </Row>
