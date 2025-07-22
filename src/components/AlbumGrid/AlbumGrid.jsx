@@ -23,18 +23,18 @@ const AlbumGrid = ({
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
 
-      <Row gutter={[55, 30]}>
+      <Row   gutter={[50, 30]}>
         {albumsToShow.map((album, index) => (
-          <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4}>
+         <Col key={index} xs={12} sm={8} md={6} lg={4}>
+
             <div
               onClick={() => onClickAlbum?.(album)}
               style={{
                 textAlign: "center",
                 backgroundColor: "#1F1F1F",
-                padding: 15,
+                padding: 7,
                 borderRadius: "10px",
                 cursor: "pointer",
-                maxWidth: "100%",
                 width:'100%'
               }}
             >

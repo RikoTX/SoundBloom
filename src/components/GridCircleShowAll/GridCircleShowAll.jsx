@@ -1,3 +1,5 @@
+import { Row, Col } from "antd";
+
 export default function GridCircleShowAll({
   title,
   pinkTitle,
@@ -9,59 +11,45 @@ export default function GridCircleShowAll({
       ? [...artists].sort((a, b) => b.plays - a.plays)
       : artists;
 
-      
   return (
-    <div>
+    <div style={{ padding: "0 40px" }}>
       <p style={{ fontWeight: 600, fontSize: 35, marginLeft: "4%" }}>
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          paddingRight: "40px",
-          paddingLeft: "40px",
-        }}
-      >
-       {sortedArtists.map((artist, index) => (
-            <div
-              key={index}
-              onClick={() =>  onClickArtists?.(artist)}
+
+      <Row gutter={[20, 20]} align="middle" justify="start">
+        {sortedArtists.map((artist, index) => (
+          <Col
+            key={index}
+            xs={12}
+            sm={8}
+            md={6}
+            lg={4}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              cursor: "pointer",
+              textAlign: "center",
+            }}
+            onClick={() => onClickArtists?.(artist)}
+          >
+            <img
+              src={artist.cover}
+              alt={artist.artist}
               style={{
-                textAlign: "center",
-                padding: 10,
-                borderRadius: "10px",
-                cursor: "pointer",
+                width: 140,
+                height: 140,
+                borderRadius: "50%",
+                objectFit: "cover",
               }}
-            >
-              <img
-                src={artist.cover}
-                alt={artist.artist}
-                style={{
-                  width: "140px",
-                  height: "140px",
-                  borderRadius: "70px",
-                }}
-              />
-              <p
-                style={{
-                  margin: "5px 0",
-                  fontWeight: 300,
-                  fontSize: "18px",
-                }}
-              >
-                {artist.artist}
-              </p>
-            </div>
-          ))}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-          }}
-        ></div>
-      </div>
+            />
+            <p style={{ marginTop: 8, fontWeight: 300, fontSize: 18 }}>
+              {artist.artist}
+            </p>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 }

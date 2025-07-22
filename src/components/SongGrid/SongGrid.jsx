@@ -14,7 +14,14 @@ const SongGrid = ({
 
   return (
     <div>
-      <p style={{ fontWeight: 600, fontSize: 35, marginLeft: "4%" }}>
+      <p
+        style={{
+          fontWeight: 600,
+          fontSize: 35,
+          marginLeft: "4%",
+          marginBottom: 30,
+        }}
+      >
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
 
@@ -22,32 +29,35 @@ const SongGrid = ({
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
+          gap: "30px",
         }}
       >
-        <div style={{ width: "85%" }}>
-          <Row justify="space-around" align="align" gutter={[30, 20]}>
+        <div style={{ width: "95%" }}>
+          <Row gutter={[40, 40]}>
             {songsToShow.map((song, index) => (
-              <Col key={index} span={4}>
+              <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4}>
                 <div
                   onClick={() => handlePlaySong(songs, index)}
                   style={{
                     textAlign: "center",
                     backgroundColor: "#1F1F1F",
-                    padding: 10,
-                    borderRadius: "10px",
+                    padding: 15,
+                    borderRadius: "12px",
                     cursor: "pointer",
+                    height: "90%",
                     width: "100%",
-                    margin: "0 auto",
                   }}
                 >
                   <img
                     src={song.cover}
                     alt={song.title}
                     style={{
-                      width: "150px",
+                      width: "100%",
+                      maxWidth: "150px",
                       height: "150px",
                       borderRadius: "10px",
+                      marginBottom: "10px",
                     }}
                   />
                   <p style={{ margin: "5px 0", fontWeight: 600 }}>
@@ -59,12 +69,22 @@ const SongGrid = ({
                 </div>
               </Col>
             ))}
+
+            {!showAll && songs.length > 3 && (
+              <Col xs={24} sm={12} md={8} lg={6} xl={4}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <ViewAllCircleButton onToggle={() => setShowAll(true)} />
+                </div>
+              </Col>
+            )}
           </Row>
-        </div>
-        <div style={{paddingLeft:'30px'}}>
-          {!showAll && songs.length > 3 && (
-            <ViewAllCircleButton onToggle={() => setShowAll(true)} />
-          )}
         </div>
       </div>
     </div>
