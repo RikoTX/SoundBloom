@@ -8,9 +8,7 @@ import PageArtists from "./PageArtists/PageArtists";
 import Artists from "./Artists/Artists";
 
 export default function ContentPage({
-  selectedAlbum,
   setSelectedAlbum,
-  selectedArtists,
   setSelectedArtists,
   setCurrentTrackIndex,
   setCurrentPlaylist,

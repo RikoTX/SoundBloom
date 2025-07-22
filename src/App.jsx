@@ -9,20 +9,24 @@ export default function App() {
   const [selectedArtists, setSelectedArtists] = useState(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
+  const [isSiderOpen, setIsSiderOpen] = useState(true); 
+
   const contentRef = useRef(null);
+  const siderWidth = isSiderOpen ? 250 : 0;
 
   return (
-    <div
-      style={{ display: "flex", height: "100vh", backgroundColor: "#181818" }}
-    >
-      <Sider />
+    <div style={{ display: "flex", height: "100vh", backgroundColor: "#181818" }}>
+      <Sider isOpen={isSiderOpen} setIsOpen={setIsSiderOpen} />
+      
       <div
         ref={contentRef}
         style={{
+          marginLeft: siderWidth,
           flex: 1,
           overflowY: "auto",
           paddingBottom: currentTrackIndex !== null ? "120px" : "0",
           position: "relative",
+          transition: "margin-left 0.3s ease",
         }}
       >
         <ScrollToTop scrollRef={contentRef} />

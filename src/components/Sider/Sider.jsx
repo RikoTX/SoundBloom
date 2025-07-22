@@ -1,5 +1,6 @@
 import { Layout } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import CustomButton from "../Button/Button";
 import {
   HomeOutlined,
@@ -10,7 +11,10 @@ import {
   ProfileOutlined,
   SettingOutlined,
   LogoutOutlined,
+  RightOutlined,
+  LeftOutlined,
 } from "@ant-design/icons";
+import { motion } from "framer-motion";
 
 const { Sider: AntSider } = Layout;
 
@@ -21,8 +25,10 @@ const siderStyle = {
   height: "100vh",
   display: "flex",
   flexDirection: "column",
-  position: "relative",
-  zIndex: 10,
+  position: "fixed",
+  left: 0,
+  top: 0,
+  zIndex: 1000,
 };
 
 const contentWrapperStyle = {
@@ -50,9 +56,9 @@ const menuStyle = {
   alignItems: "center",
 };
 
-export default function SiderMenu() {
+export default function SiderMenu({ isOpen, setIsOpen }) {
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
   const from = location.state?.from;
 
   const createButton = (label, icon, route, activePaths = [route]) => (
@@ -60,22 +66,45 @@ export default function SiderMenu() {
       active={activePaths.some((path) => location.pathname.startsWith(path))}
       onClick={() => navigate(route)}
     >
-      {icon} {label}
+      {icon} {isOpen && label}
     </CustomButton>
   );
 
   return (
-    <AntSider width="18%" style={siderStyle}>
-      <div style={contentWrapperStyle}>
-        <img
-          src="/soundBloom.png"
-          alt="SoundBloom"
+    <motion.div
+      animate={{ x: isOpen ? 0 : -250 }}
+      transition={{ duration: 0.3 }}
+      style={{ ...siderStyle, width: 250 }}
+    >
+      <div style={{ position: "absolute", top: 20, right: -70, zIndex: 1001 }}>
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
           style={{
-            maxWidth: "90%",
-            alignSelf: "center",
-            marginBottom: "20px",
+            background: "#cb0094",
+            border: "none",
+            borderRadius: "5px",
+            color: "white",
+            padding: "18px",
+            cursor: "pointer",
           }}
-        />
+        >
+          {isOpen ? <LeftOutlined /> : <RightOutlined />}
+        </button>
+      </div>
+
+      <div style={contentWrapperStyle}>
+        {isOpen && (
+          <img
+            src="/soundBloom.png"
+            alt="SoundBloom"
+            style={{
+              maxWidth: "90%",
+              alignSelf: "center",
+              marginBottom: "20px",
+            }}
+          />
+        )}
+
         <label style={labelStyle}>Menu</label>
         <div style={menuStyle}>
           {createButton("Home", <HomeOutlined />, "/Home", [
@@ -88,8 +117,7 @@ export default function SiderMenu() {
           {createButton("Search", <SearchOutlined />, "/Search")}
           {createButton("Popular", <StarOutlined />, "/Popular", [
             "/Popular",
-            ...(location.pathname.startsWith("/PageAlbums") &&
-            from === "popular"
+            ...(location.pathname.startsWith("/PageAlbums") && from === "popular"
               ? ["/PageAlbums"]
               : []),
           ])}
@@ -112,6 +140,6 @@ export default function SiderMenu() {
           {createButton("Logout", <LogoutOutlined />, "/Logout")}
         </div>
       </div>
-    </AntSider>
+    </motion.div>
   );
 }

@@ -132,7 +132,7 @@ export default function MusicPlayer({
         padding: "10px 20px 0",
         display: "flex",
         flexDirection: "column",
-        zIndex: 999,
+        zIndex: 1100,
         borderTop: "1px solid #333",
         height: "100px",
       }}
