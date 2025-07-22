@@ -1,4 +1,5 @@
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
+import { Row, Col } from "antd";
 
 export default function RectangleGrid({
   title,
@@ -23,28 +24,43 @@ export default function RectangleGrid({
           padding: "0 40px",
         }}
       >
-        {rectangleToShow.map((song, index) => (
-          <div
-            key={index}
-            style={{
-              textAlign: "center",
-              borderRadius: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <img
-              src={song.cover}
+        <Row
+          justify="space-between"
+          align="align"
+          gutter={[20, 20]}
+          style={{ width: "100%" }}
+        >
+          {rectangleToShow.map((song, index) => (
+            <div
+              key={index}
               style={{
-                width: "240px",
-                height: "160px",
-                borderRadius: "5px",
+                textAlign: "center",
+                borderRadius: "10px",
+                marginBottom: "20px",
               }}
-            />
-          </div>
-        ))}
-        {!showAll && rectangle.length > 3 && (
-          <ViewAllCircleButton onToggle={() => setShowAll(true)} />
-        )}
+            >
+              <img
+                src={song.cover}
+                style={{
+                  width: "240px",
+                  height: "160px",
+                  borderRadius: "5px",
+                }}
+              />
+            </div>
+          ))}
+          {!showAll && rectangle.length > 3 && (
+            <Col
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingLeft: "40px",
+              }}
+            >
+              <ViewAllCircleButton onToggle={() => setShowAll(true)} />
+            </Col>
+          )}
+        </Row>
       </div>
     </div>
   );
