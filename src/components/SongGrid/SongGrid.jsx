@@ -1,8 +1,16 @@
 import React from "react";
+import { Row, Col } from "antd";
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
 
-const SongGrid = ({ title, songs, showAll, setShowAll, handlePlaySong, pinkTitle }) => {
-  const songsToShow = showAll ? songs : songs.slice(0, 5);
+const SongGrid = ({
+  title,
+  songs,
+  showAll,
+  setShowAll,
+  handlePlaySong,
+  pinkTitle,
+}) => {
+  const songsToShow = showAll ? songs : songs.slice(0, 4);
 
   return (
     <div>
@@ -10,43 +18,48 @@ const SongGrid = ({ title, songs, showAll, setShowAll, handlePlaySong, pinkTitle
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
 
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            width: "85%",
-            gap: "20px",
-          }}
-        >
-          {songsToShow.map((song, index) => (
-            <div
-              key={index}
-              onClick={() => handlePlaySong(songs, index)}
-              style={{
-                textAlign: "center",
-                backgroundColor: "#1F1F1F",
-                padding: 10,
-                borderRadius: "10px",
-                cursor: "pointer",
-              }}
-            >
-              <img
-                src={song.cover}
-                alt={song.title}
-                style={{
-                  width: "150px",
-                  height: "150px",
-                  borderRadius: "10px",
-                }}
-              />
-              <p style={{ margin: "5px 0", fontWeight: 600 }}>{song.title}</p>
-              <p style={{ margin: 0, color: "#929292", fontSize: "12px" }}>
-                {song.artist}
-              </p>
-            </div>
-          ))}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ width: "85%" }}>
+          <Row gutter={[0, 20]}>
+            {songsToShow.map((song, index) => (
+              <Col key={index} span={6}>
+                <div
+                  onClick={() => handlePlaySong(songs, index)}
+                  style={{
+                    textAlign: "center",
+                    backgroundColor: "#1F1F1F",
+                    padding: 10, 
+                    borderRadius: "10px",
+                    cursor: "pointer",
+                    maxWidth: "160px", 
+                    margin: "0 auto", 
+                  }}
+                >
+                  <img
+                    src={song.cover}
+                    alt={song.title}
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      borderRadius: "10px",
+                    }}
+                  />
+                  <p style={{ margin: "5px 0", fontWeight: 600 }}>
+                    {song.title}
+                  </p>
+                  <p style={{ margin: 0, color: "#929292", fontSize: "12px" }}>
+                    {song.artist}
+                  </p>
+                </div>
+              </Col>
+            ))}
+          </Row>
         </div>
 
         {!showAll && songs.length > 3 && (
