@@ -130,7 +130,7 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
           style={{
             position: "absolute",
             top: "85px",
-            left: "18.5%",
+            marginLeft: '205px',
             transform: "translateX(-50%)",
             backgroundColor: "#1a1a1a",
             border: "1px solid #333",

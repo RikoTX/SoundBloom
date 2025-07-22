@@ -76,15 +76,15 @@ export default function SiderMenu({ isOpen, setIsOpen }) {
       transition={{ duration: 0.3 }}
       style={{ ...siderStyle, width: 250 }}
     >
-      <div style={{ position: "absolute", top: 20, right: -70, zIndex: 1001 }}>
+      <div style={{ position: "absolute", top: 10, right: -50, zIndex: 1001 }}>
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           style={{
-            background: "#cb0094",
+            background: "#2a2a2aff",
             border: "none",
             borderRadius: "5px",
             color: "white",
-            padding: "18px",
+            padding: "12px",
             cursor: "pointer",
           }}
         >
