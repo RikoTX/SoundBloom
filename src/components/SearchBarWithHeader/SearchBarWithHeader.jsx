@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
+import { Row, Col } from "antd";
 
 const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -13,65 +14,123 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
   });
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "start",
-        justifyContent: "center",
-        gap: "50px",
-        paddingTop: "40px",
-        width: "100%",
-        position: "relative",
-        flexWrap: "wrap",
-      }}
-    >
-      {/* Search */}
-      <div
-        style={{
-          display: "flex",
-          borderRadius: "8px",
-          overflow: "hidden",
-          width: "400px",
-          backgroundColor: "#121212",
-          border: "1px solid #333",
-        }}
+    <div style={{ padding: "40px", width: "100%", position: "relative" }}>
+      <Row
+        gutter={[60, 24]}
+        align="middle"
+        wrap
+        style={{ flexWrap: "wrap" }}
       >
-        <input
-          type="text"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          placeholder="Search For Musics, Artist, ..."
-          style={{
-            flex: 1,
-            padding: "10px 16px",
-            border: "none",
-            fontSize: "14px",
-            outline: "none",
-            backgroundColor: "#121212",
-            color: "grey",
-          }}
-        />
-        <button
-          style={{
-            padding: "8px 16px",
-            border: "1px solid #121212",
-            backgroundColor: "#121212",
-            color: "#fff",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
-        >
-          <SearchOutlined />
-        </button>
-      </div>
+        <Col>
+          <div
+            style={{
+              display: "flex",
+              borderRadius: "8px",
+              overflow: "hidden",
+              width: "400px",
+              backgroundColor: "#121212",
+              border: "1px solid #333",
+            }}
+          >
+            <input
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              placeholder="Search For Musics, Artist, ..."
+              style={{
+                flex: 1,
+                padding: "10px 16px",
+                border: "none",
+                fontSize: "14px",
+                outline: "none",
+                backgroundColor: "#121212",
+                color: "grey",
+                width: "100%",
+              }}
+            />
+            <button
+              style={{
+                padding: "8px 16px",
+                border: "1px solid #121212",
+                backgroundColor: "#121212",
+                color: "#fff",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              <SearchOutlined />
+            </button>
+          </div>
+        </Col>
 
-      {/* Search Results */}
+        <Col>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "30px",
+            }}
+          >
+            {["About Us", "Contact", "Premium"].map((item) => (
+              <a
+                key={item}
+                href="#"
+                style={{
+                  fontSize: "17px",
+                  color: "white",
+                  textDecoration: "none",
+                }}
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+        </Col>
+
+        <Col>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "20px",
+            }}
+          >
+            <button
+              style={{
+                backgroundColor: "transparent",
+                color: "#cb0094",
+                padding: "11px",
+                width: "150px",
+                border: "1px solid #cb0094",
+                borderRadius: "3px",
+                cursor: "pointer",
+              }}
+            >
+              Login
+            </button>
+            <button
+              style={{
+                backgroundColor: "#cb0094",
+                color: "white",
+                padding: "11px",
+                width: "150px",
+                borderRadius: "3px",
+                border: "1px solid #cb0094",
+                cursor: "pointer",
+              }}
+            >
+              Sign Up
+            </button>
+          </div>
+        </Col>
+      </Row>
+
       {searchValue && (
         <div
           style={{
             position: "absolute",
-            top: "80px",
-            left: "22.5%",
+            top: "85px",
+            left: "18.5%",
             transform: "translateX(-50%)",
             backgroundColor: "#1a1a1a",
             border: "1px solid #333",
@@ -80,10 +139,8 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
             width: "400px",
             zIndex: 10,
             color: "white",
-            cursor: "pointer",
             maxHeight: "400px",
             overflowY: "auto",
-            scrollbarWidth: "thin",
           }}
         >
           {filteredSongs.length > 0 ? (
@@ -95,13 +152,14 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
                   padding: "5px 0",
                   borderBottom: "1px solid #333",
                   display: "flex",
-                  justifyContent: "start",
                   alignItems: "center",
                   gap: "10px",
+                  cursor: "pointer",
                 }}
               >
                 <img
                   src={song.cover}
+                  alt="cover"
                   style={{
                     width: "30px",
                     height: "30px",
@@ -121,58 +179,6 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
           )}
         </div>
       )}
-
-      {/* Links */}
-      <div style={{ display: "flex", justifyContent: "center", gap: "30px" }}>
-        <a
-          href="#"
-          style={{ fontSize: "17px", color: "white", textDecoration: "none" }}
-        >
-          About Us
-        </a>
-        <a
-          href="#"
-          style={{ fontSize: "17px", color: "white", textDecoration: "none" }}
-        >
-          Contact
-        </a>
-        <a
-          href="#"
-          style={{ fontSize: "17px", color: "white", textDecoration: "none" }}
-        >
-          Premium
-        </a>
-      </div>
-
-      {/* Auth Buttons */}
-      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-        <button
-          style={{
-            backgroundColor: "transparent",
-            color: "#cb0094",
-            padding: "11px",
-            width: "150px",
-            border: "1px solid #cb0094",
-            borderRadius: "3px",
-            cursor: "pointer",
-          }}
-        >
-          Login
-        </button>
-        <button
-          style={{
-            backgroundColor: "#cb0094",
-            color: "white",
-            padding: "11px",
-            width: "150px",
-            borderRadius: "3px",
-            border: "1px solid #cb0094",
-            cursor: "pointer",
-          }}
-        >
-          Sign Up
-        </button>
-      </div>
     </div>
   );
 };
