@@ -1,4 +1,3 @@
-import { useState } from "react";
 import musicData from "../../data/music.json";
 import usePlayerControls from "../../hooks/usePlayerControls";
 import RectangleGrid from "../../components/RectangleGrid/RectangleGrid";
@@ -7,24 +6,32 @@ import PlaylistGrid from "../../components/PlaylistGrid/PlaylistGrid";
 import SongGridCircle from "../../components/SongGridCircle/SongGridCircle";
 import MusicVideoGrid from "../../components/MusicVideoGrid/MusicVideoGrid";
 import SongGrid from "../../components/SongGrid/SongGrid";
-import AlbumGrid from "../../components/AlbumGrid/AlbumGrid"
+import AlbumGrid from "../../components/AlbumGrid/AlbumGrid";
+import useSearchState from "../../state/searchState";
 
 export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
   const { handlePlaySong } = usePlayerControls(
     setCurrentPlaylist,
     setCurrentTrackIndex
   );
-  const [showAllPlaylist, setShowAllPlaylist] = useState(false);
-  const [showPopularAll, setShowPopularAll] = useState(false);
-  const [showAllVideos, setShowAllVideos] = useState(false);
-  const [showAllAlbums, setShowAllAlbums] = useState(false);
-  const [showNewReleaseAll, setShowNewReleaseAll] = useState(false);
-  const [showAllRectangle, setShowAllRectangle] = useState(false);
-
   const allSongs = [
     ...(musicData.NewReleaseSongs || []),
     ...(musicData.WeeklyTopSongs || []),
   ];
+  const {
+    showAllPlaylist,
+    setShowAllPlaylist,
+    showPopularAll,
+    setShowPopularAll,
+    showAllVideos,
+    setShowAllVideos,
+    showAllAlbums,
+    setShowAllAlbums,
+    showNewReleaseAll,
+    setShowNewReleaseAll,
+    showAllRectangle,
+    setShowAllRectangle,
+  } = useSearchState();
 
   return (
     <div>
@@ -79,7 +86,7 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
         setShowAll={setShowNewReleaseAll}
         handlePlaySong={handlePlaySong}
       />
-      
+
       {/* АЛЬБОМЫ */}
       <AlbumGrid
         title="Top"
