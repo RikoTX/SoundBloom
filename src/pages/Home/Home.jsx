@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchOutlined } from "@ant-design/icons";
 import musicData from "../../data/music.json";
 import { HeartOutlined } from "@ant-design/icons";
 import usePlayerControls from "../../hooks/usePlayerControls";
@@ -12,13 +10,12 @@ import MusicVideoGrid from "../../components/MusicVideoGrid/MusicVideoGrid";
 import AlbumGrid from "../../components/AlbumGrid/AlbumGrid";
 import PlaylistGrid from "../../components/PlaylistGrid/PlaylistGrid";
 import SignInAndLogin from "../../components/SignInAndLogin/SignInAndLogin";
-
+import useHomeState from "../../state/homeState";
 export default function Home({
   setCurrentTrackIndex,
   setCurrentPlaylist,
   setSelectedAlbum,
 }) {
-  const [searchValue, setSearchValue] = useState("");
   const { handlePlaySong } = usePlayerControls(
     setCurrentPlaylist,
     setCurrentTrackIndex
@@ -29,13 +26,24 @@ export default function Home({
         navigate(`/PageAlbums/${album.artist}`, { state: { from: "home" } });
   };
 
-  const [showPopularAll, setShowPopularAll] = useState(false);
-  const [showTrendingAll, setShowTrendingAll] = useState(false);
-  const [showAllVideos, setShowAllVideos] = useState(false);
-  const [showAllAlbums, setShowAllAlbums] = useState(false);
-  const [showAllPlaylist, setShowAllPlaylist] = useState(false);
-  const [showWeeklyAll, setShowWeeklyAll] = useState(false);
-  const [showNewReleaseAll, setShowNewReleaseAll] = useState(false);
+  const {
+    searchValue,
+    setSearchValue,
+    showPopularAll,
+    setShowPopularAll,
+    showTrendingAll,
+    setShowTrendingAll,
+    showAllVideos,
+    setShowAllVideos,
+    showAllAlbums,
+    setShowAllAlbums,
+    showAllPlaylist,
+    setShowAllPlaylist,
+    showWeeklyAll,
+    setShowWeeklyAll,
+    showNewReleaseAll,
+    setShowNewReleaseAll,
+  } = useHomeState();
 
   const handleSearch = () => {
     console.log(searchValue);
