@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Sider from "./components/Sider/Sider";
 import ContentPage from "./pages/ContentPage";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export default function App() {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [selectedArtists, setSelectedArtists] = useState(null);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
+  const contentRef = useRef(null);
 
   return (
     <div
@@ -15,6 +17,7 @@ export default function App() {
     >
       <Sider />
       <div
+        ref={contentRef}
         style={{
           flex: 1,
           overflowY: "auto",
@@ -22,6 +25,7 @@ export default function App() {
           position: "relative",
         }}
       >
+        <ScrollToTop scrollRef={contentRef} />
         <ContentPage
           selectedAlbum={selectedAlbum}
           setSelectedAlbum={setSelectedAlbum}
