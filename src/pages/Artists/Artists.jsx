@@ -1,18 +1,23 @@
 import musicData from "../../data/music.json";
 import { useNavigate } from "react-router-dom";
 import GridCircleShowAll from "../../components/GridCircleShowAll/GridCircleShowAll";
-import { useState } from "react";
 import TableArtists from "../../components/TableArtists/TableArtists";
 import SongGridCircle from "../../components/SongGridCircle/SongGridCircle";
+import useArtistsState from "../../state/artistsState";
+
 export default function Artists({ setSelectedArtists }) {
   const navigate = useNavigate();
   const openArtists = (artist) => {
     const encodedName = encodeURIComponent(artist.artist);
     navigate(`/PageArtists/${encodedName}`);
   };
+  const {
+    showPopularAll,
+    setShowPopularAll,
+    showPopularTableAll,
+    setShowPopularTableAll,
+  } = useArtistsState();
 
-  const [showPopularTableAll, setShowPopularTableAll] = useState(false);
-  const [showPopularAll, setShowPopularAll] = useState(false);
   return (
     <div>
       {/* КРУГЛЫЕ КАРТОЧКИ ПОПУЛЯРНЫХ АРТИСТОВ */}

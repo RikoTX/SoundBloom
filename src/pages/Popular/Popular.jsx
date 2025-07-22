@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import musicData from "../../data/music.json";
 import { HeartOutlined } from "@ant-design/icons";
 import SongGridCircle from "../../components/SongGridCircle/SongGridCircle";
