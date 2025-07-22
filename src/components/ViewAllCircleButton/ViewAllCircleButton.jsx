@@ -7,7 +7,6 @@ const ViewAllCircleButton = ({ onToggle }) => {
         display: "flex",
         alignItems: "center",
         gap: "20px",
-        paddingLeft: "30px",
       }}
     >
       <div

@@ -1,4 +1,5 @@
 import React from "react";
+import { Row, Col } from "antd";
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
 
 const AlbumGrid = ({
@@ -17,62 +18,56 @@ const AlbumGrid = ({
   const albumsToShow = showAll ? sortedAlbums : sortedAlbums.slice(0, 5);
 
   return (
-    <div>
-      <p style={{ fontWeight: 600, fontSize: 35, marginLeft: "4%" }}>
+    <div style={{ padding: "0 40px" }}>
+      <p style={{ fontWeight: 600, fontSize: 35 }}>
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          padding: "0 40px",
-          gap: "30px",
-        }}
-      >
+      <Row gutter={[55, 30]}>
         {albumsToShow.map((album, index) => (
-          <div
-            key={index}
-            onClick={() => onClickAlbum?.(album)}
-            style={{
-              textAlign: "center",
-              backgroundColor: "#1F1F1F",
-              padding: 10,
-              borderRadius: "10px",
-              cursor: "pointer",
-              width: "160px",
-            }}
-          >
-            <img
-              src={album.cover}
-              alt={album.title}
+          <Col key={index} xs={24} sm={12} md={8} lg={6} xl={4}>
+            <div
+              onClick={() => onClickAlbum?.(album)}
               style={{
-                width: "150px",
-                height: "150px",
+                textAlign: "center",
+                backgroundColor: "#1F1F1F",
+                padding: 15,
                 borderRadius: "10px",
+                cursor: "pointer",
+                maxWidth: "100%",
+                width:'100%'
               }}
-            />
-            <p style={{ margin: "5px 0", fontWeight: 600 }}>{album.title}</p>
-            <p style={{ margin: 0, color: "#929292", fontSize: "12px" }}>
-              {album.artist}
-            </p>
-          </div>
+            >
+              <img
+                src={album.cover}
+                alt={album.title}
+                style={{
+                  width: "150px",
+                  height: "150px",
+                  borderRadius: "10px",
+                }}
+              />
+              <p style={{ margin: "5px 0", fontWeight: 600 }}>{album.title}</p>
+              <p style={{ margin: 0, color: "#929292", fontSize: "12px" }}>
+                {album.artist}
+              </p>
+            </div>
+          </Col>
         ))}
 
         {!showAll && albums.length > 2 && (
-          <div
+          <Col
+            flex="auto"
             style={{
               display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <ViewAllCircleButton onToggle={() => setShowAll(true)} />
-          </div>
+          </Col>
         )}
-      </div>
+      </Row>
     </div>
   );
 };
