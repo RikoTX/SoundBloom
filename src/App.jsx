@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import Sider from "./components/Sider/Sider";
 import ContentPage from "./pages/ContentPage";
 import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
@@ -17,8 +16,8 @@ export default function App() {
     setCurrentPlaylist,
     isSiderOpen,
     setIsSiderOpen,
+    contentRef,
   } = useAppState();
-  const contentRef = useRef(null);
   const siderWidth = isSiderOpen ? 250 : 0;
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function useAppState() {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
@@ -6,6 +6,7 @@ export default function useAppState() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(null);
   const [currentPlaylist, setCurrentPlaylist] = useState(null);
   const [isSiderOpen, setIsSiderOpen] = useState(true);
+  const contentRef = useRef(null);
 
   return {
     selectedAlbum,
@@ -18,5 +19,6 @@ export default function useAppState() {
     setCurrentPlaylist,
     isSiderOpen,
     setIsSiderOpen,
+    contentRef,
   };
 }
