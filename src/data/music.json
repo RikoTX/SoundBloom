@@ -507,6 +507,26 @@
     {
       "titlePlaylist": "Happy Playlist",
       "cover": "/MoodPlaylist/Happy Playlist.png"
+    },
+    {
+      "titlePlaylist": "Melancholy Playlist",
+      "cover": "/MoodPlaylist/Melancholy Playlist.jpg"
+    },
+    {
+      "titlePlaylist": "Sunset Vibes Playlist",
+      "cover": "/MoodPlaylist/Sunset Vibes.jpg"
+    },
+    {
+      "titlePlaylist": "Meditation Playlist",
+      "cover": "/MoodPlaylist/Meditation.jpg"
+    },
+    {
+      "titlePlaylist": "Breakup Playlist",
+      "cover": "/MoodPlaylist/Breakup.jpg"
+    },
+    {
+      "titlePlaylist": "Summer Hits Playlist",
+      "cover": "/MoodPlaylist/Summer Hits.jpg"
     }
   ],
   "MusicGenres": [

@@ -18,9 +18,9 @@ const PlaylistGrid = ({
       </p>
 
       <div style={{ padding: "0 40px" }}>
-        <Row justify="space-around" align="align" gutter={[20, 20]}>
+        <Row align="align" gutter={[20, 20]}>
           {playlistToShow.map((playlist, index) => (
-            <Col key={index} >
+            <Col key={index} xs={12} sm={8} md={6} lg={4} >
               <div
                 style={{
                   textAlign: "center",
