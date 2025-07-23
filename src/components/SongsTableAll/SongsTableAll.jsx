@@ -86,7 +86,7 @@ const SongsTableAll = ({ title, pinkTitle, songs = [], columns = [] }) => {
                   }}
                 >
                   <img
-                    src={song.cover}
+                    src={import.meta.env.BASE_URL+song.cover}
                     alt={song.title}
                     style={{
                       width: "70px",

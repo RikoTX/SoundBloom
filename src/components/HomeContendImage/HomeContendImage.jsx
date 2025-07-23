@@ -111,7 +111,7 @@ const HeroSection = ({
                   }}
                 >
                   <img
-                    src={song.cover}
+                    src={import.meta.env.BASE_URL+song.cover}
                     style={{
                       width: "30px",
                       height: "30px",

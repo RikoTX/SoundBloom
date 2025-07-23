@@ -158,7 +158,7 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
                 }}
               >
                 <img
-                  src={song.cover}
+                  src={import.meta.env.BASE_URL+song.cover}
                   alt="cover"
                   style={{
                     width: "30px",

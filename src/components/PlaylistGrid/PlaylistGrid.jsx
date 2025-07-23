@@ -29,7 +29,7 @@ const PlaylistGrid = ({
                 }}
               >
                 <img
-                  src={playlist.cover}
+                  src={import.meta.env.BASE_URL+playlist.cover}
                   alt={playlist.titlePlaylist}
                   style={{
                     width: "100%",

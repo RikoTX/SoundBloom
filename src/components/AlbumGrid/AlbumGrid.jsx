@@ -39,7 +39,7 @@ const AlbumGrid = ({
               }}
             >
               <img
-                src={album.cover}
+                src={import.meta.env.BASE_URL+album.cover}
                 alt={album.title}
                 style={{
                   width: "150px",

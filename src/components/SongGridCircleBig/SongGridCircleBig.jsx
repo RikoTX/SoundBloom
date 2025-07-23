@@ -36,7 +36,7 @@ export default function SongGridCircleBig({
           >
             <div style={{ padding: 10, borderRadius: "10px" }}>
               <img
-                src={fan.cover}
+                src={import.meta.env.BASE_URL+fan.cover}
                 alt={fan.artist}
                 style={{
                   width: "220px",

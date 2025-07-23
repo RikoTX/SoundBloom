@@ -39,7 +39,7 @@ const SongGridCircle = ({
                 }}
               >
                 <img
-                  src={song.cover}
+                  src={import.meta.env.BASE_URL+song.cover}
                   alt={song.artist}
                   style={{
                     width: "140px",

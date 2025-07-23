@@ -35,7 +35,7 @@ export default function GridCircleShowAll({
             onClick={() => onClickArtists?.(artist)}
           >
             <img
-              src={artist.cover}
+              src={import.meta.env.BASE_URL+artist.cover}
               alt={artist.artist}
               style={{
                 width: 140,

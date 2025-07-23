@@ -146,7 +146,7 @@ export default function MusicPlayer({
       >
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <img
-            src={currentSong.cover}
+            src={import.meta.env.BASE_URL+currentSong.cover}
             alt={currentSong.title}
             style={{ width: "60px", height: "60px", borderRadius: "8px" }}
           />

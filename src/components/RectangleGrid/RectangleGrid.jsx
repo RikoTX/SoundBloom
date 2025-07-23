@@ -40,7 +40,7 @@ export default function RectangleGrid({
               }}
             >
               <img
-                src={song.cover}
+                src={import.meta.env.BASE_URL+song.cover}
                 style={{
                   width: "240px",
                   height: "160px",
