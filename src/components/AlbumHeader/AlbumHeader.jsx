@@ -1,4 +1,5 @@
 import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
+import { Row, Col } from "antd";
 
 export default function AlbumHeader({
   navigate,
@@ -14,59 +15,70 @@ export default function AlbumHeader({
       style={{
         borderRadius: "15px",
         background: "linear-gradient(to right,#0E9EEF,rgb(4, 58, 87))",
+        padding: "20px",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <button
-          onClick={() => navigate(from === "popular" ? "/Popular" : "/Home")}
-          style={{
-            cursor: "pointer",
-            width: "100px",
-            height: "100px",
-            fontSize: 40,
-            backgroundColor: "transparent",
-            border: "none",
-          }}
-        >
-          <ArrowLeftOutlined />
-        </button>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            maxWidth: "400px",
-            width: "100%",
-            alignItems: "center",
-          }}
-        >
-          <a style={{ color: "white", fontWeight: 700, fontSize: 20 }}>Share</a>
-          <a style={{ color: "white", fontWeight: 700, fontSize: 20 }}>About</a>
-          <a style={{ color: "white", fontWeight: 700, fontSize: 20 }}>Premium</a>
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          gap: "30px",
-          marginLeft: "50px",
-          paddingBottom: "30px",
-        }}
+      <Row
+        justify="space-between"
+        align="middle"
+        style={{ marginBottom: "30px" }}
       >
-        <img
-          src={cover}
-          alt={title}
-          style={{
-            width: "250px",
-            borderRadius: "10px",
-            marginTop: "20px",
-          }}
-        />
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: "10%" }}
-        >
-          <h1 style={{ fontSize: 35 }}>{title}</h1>
-          <p style={{ fontSize: 17, fontWeight: 600 }}>{infoAlbums}</p>
+        <Col>
+          <button
+            onClick={() => navigate(from === "popular" ? "/Popular" : "/Home")}
+            style={{
+              cursor: "pointer",
+              width: "80px",
+              height: "80px",
+              fontSize: 40,
+              backgroundColor: "transparent",
+              border: "none",
+              color: "white",
+            }}
+          >
+            <ArrowLeftOutlined />
+          </button>
+        </Col>
+
+        <Col>
+          <Row gutter={[16, 0]} justify="end">
+            <Col>
+              <a style={{ color: "white", fontWeight: 700, fontSize: 20 }}>
+                Share
+              </a>
+            </Col>
+            <Col>
+              <a style={{ color: "white", fontWeight: 700, fontSize: 20 }}>
+                About
+              </a>
+            </Col>
+            <Col>
+              <a style={{ color: "white", fontWeight: 700, fontSize: 20 }}>
+                Premium
+              </a>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
+      <Row gutter={[32, 32]} align="middle">
+        <Col xs={24} md={6}>
+          <img
+            src={cover}
+            alt={title}
+            style={{
+              width: "100%",
+              maxWidth: "250px",
+              borderRadius: "10px",
+            }}
+          />
+        </Col>
+
+        <Col xs={24} md={12}>
+          <h1 style={{ fontSize: 35, color: "white" }}>{title}</h1>
+          <p style={{ fontSize: 17, fontWeight: 600, color: "white" }}>
+            {infoAlbums}
+          </p>
           <p
             style={{
               color: "#fff",
@@ -76,45 +88,46 @@ export default function AlbumHeader({
             }}
           >
             {tracks.length} songs&nbsp;&nbsp;
-            <span style={{ color: "red" }}>●</span> &nbsp;&nbsp;
+            <span style={{ color: "red" }}>●</span>&nbsp;&nbsp;
             {getTotalDuration(tracks)}
           </p>
-        </div>
-        <div
-          style={{
-            width: "300px",
-            height: "300px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
+        </Col>
+
+        <Col xs={24} md={6}>
           <div
             style={{
               display: "flex",
+              justifyContent: "center",
               alignItems: "center",
-              color: "#EE10B0",
-              gap: "10px",
-              cursor: "pointer",
+              height: "100%",
             }}
           >
-            <h1>Play All</h1>
-            <button
+            <div
               style={{
-                padding: 1,
-                fontSize: 60,
-                backgroundColor: "transparent",
-                border: "none",
+                display: "flex",
+                alignItems: "center",
                 color: "#EE10B0",
+                gap: "10px",
                 cursor: "pointer",
               }}
             >
-              <PlayCircleOutlined />
-            </button>
+              <h1>Play All</h1>
+              <button
+                style={{
+                  padding: 1,
+                  fontSize: 60,
+                  backgroundColor: "transparent",
+                  border: "none",
+                  color: "#EE10B0",
+                  cursor: "pointer",
+                }}
+              >
+                <PlayCircleOutlined />
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </div>
   );
 }

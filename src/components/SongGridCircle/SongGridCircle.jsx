@@ -28,7 +28,7 @@ const SongGridCircle = ({
       <div style={{ paddingRight: "40px", paddingLeft: "40px" }}>
         <Row gutter={[20, 20]}>
           {itemsToShow.map((song, index) => (
-            <Col key={index} span={4} xl={4}>
+            <Col key={index} lg={4}>
               <div
                 style={{
                   textAlign: "center",
