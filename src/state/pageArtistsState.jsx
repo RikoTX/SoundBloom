@@ -6,6 +6,8 @@ export default function usePageArtistsState() {
   const [showPopularAll, setShowPopularAll] = useState(false);
   const [showNewReleaseAll, setShowNewReleaseAll] = useState(false);
   const [showAllPlaylist, setShowAllPlaylist] = useState(false);
+  const [showAllAlbums, setShowAllAlbums] = useState(false);
+
 
   return {
     showPopularTableAll,
@@ -18,5 +20,7 @@ export default function usePageArtistsState() {
     setShowNewReleaseAll,
     showAllPlaylist,
     setShowAllPlaylist,
+    showAllAlbums,
+    setShowAllAlbums
   };
 }

@@ -3,6 +3,8 @@ import usePlayerControls from "../../hooks/usePlayerControls";
 import ArtistBanner from "../../components/ArtistBanner/ArtistBanner";
 import SongsTable from "../../components/SongsTable/SongsTable";
 import AlbumGridLess from "../../components/AlbumGridLess/AlbumGridLess";
+import AlbumGrid from "../../components/AlbumGrid/AlbumGrid";
+
 import PlaylistGrid from "../../components/PlaylistGrid/PlaylistGrid";
 import SongGrid from "../../components/SongGrid/SongGrid";
 import SongGridCircleBig from "../../components/SongGridCircleBig/SongGridCircleBig";
@@ -26,6 +28,8 @@ export default function PageArtists({
     setShowNewReleaseAll,
     showAllPlaylist,
     setShowAllPlaylist,
+    showAllAlbums,
+    setShowAllAlbums,
   } = usePageArtistsState();
 
   const { artist: artistName } = useParams();
@@ -76,6 +80,7 @@ export default function PageArtists({
     >
       <div style={{ color: "white" }}>
         <ArtistBanner backgroundImage={backgroundImage} artist={artist} />
+
         <SongsTable
           title="Popular"
           pinkTitle=""
@@ -107,14 +112,12 @@ export default function PageArtists({
         />
       </div>
 
-      <AlbumGridLess
-        title="Artist’s "
+      <AlbumGrid
+        title="Artist’s"
         pinkTitle="Albums"
         albums={albums}
-        showAll={showAlbumsAll}
-        setShowAll={setShowAlbumsAll}
-        onClickAlbum={openAlbums}
-        setSelectedAlbum={setSelectedAlbum}
+        showAll={showAllAlbums}
+        setShowAll={setShowAllAlbums}
       />
 
       <SongGrid
@@ -125,7 +128,7 @@ export default function PageArtists({
         setShowAll={setShowNewReleaseAll}
         handlePlaySong={handlePlaySong}
       />
-
+      
       <PlaylistGrid
         title="Artist’s "
         pinkTitle="Playlist"

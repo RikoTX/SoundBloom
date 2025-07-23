@@ -1,4 +1,5 @@
 import React from "react";
+import { Row, Col } from "antd";
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
 
 export default function SongGridCircleBig({
@@ -9,6 +10,7 @@ export default function SongGridCircleBig({
   setShowAll,
 }) {
   const itemsToShow = showAll ? items : items.slice(0, 4);
+
   return (
     <div>
       <p
@@ -21,42 +23,50 @@ export default function SongGridCircleBig({
       >
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          paddingRight: "40px",
-          paddingLeft: "40px",
-        }}
-      >
+
+      <Row gutter={[32, 32]} justify="start" style={{ padding: "0 40px" }}>
         {itemsToShow.map((fan, index) => (
-          <div
+          <Col
             key={index}
-            style={{
-              textAlign: "center",
-              padding: 10,
-              borderRadius: "10px",
-            }}
+            xs={24}
+            sm={12}
+            md={8}
+            lg={5}
+            style={{ textAlign: "center" }}
           >
-            <img
-              src={fan.cover}
-              alt={fan.artist}
-              style={{
-                width: "220px",
-                height: "220px",
-                borderRadius: "300px",
-              }}
-            />
-            <p style={{ margin: "5px 0", fontWeight: 300, fontSize: "18px" }}>
-              {fan.artist}
-            </p>
-          </div>
+            <div style={{ padding: 10, borderRadius: "10px" }}>
+              <img
+                src={fan.cover}
+                alt={fan.artist}
+                style={{
+                  width: "220px",
+                  height: "220px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                }}
+              />
+              <p
+                style={{
+                  margin: "10px 0 0",
+                  fontWeight: 300,
+                  fontSize: "18px",
+                  color: "#000",
+                }}
+              >
+                {fan.artist}
+              </p>
+            </div>
+            
+          </Col>
         ))}
         {!showAll && items.length > 2 && (
-          <ViewAllCircleButton onToggle={() => setShowAll(true)} />
-        )}
-      </div>
+              <Col
+                style={{ display:'flex', paddingLeft: '60px'}}
+              >
+                <ViewAllCircleButton onToggle={() => setShowAll(true)} />
+              </Col>
+            )}
+      </Row>
     </div>
   );
 }
