@@ -546,6 +546,26 @@
     {
       "genres": "Classic Tracks",
       "cover": "MusicGenres/Classic Tracks.png"
+    },
+    {
+      "genres": "Electronic Tracks",
+      "cover": "MusicGenres/Electronic Tracks.jpg"
+    },
+    {
+      "genres": "Techno Tracks",
+      "cover": "MusicGenres/Techno Tracks.jpg"
+    },
+    {
+      "genres": "Grunge Tracks",
+      "cover": "MusicGenres/Grunge Tracks.webp"
+    },
+    {
+      "genres": "Funk Tracks",
+      "cover": "MusicGenres/Funk Tracks.jpg"
+    },
+    {
+      "genres": "Synthpop Tracks",
+      "cover": "MusicGenres/Synthpop Tracks.jpg"
     }
   ],
   "PopularAlbums": [
@@ -882,6 +902,21 @@
           "title": "Eminem The Slim...",
           "year": 1999,
           "cover": "EminemAlbums/Eminem The Slim....png"
+        },
+        {
+          "title": "The Marshall Mathers",
+          "year": 2002,
+          "cover": "EminemAlbums/The Marshall Mathers.jpg"
+        },
+        {
+          "title": "Number One",
+          "year": 2002,
+          "cover": "EminemAlbums/Number One.jpg"
+        },
+        {
+          "title": "Relapse",
+          "year": 2002,
+          "cover": "EminemAlbums/Relapse.jpg"
         }
       ],
       "singles": [
@@ -909,6 +944,21 @@
           "title": "Killshot",
           "releaseDate": "2018",
           "cover": "SinglesEminem/Killshot.png"
+        },
+        {
+          "title": "Encore",
+          "releaseDate": "2018",
+          "cover": "SinglesEminem/My 1st Single.jpg"
+        },
+        {
+          "title": "Houdini",
+          "releaseDate": "2018",
+          "cover": "SinglesEminem/Houdini.jpg"
+        },
+        {
+          "title": "We Made You",
+          "releaseDate": "2018",
+          "cover": "SinglesEminem/We Made You.jpg"
         }
       ],
       "playlist": [
@@ -931,6 +981,30 @@
         {
           "titlePlaylist": "New Releases",
           "cover": "PlaylistsEminem/New Releases.png"
+        },
+        {
+          "titlePlaylist": "Eminem Complete",
+          "cover": "PlaylistsEminem/Eminem Complete.jpg"
+        },
+        {
+          "titlePlaylist": "Run That Back",
+          "cover": "PlaylistsEminem/Run That Back.jpg"
+        },
+        {
+          "titlePlaylist": "This Is Eminem",
+          "cover": "PlaylistsEminem/This Is Eminem.jpg"
+        },
+        {
+          "titlePlaylist": "Best Of Eminem",
+          "cover": "PlaylistsEminem/Best Of Eminem.jpg"
+        },
+        {
+          "titlePlaylist": "Eminem Mix",
+          "cover": "PlaylistsEminem/Eminem Mix.jpg"
+        },
+        {
+          "titlePlaylist": "All Eminem Collaborations",
+          "cover": "PlaylistsEminem/All Eminem Collaborations.webp"
         }
       ],
       "fansAlsoListen": [
@@ -947,8 +1021,32 @@
           "cover": "FansAlsoEminem/Tupac.png"
         },
         {
+          "artist": "Dr.Dre",
+          "cover": "FansAlsoEminem/Dr.Dre.jpg"
+        },
+        {
+          "artist": "D12",
+          "cover": "FansAlsoEminem/D12.jpg"
+        },
+        {
+          "artist": "Kendrick Lamar",
+          "cover": "FansAlsoEminem/Kendrick Lamar.webp"
+        },
+        {
+          "artist": "Lil Wayne",
+          "cover": "FansAlsoEminem/Lil Wayne.webp"
+        },
+        {
+          "artist": "P-Daddy",
+          "cover": "FansAlsoEminem/Nas.webp"
+        },
+        {
           "artist": "Jay+z",
           "cover": "FansAlsoEminem/Jay+z.png"
+        },
+        {
+          "artist": " XXXtentacion",
+          "cover": "FansAlsoEminem/xxx.jpg"
         }
       ]
     },

@@ -31,41 +31,55 @@ export default function SongGridCircleBig({
             xs={24}
             sm={12}
             md={8}
-            lg={5}
-            style={{ textAlign: "center" }}
+            lg={6}
+            xl={5}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
-            <div style={{ padding: 10, borderRadius: "10px" }}>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "1",
+                borderRadius: "50%",
+                overflow: "hidden",
+              }}
+            >
               <img
-                src={import.meta.env.BASE_URL+fan.cover}
+                src={import.meta.env.BASE_URL + fan.cover}
                 alt={fan.artist}
                 style={{
-                  width: "220px",
-                  height: "220px",
-                  borderRadius: "50%",
+                  width: "100%",
+                  height: "100%",
                   objectFit: "cover",
+                  borderRadius: "50%",
                 }}
               />
-              <p
+              <div
                 style={{
-                  margin: "10px 0 0",
-                  fontWeight: 300,
-                  fontSize: "18px",
-                  color: "#000",
+                  position: "absolute",
+                  bottom: 0,
+                  width: "100%",
+                  color: "white",
+                  textAlign: "center",
+                  padding: "6px 0 12px",
+                  fontSize: 18,
+                  fontWeight: 500,
+                  fontFamily: "cursive",
                 }}
               >
                 {fan.artist}
-              </p>
+              </div>
             </div>
-            
           </Col>
         ))}
         {!showAll && items.length > 2 && (
-              <Col
-                style={{ display:'flex', paddingLeft: '60px'}}
-              >
-                <ViewAllCircleButton onToggle={() => setShowAll(true)} />
-              </Col>
-            )}
+          <Col style={{ display: "flex", paddingLeft: "60px" }}>
+            <ViewAllCircleButton onToggle={() => setShowAll(true)} />
+          </Col>
+        )}
       </Row>
     </div>
   );
