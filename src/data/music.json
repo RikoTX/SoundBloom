@@ -588,7 +588,7 @@
     {
       "title": "Trending songs mix",
       "artist": "Kareika",
-      "cover": "TopAlbums/Trending songs mix .png",
+      "cover": "TopAlbums/Trending songs mix.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Trending songs mix",
       "infoAlbums": "tate mcree, nightmares, the neighberhood, doja cat and ...",
@@ -808,7 +808,7 @@
       "artist": "Eminem",
       "title": "Eminem Greatest Hits",
       "cover": "LegendsArtists/Eminiem.png",
-      "backgroundImage": "/LegendsArtists/EminemFon.png",
+      "backgroundImage": "LegendsArtists/EminemFon.png",
       "plays": 2259000,
       "country": "USA",
       "birthDate": "17.10.1972",
@@ -874,9 +874,9 @@
           "cover": "EminemAlbums/Music To Be Mrde....png"
         },
         {
-          "title": "ReRecoverylape",
+          "title": "Recovery",
           "year": 2009,
-          "cover": "EminemAlbums/Recovery.pn"
+          "cover": "EminemAlbums/Recovery.png"
         },
         {
           "title": "Eminem The Slim...",
