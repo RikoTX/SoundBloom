@@ -4,8 +4,13 @@
     <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script>
-      const redirectTo = '/SoundBloom' + location.pathname + location.search + location.hash;
-      location.replace(redirectTo);
+      const currentPath = location.pathname;
+      const base = "/SoundBloom";
+
+      if (!location.search.includes("redirect=")) {
+        const redirectPath = currentPath.replace(base, "");
+        location.replace(`${base}/?redirect=${redirectPath}`);
+      }
     </script>
   </head>
   <body>
