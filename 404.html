@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script>
-      const currentUrl = window.location.href;
-      const pathname = window.location.pathname;
-      const search = window.location.search;
-      const hash = window.location.hash;
+      const currentPath = location.pathname;
+      const base = "/SoundBloom";
 
-      if (!pathname.startsWith('/SoundBloom')) {
-        const newUrl = '/SoundBloom' + pathname + search + hash;
-        window.location.replace(newUrl);
+      if (!location.search.includes("redirect=")) {
+        const redirectPath = currentPath.replace(base, "");
+        location.replace(`${base}/?redirect=${redirectPath}`);
       }
     </script>
   </head>
   <body>
-    <h1>Redirecting...</h1>
+    Redirecting...
   </body>
 </html>
