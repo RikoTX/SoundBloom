@@ -15,21 +15,16 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
 
   return (
     <div style={{ padding: "40px", width: "90%", position: "relative" }}>
-      <Row
-        gutter={[60, 24]}
-        align="middle"
-        wrap
-        style={{ flexWrap: "wrap" }}
-      >
-        <Col>
+      <Row gutter={[32, 24]} justify="space-between" align="middle">
+        <Col xs={24} md={8}>
           <div
             style={{
               display: "flex",
               borderRadius: "8px",
               overflow: "hidden",
-              width: "400px",
               backgroundColor: "#121212",
               border: "1px solid #333",
+              width: "100%",
             }}
           >
             <input
@@ -45,17 +40,15 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
                 outline: "none",
                 backgroundColor: "#121212",
                 color: "grey",
-                width: "100%",
               }}
             />
             <button
               style={{
                 padding: "8px 16px",
-                border: "1px solid #121212",
+                border: "none",
                 backgroundColor: "#121212",
                 color: "#fff",
                 cursor: "pointer",
-                fontWeight: "bold",
               }}
             >
               <SearchOutlined />
@@ -63,12 +56,13 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
           </div>
         </Col>
 
-        <Col>
+        <Col xs={24} md={8}>
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               gap: "30px",
+              flexWrap: "wrap",
             }}
           >
             {["About Us", "Contact", "Premium"].map((item) => (
@@ -87,12 +81,13 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
           </div>
         </Col>
 
-        <Col>
+        <Col xs={24} md={8}>
           <div
             style={{
               display: "flex",
               justifyContent: "center",
               gap: "20px",
+              flexWrap: "wrap",
             }}
           >
             <button
@@ -129,9 +124,8 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
         <div
           style={{
             position: "absolute",
+            left: "40px",
             top: "85px",
-            marginLeft: '205px',
-            transform: "translateX(-50%)",
             backgroundColor: "#1a1a1a",
             border: "1px solid #333",
             borderRadius: "8px",
@@ -158,7 +152,7 @@ const SearchBarWithHeader = ({ allSongs = [], handlePlaySong }) => {
                 }}
               >
                 <img
-                  src={import.meta.env.BASE_URL+song.cover}
+                  src={import.meta.env.BASE_URL + song.cover}
                   alt="cover"
                   style={{
                     width: "30px",

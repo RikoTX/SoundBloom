@@ -24,15 +24,14 @@ const SongsTable = ({
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
 
-      <Row gutter={16} style={{ margin: "30px 0", fontWeight: 500, fontSize: 20 }}>
+      <Row
+        gutter={16}
+        style={{ margin: "30px 0", fontWeight: 500, fontSize: 20 }}
+      >
         <Col span={2}></Col>
         <Col span={8}></Col>
         {columns.map((col, idx) => (
-          <Col
-            key={idx}
-            span={col.span || 4}
-            style={{ textAlign: "center" }}
-          >
+          <Col key={idx} span={col.span || 4} style={{ textAlign: "center", fontSize: 20 }}>
             {col.header}
           </Col>
         ))}
@@ -47,10 +46,12 @@ const SongsTable = ({
             background: "#1F1F1F",
             borderRadius: 10,
             marginBottom: 12,
-            padding: 12,
           }}
         >
-          <Col span={2} style={{ fontSize: 24, fontWeight: 600, textAlign: "center" }}>
+          <Col
+            span={2}
+            style={{ fontSize: 24, fontWeight: 600, textAlign: "center" }}
+          >
             #{index + 1}
           </Col>
 
@@ -59,11 +60,13 @@ const SongsTable = ({
               <img
                 src={import.meta.env.BASE_URL + song.cover}
                 alt={song.title}
-                style={{ width: 60, height: 60, borderRadius: 10 }}
+                style={{ width: 75, height: 75, borderRadius: 10 }}
               />
               <div style={{ marginLeft: 12 }}>
-                <p style={{ margin: 0, fontWeight: 600 }}>{song.title}</p>
-                <p style={{ margin: 0, color: "#929292", fontSize: 12 }}>{song.artist}</p>
+                <p style={{ margin: 0, fontWeight: 600, fontSize: 20 }}>{song.title}</p>
+                <p style={{ margin: 0, color: "#929292", fontSize: 13 }}>
+                  {song.artist}
+                </p>
               </div>
             </div>
           </Col>
@@ -74,7 +77,9 @@ const SongsTable = ({
               span={col.span || 4}
               style={{ textAlign: "center", fontSize: 14 }}
             >
-              {typeof col.render === "function" ? col.render(song, index) : null}
+              {typeof col.render === "function"
+                ? col.render(song, index)
+                : null}
             </Col>
           ))}
         </Row>
