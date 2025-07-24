@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=/SoundBloom/" />
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      const redirectTo = '/SoundBloom' + location.pathname + location.search + location.hash;
+      location.replace(redirectTo);
+    </script>
   </head>
-  <body></body>
+  <body>
+    Redirecting...
+  </body>
 </html>
