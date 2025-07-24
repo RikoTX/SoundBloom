@@ -2,17 +2,16 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Page Not Found</title>
+    <title>Redirecting...</title>
     <script>
+      const currentUrl = window.location.href;
       const pathname = window.location.pathname;
+      const search = window.location.search;
+      const hash = window.location.hash;
 
-      if (
-        !pathname.startsWith("/SoundBloom/") &&
-        !pathname.endsWith("404.html")
-      ) {
-        const newPath =
-          "/SoundBloom" + pathname + window.location.search + window.location.hash;
-        window.location.replace(newPath);
+      if (!pathname.startsWith('/SoundBloom')) {
+        const newUrl = '/SoundBloom' + pathname + search + hash;
+        window.location.replace(newUrl);
       }
     </script>
   </head>
