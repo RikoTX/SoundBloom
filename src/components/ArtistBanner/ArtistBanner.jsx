@@ -8,7 +8,7 @@ export default function ArtistBanner({ backgroundImage, artist }) {
     <div
       style={{
         borderRadius: "10px",
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url(${import.meta.env.BASE_URL}${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",

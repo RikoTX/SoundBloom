@@ -64,7 +64,7 @@ export default function AlbumHeader({
       <Row gutter={[32, 32]} align="middle">
         <Col xs={24} md={6}>
           <img
-            src={cover}
+            src={import.meta.env.BASE_URL + cover}
             alt={title}
             style={{
               width: "100%",
