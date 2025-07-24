@@ -95,7 +95,7 @@ export default function SiderMenu({ isOpen, setIsOpen }) {
       <div style={contentWrapperStyle}>
         {isOpen && (
           <img
-            src="soundBloom.png"
+            src={`${import.meta.env.BASE_URL}soundBloom.png`}
             alt="SoundBloom"
             style={{
               maxWidth: "90%",

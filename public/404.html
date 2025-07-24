@@ -2,18 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Redirecting...</title>
-    <script>
-      const currentPath = location.pathname;
-      const base = "/SoundBloom";
-
-      if (!location.search.includes("redirect=")) {
-        const redirectPath = currentPath.replace(base, "");
-        location.replace(`${base}/?redirect=${redirectPath}`);
-      }
-    </script>
+    <title>SoundBloom</title>
   </head>
   <body>
-    Redirecting...
+    <div id="root"></div>
+    <script>
+      const path = window.location.pathname;
+      sessionStorage.setItem("redirect", path);
+      window.location.href = "/SoundBloom/";
+    </script>
   </body>
 </html>
