@@ -1,5 +1,6 @@
 import React from "react";
 import { SearchOutlined } from "@ant-design/icons";
+import { Row, Col } from "antd";
 
 const HeroSection = ({
   searchValue,
@@ -31,6 +32,63 @@ const HeroSection = ({
             display: "block",
           }}
         />
+
+        <Row style={{ position: "absolute", top: "4%", right: "5%" }} gutter={16}>
+          <Col>
+            <button
+              style={{
+                backgroundColor: "transparent",
+                color: "#cb0094",
+                padding: "11px",
+                width: "150px",
+                border: "1px solid #cb0094",
+                borderRadius: "3px",
+                cursor: "pointer",
+              }}
+            >
+              Login
+            </button>
+          </Col>
+          <Col>
+            <button
+              style={{
+                backgroundColor: "#cb0094",
+                padding: "11px",
+                width: "150px",
+                borderRadius: "3px",
+                border: "1px solid #cb0094",
+                cursor: "pointer",
+              }}
+            >
+              Sign Up
+            </button>
+          </Col>
+        </Row>
+
+        <Row
+          style={{
+            position: "absolute",
+            top: "2.5%",
+            right: "38%",
+            marginTop: "20px",
+          }}
+          gutter={30}
+        >
+          {["About Us", "Contact", "Premium"].map((item) => (
+            <Col key={item}>
+              <a
+                href="#"
+                style={{
+                  fontSize: "17px",
+                  color: "white",
+                  textDecoration: "none",
+                }}
+              >
+                {item}
+              </a>
+            </Col>
+          ))}
+        </Row>
 
         <div
           style={{
@@ -111,7 +169,7 @@ const HeroSection = ({
                   }}
                 >
                   <img
-                    src={import.meta.env.BASE_URL+song.cover}
+                    src={import.meta.env.BASE_URL + song.cover}
                     style={{
                       width: "30px",
                       height: "30px",
@@ -133,125 +191,63 @@ const HeroSection = ({
           </div>
         )}
 
-        <div
+        <Row
           style={{
             position: "absolute",
-            top: "2.5%",
-            right: "38%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "30px",
-              marginTop: "20px",
-            }}
-          >
-            {["About Us", "Contact", "Premium"].map((item) => (
-              <a
-                key={item}
-                href="#"
-                style={{
-                  fontSize: "17px",
-                  color: "white",
-                  textDecoration: "none",
-                }}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div style={{ position: "absolute", top: "4%", right: "10%" }}>
-          <button
-            style={{
-              backgroundColor: "transparent",
-              color: "#cb0094",
-              padding: "11px",
-              width: "150px",
-              border: "1px solid #cb0094",
-              borderRadius: "3px",
-              marginRight: "10px",
-              cursor: "pointer",
-            }}
-          >
-            Login
-          </button>
-          <button
-            style={{
-              backgroundColor: "#cb0094",
-              padding: "11px",
-              width: "150px",
-              borderRadius: "3px",
-              border: "1px solid #cb0094",
-              cursor: "pointer",
-            }}
-          >
-            Sign Up
-          </button>
-        </div>
-
-        <div style={{ position: "absolute", top: "20%", left: "3%" }}>
-          <p style={{ fontWeight: 700, fontSize: 40 }}>
-            All the <span style={{ color: "#cb0094" }}>Best Songs</span>
-            <br />
-            in One Place
-          </p>
-        </div>
-
-        <div
-          style={{
-            width: "380px",
-            position: "absolute",
-            bottom: "30%",
+            top: "20%",
             left: "3%",
-            color: "#bdbdbd",
+            width: "500px",
           }}
+          gutter={[0, 24]}
         >
-          <p>
-            On our website, you can access an amazing collection of popular and
-            new songs. Stream your favorite tracks in high quality and enjoy
-            without interruptions. Whatever your taste in music, we have it all
-            for you!
-          </p>
-        </div>
-
-        <div style={{ position: "absolute", bottom: "20%", left: "3.5%" }}>
-          <button
-            style={{
-              color: "white",
-              backgroundColor: "#cb0094",
-              border: "1px solid #cb0094",
-              padding: "10px",
-              width: "150px",
-              borderRadius: "4px",
-              fontSize: "17px",
-              marginRight: "30px",
-              cursor: "pointer",
-            }}
-          >
-            Discover Now
-          </button>
-          <button
-            style={{
-              color: "#0E9EEF",
-              backgroundColor: "transparent",
-              border: "2px solid #0E9EEF",
-              padding: "10px",
-              width: "150px",
-              borderRadius: "4px",
-              fontSize: "17px",
-              cursor: "pointer",
-            }}
-          >
-            Create Playlist
-          </button>
-        </div>
+          <Col span={24}>
+            <p style={{ fontWeight: 700, fontSize: 40 }}>
+              All the <span style={{ color: "#cb0094" }}>Best Songs</span>
+              <br />
+              in One Place
+            </p>
+          </Col>
+          <Col span={24}>
+            <p style={{ color: "#bdbdbd" }}>
+              On our website, you can access an amazing collection of popular
+              and new songs. Stream your favorite tracks in high quality and
+              enjoy without interruptions. Whatever your taste in music, we have
+              it all for you!
+            </p>
+          </Col>
+          <Col span={8}>
+            <button
+              style={{
+                color: "white",
+                backgroundColor: "#cb0094",
+                border: "1px solid #cb0094",
+                padding: "10px",
+                width: "150px",
+                borderRadius: "4px",
+                fontSize: "17px",
+                cursor: "pointer",
+              }}
+            >
+              Discover Now
+            </button>
+          </Col>
+          <Col span={12}>
+            <button
+              style={{
+                color: "#0E9EEF",
+                backgroundColor: "transparent",
+                border: "2px solid #0E9EEF",
+                padding: "10px",
+                width: "150px",
+                borderRadius: "4px",
+                fontSize: "17px",
+                cursor: "pointer",
+              }}
+            >
+              Create Playlist
+            </button>
+          </Col>
+        </Row>
       </div>
     </div>
   );

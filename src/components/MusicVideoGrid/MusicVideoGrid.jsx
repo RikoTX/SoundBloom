@@ -21,7 +21,7 @@ const MusicVideoGrid = ({
       <div style={{ padding: "0 40px" }}>
         <Row gutter={[60, 60]} justify="center">
           {videosToShow.map((song, index) => (
-            <Col key={index} span={8}>
+            <Col key={index} xs={24} sm={24} md={12} lg={8} xl={7}>
               <div
                 style={{
                   width: "100%",
