@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <title>Redirecting...</title>
     <script>
-      const current = window.location.pathname;
+      const pathname = window.location.pathname;
 
-      if (!current.startsWith("/SoundBloom")) {
-        const newUrl = "/SoundBloom" + current + window.location.search + window.location.hash;
+      if (
+        !pathname.startsWith("/SoundBloom") &&
+        !pathname.includes("/404.html")
+      ) {
+        const newUrl =
+          "/SoundBloom" + pathname + window.location.search + window.location.hash;
         window.location.replace(newUrl);
       }
     </script>
