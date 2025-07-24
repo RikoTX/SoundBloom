@@ -1,4 +1,5 @@
 {
+  
   "WeeklyTopSongs": [
     {
       "title": "Whatever It Takes",
@@ -12,16 +13,16 @@
     {
       "title": "Skyfall",
       "artist": "Adele",
-      "cover": "/musicAvatars/Skyfall.png",
-      "releaseDate": "Oct 5, 2012",
+      "cover": "musicAvatars/Skyfall.png",
       "music": "WeeklyTopSongsMusic/Skyfall.mp3",
+      "releaseDate": "Oct 5, 2012",
       "album": "Skyfall (Single)",
       "time": "4:46"
     },
     {
       "title": "Superman",
       "artist": "Eminem",
-      "cover": "/musicAvatars/Superman.png",
+      "cover": "musicAvatars/Superman.png",
       "music": "WeeklyTopSongsMusic/Superman.mp3",
       "releaseDate": "May 26, 2002",
       "album": "The Eminem Show",
@@ -30,7 +31,7 @@
     {
       "title": "Softcore",
       "artist": "The Neighbourhood",
-      "cover": "/musicAvatars/Softcore.png",
+      "cover": "musicAvatars/Softcore.png",
       "music": "WeeklyTopSongsMusic/Softcore.mp3",
       "releaseDate": "Mar 9, 2018",
       "album": "Hard to Imagine The Neighbourhood Ever Changing",
@@ -39,7 +40,7 @@
     {
       "title": "The Loneliest",
       "artist": "Måneskin",
-      "cover": "/musicAvatars/The Lonliest.png",
+      "cover": "musicAvatars/The Lonliest.png",
       "music": "WeeklyTopSongsMusic/The Loneliest.mp3",
       "releaseDate": "Oct 7, 2022",
       "album": "Rush!",
@@ -48,45 +49,45 @@
     {
       "title": "Страх",
       "artist": "Полина Крапива",
-      "cover": "/musicAvatars/Страх - Полина Крапива.jpeg",
-      "releaseDate": "Oct 12, 2022",
+      "cover": "musicAvatars/Страх - Полина Крапива.jpeg",
       "music": "WeeklyTopSongsMusic/Полина Крапива - Страх.mp3",
+      "releaseDate": "Oct 12, 2022",
       "album": "Полина Крапива",
       "time": "4:46"
     },
     {
       "title": "I Loved You",
       "artist": "DJ KAI",
-      "cover": "/musicAvatars/DJ KAI - I Loved You.jpg",
-      "releaseDate": "Oct 25, 2017",
+      "cover": "musicAvatars/DJ KAI - I Loved You.jpg",
       "music": "WeeklyTopSongsMusic/Dj Sava - I Loved You (feat. Irina Rimes. Javier Lopez Remix).mp3",
+      "releaseDate": "Oct 25, 2017",
       "album": "DJ KAI",
       "time": "4:46"
     },
     {
       "title": "I Never Felt so Right",
       "artist": "Ben Delay",
-      "cover": "/musicAvatars/I Never Felt so Right (Radio Mix).jpeg",
-      "releaseDate": "Oct 25, 2017",
+      "cover": "musicAvatars/I Never Felt so Right (Radio Mix).jpeg",
       "music": "WeeklyTopSongsMusic/Ben Delay - I Never Felt so Right - Radio Mix.mp3",
+      "releaseDate": "Oct 25, 2017",
       "album": "Ben Delay",
       "time": "4:46"
     },
     {
       "title": "Will Be Fine",
       "artist": "Kvpv",
-      "cover": "/musicAvatars/KVPV Will Be Fine (Dub Mix).webp",
-      "releaseDate": "Oct 25, 2017",
+      "cover": "musicAvatars/KVPV Will Be Fine (Dub Mix).webp",
       "music": "WeeklyTopSongsMusic/Kvpv - Will Be Fine (club mix).mp3",
+      "releaseDate": "Oct 25, 2017",
       "album": "Kvpv",
       "time": "4:46"
     },
     {
       "title": "Desire",
       "artist": "Morris",
-      "cover": "/musicAvatars/Morris - Desire.jpeg",
-      "releaseDate": "Oct 25, 2017",
+      "cover": "musicAvatars/Morris - Desire.jpeg",
       "music": "WeeklyTopSongsMusic/Moris Feat Play & Win - Desire (Radio Version).mp3",
+      "releaseDate": "Oct 25, 2017",
       "album": "Morris",
       "time": "4:46"
     }
@@ -95,7 +96,7 @@
     {
       "title": "Time",
       "artist": "Luciano",
-      "cover": "/musicAvatars/Time.png",
+      "cover": "musicAvatars/Time.png",
       "music": "NewReleaseSongsMusic/Time.mp3",
       "releaseDate": "Nov 22, 2024",
       "album": "Seductive",
@@ -104,7 +105,7 @@
     {
       "title": "112",
       "artist": "Jazzek",
-      "cover": "/musicAvatars/112.png",
+      "cover": "musicAvatars/112.png",
       "music": "NewReleaseSongsMusic/112.mp3",
       "releaseDate": "Feb 10, 2025",
       "album": "Jazzek Vibes",
@@ -113,7 +114,7 @@
     {
       "title": "We Don’t Care",
       "artist": "Kyanu & DJ Gullum",
-      "cover": "/musicAvatars/We Don”t Care.png",
+      "cover": "musicAvatars/We Don”t Care.png",
       "music": "NewReleaseSongsMusic/We Don’t Care.mp3",
       "releaseDate": "Mar 14, 2025",
       "album": "Club Storm",
@@ -122,7 +123,7 @@
     {
       "title": "Who I Am",
       "artist": "Alan Walker & Elias",
-      "cover": "/musicAvatars/Who I Am.png",
+      "cover": "musicAvatars/Who I Am.png",
       "music": "NewReleaseSongsMusic/Who I Am.mp3",
       "releaseDate": "Jan 19, 2025",
       "album": "WalkerWorld",
@@ -131,7 +132,7 @@
     {
       "title": "Baixo",
       "artist": "XXAnteria",
-      "cover": "/musicAvatars/Baixo.png",
+      "cover": "musicAvatars/Baixo.png",
       "music": "NewReleaseSongsMusic/Baixo.mp3",
       "releaseDate": "Apr 8, 2025",
       "album": "Underground Pulse",
@@ -140,7 +141,7 @@
     {
       "title": "Over You",
       "artist": "Francesco Ricci",
-      "cover": "/musicAvatars/Francesco Ricci - Over You.jpg",
+      "cover": "musicAvatars/Francesco Ricci - Over You.jpg",
       "music": "NewReleaseSongsMusic/Ricci Lompeurs - Lost On You (feat. Francesco Ray).mp3",
       "releaseDate": "Apr 8, 2025",
       "album": "Francesco Ricci",
@@ -149,7 +150,7 @@
     {
       "title": "Deja Vu",
       "artist": "Inna",
-      "cover": "/musicAvatars/Inna - Deja Vu.jpeg",
+      "cover": "musicAvatars/Inna - Deja Vu.jpeg",
       "music": "NewReleaseSongsMusic/Inna feat Bob Taylor - Deja Vu.mp3",
       "releaseDate": "Apr 8, 2025",
       "album": "Inna",
@@ -158,7 +159,7 @@
     {
       "title": "jjuusstt oonnee",
       "artist": "Izzamusic",
-      "cover": "/musicAvatars/Izzamusic - jjuusstt oonnee.jpg",
+      "cover": "musicAvatars/Izzamusic - jjuusstt oonnee.jpg",
       "music": "NewReleaseSongsMusic/Izzamuzzic Jjuusstt Oonnee.mp3",
       "releaseDate": "Apr 8, 2025",
       "album": "Izzamusic",
@@ -167,7 +168,7 @@
     {
       "title": "West",
       "artist": "KVPV",
-      "cover": "/musicAvatars/KVPV - West.jpg",
+      "cover": "musicAvatars/KVPV - West.jpg",
       "music": "NewReleaseSongsMusic/Kvpv - West.mp3",
       "releaseDate": "Apr 8, 2025",
       "album": "KVPV",
@@ -176,7 +177,7 @@
     {
       "title": "Lamp",
       "artist": "Raggi Luminosi",
-      "cover": "/musicAvatars/Raggi Luminosi - Lamp (slowed to perfection by kirman).jpeg",
+      "cover": "musicAvatars/Raggi Luminosi - Lamp (slowed to perfection by kirman).jpeg",
       "music": "NewReleaseSongsMusic/Raggi Luminosi - Da Vinci.mp3",
       "releaseDate": "Apr 8, 2025",
       "album": "Raggi Luminosi",
@@ -187,7 +188,7 @@
     {
       "title": "Sorfcore",
       "artist": "The neighberhood",
-      "cover": "/musicAvatars/Sorfcore.png",
+      "cover": "musicAvatars/Sorfcore.png",
       "releaseDate": "Nov 4, 2023",
       "album": "Hard to Imagine the Neighbourhood Ever Changing",
       "time": "3:26"
@@ -195,7 +196,7 @@
     {
       "title": "Skyfall Beats",
       "artist": "nightmares",
-      "cover": "/musicAvatars/Skyfall Beats.png",
+      "cover": "musicAvatars/Skyfall Beats.png",
       "releaseDate": "Oct 26, 2023",
       "album": "nightmares",
       "time": "2:45"
@@ -203,7 +204,7 @@
     {
       "title": "Greedy",
       "artist": "tate mcrae",
-      "cover": "/musicAvatars/Greedy.png",
+      "cover": "musicAvatars/Greedy.png",
       "releaseDate": "Dec 30, 2023",
       "album": "Greedy",
       "time": "2:11"
@@ -211,7 +212,7 @@
     {
       "title": "Lovin On me",
       "artist": "jack harlow",
-      "cover": "/musicAvatars/Lovin On me.png",
+      "cover": "musicAvatars/Lovin On me.png",
       "releaseDate": "Dec 30, 2023",
       "album": "Lovin On me",
       "time": "2:18"
@@ -219,7 +220,7 @@
     {
       "title": "pain the town red",
       "artist": "Doja Cat",
-      "cover": "/musicAvatars/pain the town red.png",
+      "cover": "musicAvatars/pain the town red.png",
       "releaseDate": "Dec 29, 2023",
       "album": "Paint The Town Red",
       "time": "3:51"
@@ -227,7 +228,7 @@
     {
       "title": "Dancin On Night",
       "artist": "Dualipa",
-      "cover": "/musicAvatars/Dancin On Night.png",
+      "cover": "musicAvatars/Dancin On Night.png",
       "releaseDate": "May 27, 2023",
       "album": "Dance The Night(From Barbie Movie)",
       "time": "2:56"
@@ -235,7 +236,7 @@
     {
       "title": "Water",
       "artist": "Tyla",
-      "cover": "/musicAvatars/Water.png",
+      "cover": "musicAvatars/Water.png",
       "releaseDate": "Dec 10, 2023",
       "album": "Water",
       "time": "3:20"
@@ -245,7 +246,7 @@
     {
       "title": "Sorfcore",
       "artist": "The neighberhood",
-      "cover": "/musicAvatars/Sorfcore.png",
+      "cover": "musicAvatars/Sorfcore.png",
       "releaseDate": "Nov 4, 2023",
       "album": "Hard to Imagine the Neighbourhood Ever Changing",
       "time": "3:26",
@@ -254,7 +255,7 @@
     {
       "title": "Skyfall Beats",
       "artist": "nightmares",
-      "cover": "/musicAvatars/Skyfall Beats.png",
+      "cover": "musicAvatars/Skyfall Beats.png",
       "releaseDate": "Oct 26, 2023",
       "album": "nightmares",
       "time": "2:45",
@@ -263,7 +264,7 @@
     {
       "title": "Greedy",
       "artist": "tate mcrae",
-      "cover": "/musicAvatars/Greedy.png",
+      "cover": "musicAvatars/Greedy.png",
       "releaseDate": "Dec 30, 2023",
       "album": "Greedy",
       "time": "2:11",
@@ -272,7 +273,7 @@
     {
       "title": "Lovin On me",
       "artist": "jack harlow",
-      "cover": "/musicAvatars/Lovin On me.png",
+      "cover": "musicAvatars/Lovin On me.png",
       "releaseDate": "Dec 30, 2023",
       "album": "Lovin On me",
       "time": "2:18",
@@ -281,7 +282,7 @@
     {
       "title": "pain the town red",
       "artist": "Doja Cat",
-      "cover": "/musicAvatars/pain the town red.png",
+      "cover": "musicAvatars/pain the town red.png",
       "releaseDate": "Dec 29, 2023",
       "album": "Paint The Town Red",
       "time": "3:51",
@@ -290,7 +291,7 @@
     {
       "title": "Dancin On Night",
       "artist": "Dualipa",
-      "cover": "/musicAvatars/Dancin On Night.png",
+      "cover": "musicAvatars/Dancin On Night.png",
       "releaseDate": "May 27, 2023",
       "album": "Dance The Night(From Barbie Movie)",
       "time": "2:56",
@@ -299,7 +300,7 @@
     {
       "title": "Water",
       "artist": "Tyla",
-      "cover": "/musicAvatars/Water.png",
+      "cover": "musicAvatars/Water.png",
       "releaseDate": "Dec 10, 2023",
       "album": "Water",
       "time": "3:20",
@@ -309,59 +310,59 @@
   "PopularArtists": [
     {
       "artist": "Eminiem",
-      "cover": "/popularArtists/Eminiem.png"
+      "cover": "popularArtists/Eminiem.png"
     },
     {
       "artist": "The Weekend",
-      "cover": "/popularArtists/The Weekend.png"
+      "cover": "popularArtists/The Weekend.png"
     },
     {
       "artist": "Adele",
-      "cover": "/popularArtists/Adele.png"
+      "cover": "popularArtists/Adele.png"
     },
     {
       "artist": "Lana Del Ray",
-      "cover": "/popularArtists/Lana Del Ray.png"
+      "cover": "popularArtists/Lana Del Ray.png"
     },
     {
       "artist": "Harry Styles",
-      "cover": "/popularArtists/Harry Styles.png"
+      "cover": "popularArtists/Harry Styles.png"
     },
     {
       "artist": "Billie Eilish",
-      "cover": "/popularArtists/Billie Eilish.png"
+      "cover": "popularArtists/Billie Eilish.png"
     },
     {
       "artist": "JIMMY SOMERVILLE",
-      "cover": "/LegendsArtists/JIMMY-SOMERVILLE.jpg",
+      "cover": "LegendsArtists/JIMMY-SOMERVILLE.jpg",
       "plays": 1638260,
       "country": "UK",
       "birthDate": "22.06.1961"
     },
     {
       "artist": "DIETER BOHLEN",
-      "cover": "/LegendsArtists/DIETER BOHLEN.jpg",
+      "cover": "LegendsArtists/DIETER BOHLEN.jpg",
       "plays": 1538260,
       "country": "Germany",
       "birthDate": "07.02.1954"
     },
     {
       "artist": "PATTY RYAN",
-      "cover": "/LegendsArtists/PATTY RYAN.jpg",
+      "cover": "LegendsArtists/PATTY RYAN.jpg",
       "plays": 1438260,
       "country": "Germany",
       "birthDate": "06.05.1961"
     },
     {
       "artist": "DSCHINGHIS KHAN",
-      "cover": "/LegendsArtists/DSCHINGHIS KHAN.jpg",
+      "cover": "LegendsArtists/DSCHINGHIS KHAN.jpg",
       "plays": 1338260,
       "country": "Germany",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "Francesco Napoli",
-      "cover": "/LegendsArtists/FRANCESCO NAPOLI.jpg",
+      "cover": "LegendsArtists/FRANCESCO NAPOLI.jpg",
       "plays": 1253826,
       "country": "Italy",
       "birthDate": "26.02.1963"
@@ -409,7 +410,7 @@
     {
       "title": "Adele 21",
       "artist": "Adele",
-      "cover": "/TopAlbums/Adele 21.png",
+      "cover": "TopAlbums/Adele 21.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21"
@@ -417,7 +418,7 @@
     {
       "title": "Scorpion",
       "artist": "Drake",
-      "cover": "/TopAlbums/Scorpion.png",
+      "cover": "TopAlbums/Scorpion.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21"
@@ -425,7 +426,7 @@
     {
       "title": "Harry’s House",
       "artist": "Harry Styles",
-      "cover": "/TopAlbums/Harry’s House.png",
+      "cover": "TopAlbums/Harry’s House.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21"
@@ -433,7 +434,7 @@
     {
       "title": "Born To Die",
       "artist": "Lana Del Ray",
-      "cover": "/TopAlbums/Born To Die.png",
+      "cover": "TopAlbums/Born To Die.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21"
@@ -441,7 +442,7 @@
     {
       "title": "Beauty Behind the...",
       "artist": "The Weekend",
-      "cover": "/TopAlbums/Beauty Behind the....png",
+      "cover": "TopAlbums/Beauty Behind the....png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21"
@@ -449,7 +450,7 @@
     {
       "title": "I Got Heaven",
       "artist": "Mannequin",
-      "cover": "/TopAlbums/I Got Heaven.png",
+      "cover": "TopAlbums/I Got Heaven.png",
       "releaseDate": "Oct 1, 2017",
       "album": "Mannequin",
       "time": "3:21"
@@ -457,7 +458,7 @@
     {
       "title": "Saviors",
       "artist": "Drake",
-      "cover": "/TopAlbums/Saviors.png",
+      "cover": "TopAlbums/Saviors.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Green Day",
       "time": "3:21"
@@ -465,7 +466,7 @@
     {
       "title": "Loss Of Life",
       "artist": "Drake",
-      "cover": "/TopAlbums/Loss Of Life.png",
+      "cover": "TopAlbums/Loss Of Life.png",
       "releaseDate": "Oct 6, 2017",
       "album": "MGMT",
       "time": "3:21"
@@ -473,7 +474,7 @@
     {
       "title": "All Quite On The ...",
       "artist": "Drake",
-      "cover": "/TopAlbums/All Quite On The ....png",
+      "cover": "TopAlbums/All Quite On The ....png",
       "releaseDate": "Oct 6, 2017",
       "album": "The Liberitnes",
       "time": "3:21"
@@ -481,7 +482,7 @@
     {
       "title": "Little Rope",
       "artist": "Drake",
-      "cover": "/TopAlbums/Little Rope.png",
+      "cover": "TopAlbums/Little Rope.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Sleater-Kinney",
       "time": "3:21"
@@ -490,68 +491,68 @@
   "MoodPlaylist": [
     {
       "titlePlaylist": "Sad Playlist",
-      "cover": "/MoodPlaylist/Sad Playlist.png"
+      "cover": "MoodPlaylist/Sad Playlist.png"
     },
     {
       "titlePlaylist": "Chill Playlist",
-      "cover": "/MoodPlaylist/Chill Playlist.png"
+      "cover": "MoodPlaylist/Chill Playlist.png"
     },
     {
       "titlePlaylist": "Workout Playlist",
-      "cover": "/MoodPlaylist/Workout Playlist.png"
+      "cover": "MoodPlaylist/Workout Playlist.png"
     },
     {
       "titlePlaylist": "Love Playlist",
-      "cover": "/MoodPlaylist/Love Playlist.png"
+      "cover": "MoodPlaylist/Love Playlist.png"
     },
     {
       "titlePlaylist": "Happy Playlist",
-      "cover": "/MoodPlaylist/Happy Playlist.png"
+      "cover": "MoodPlaylist/Happy Playlist.png"
     },
     {
       "titlePlaylist": "Melancholy Playlist",
-      "cover": "/MoodPlaylist/Melancholy Playlist.jpg"
+      "cover": "MoodPlaylist/Melancholy Playlist.jpg"
     },
     {
       "titlePlaylist": "Sunset Vibes Playlist",
-      "cover": "/MoodPlaylist/Sunset Vibes.jpg"
+      "cover": "MoodPlaylist/Sunset Vibes.jpg"
     },
     {
       "titlePlaylist": "Meditation Playlist",
-      "cover": "/MoodPlaylist/Meditation.jpg"
+      "cover": "MoodPlaylist/Meditation.jpg"
     },
     {
       "titlePlaylist": "Breakup Playlist",
-      "cover": "/MoodPlaylist/Breakup.jpg"
+      "cover": "MoodPlaylist/Breakup.jpg"
     },
     {
       "titlePlaylist": "Summer Hits Playlist",
-      "cover": "/MoodPlaylist/Summer Hits.jpg"
+      "cover": "MoodPlaylist/Summer Hits.jpg"
     }
   ],
   "MusicGenres": [
     {
       "genres": "Rap Tracks",
-      "cover": "/MusicGenres/Rap Tracks.png"
+      "cover": "MusicGenres/Rap Tracks.png"
     },
     {
       "genres": "Pop Tracks",
-      "cover": "/MusicGenres/Pop Tracks.png"
+      "cover": "MusicGenres/Pop Tracks.png"
     },
     {
       "genres": "Rock Tracks",
-      "cover": "/MusicGenres/Rock Tracks.png"
+      "cover": "MusicGenres/Rock Tracks.png"
     },
     {
       "genres": "Classic Tracks",
-      "cover": "/MusicGenres/Classic Tracks.png"
+      "cover": "MusicGenres/Classic Tracks.png"
     }
   ],
   "PopularAlbums": [
     {
       "title": "Adele 21",
       "artist": "Adele",
-      "cover": "/TopAlbums/Adele 21.png",
+      "cover": "TopAlbums/Adele 21.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21",
@@ -560,7 +561,7 @@
     {
       "title": "Scorpion",
       "artist": "Drake",
-      "cover": "/TopAlbums/Scorpion.png",
+      "cover": "TopAlbums/Scorpion.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21",
@@ -569,7 +570,7 @@
     {
       "title": "Harry’s House",
       "artist": "Harry Styles",
-      "cover": "/TopAlbums/Harry’s House.png",
+      "cover": "TopAlbums/Harry’s House.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21",
@@ -578,7 +579,7 @@
     {
       "title": "Born To Die",
       "artist": "Lana Del Ray",
-      "cover": "/TopAlbums/Born To Die.png",
+      "cover": "TopAlbums/Born To Die.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Evolve",
       "time": "3:21",
@@ -587,7 +588,7 @@
     {
       "title": "Trending songs mix",
       "artist": "Kareika",
-      "cover": "/TopAlbums/Trending songs mix .png",
+      "cover": "TopAlbums/Trending songs mix .png",
       "releaseDate": "Oct 6, 2017",
       "album": "Trending songs mix",
       "infoAlbums": "tate mcree, nightmares, the neighberhood, doja cat and ...",
@@ -599,7 +600,7 @@
           "duration": "3:26",
           "releaseDate": "Nov 4, 2023",
           "album": "Hard to Imagine Neighbourhood Ever Changing",
-          "cover": "/PopularAlbums/Sorfcore.png"
+          "cover": "PopularAlbums/Sorfcore.png"
         },
         {
           "title": "nightmares",
@@ -607,7 +608,7 @@
           "duration": "2:45",
           "releaseDate": "Oct 26, 2023",
           "album": "Skyfall Beats",
-          "cover": "/PopularAlbums/nightmares.png"
+          "cover": "PopularAlbums/nightmares.png"
         },
         {
           "title": "Greedy",
@@ -615,7 +616,7 @@
           "duration": "2:11",
           "releaseDate": "Nov 30, 2023",
           "album": "Greedy",
-          "cover": "/PopularAlbums/Greedy.png"
+          "cover": "PopularAlbums/Greedy.png"
         },
         {
           "title": "Lovin On me",
@@ -623,7 +624,7 @@
           "duration": "2:18",
           "releaseDate": "Dec 15, 2023",
           "album": "Lovin On me",
-          "cover": "/PopularAlbums/Lovin On me.png"
+          "cover": "PopularAlbums/Lovin On me.png"
         },
         {
           "title": "Paint The Town Red",
@@ -631,7 +632,7 @@
           "duration": "3:51",
           "releaseDate": "Dec 29, 2023",
           "album": "pain the town red",
-          "cover": "/PopularAlbums/Paint The Town Red.png"
+          "cover": "PopularAlbums/Paint The Town Red.png"
         },
         {
           "title": "Dance The Night(From Barbie Movie)",
@@ -639,7 +640,7 @@
           "duration": "2:56",
           "releaseDate": "May 27, 2023",
           "album": "Dancin On Night",
-          "cover": "/PopularAlbums/Dance The Night(From Barbie Movie).png"
+          "cover": "PopularAlbums/Dance The Night(From Barbie Movie).png"
         },
         {
           "title": "Water",
@@ -647,7 +648,7 @@
           "duration": "3:20",
           "releaseDate": "Oct 21, 2023",
           "album": "Water",
-          "cover": "/PopularAlbums/Water.png"
+          "cover": "PopularAlbums/Water.png"
         },
         {
           "title": "Push your limits",
@@ -655,7 +656,7 @@
           "duration": "2:24",
           "releaseDate": "Jan 2, 2024",
           "album": "Push your limits",
-          "cover": "/PopularAlbums/Push your limits.png"
+          "cover": "PopularAlbums/Push your limits.png"
         },
         {
           "title": "Houdini",
@@ -663,7 +664,7 @@
           "duration": "3:05",
           "releaseDate": "Dec 12, 2023",
           "album": "Houdini",
-          "cover": "/PopularAlbums/Houdini.png"
+          "cover": "PopularAlbums/Houdini.png"
         },
         {
           "title": "La vida es una",
@@ -671,7 +672,7 @@
           "duration": "3:17",
           "releaseDate": "Nov 20, 2023",
           "album": "Lala",
-          "cover": "/PopularAlbums/La vida es una.png"
+          "cover": "PopularAlbums/La vida es una.png"
         },
         {
           "title": "AM",
@@ -679,7 +680,7 @@
           "duration": "3:03",
           "releaseDate": "Sep 9, 2023",
           "album": "I Wanaa Be Yours",
-          "cover": "/PopularAlbums/AM.png"
+          "cover": "PopularAlbums/AM.png"
         },
         {
           "title": "Paradise",
@@ -687,7 +688,7 @@
           "duration": "2:30",
           "releaseDate": "Jul 5, 2023",
           "album": "Paradise",
-          "cover": "/PopularAlbums/Paradise.png"
+          "cover": "PopularAlbums/Paradise.png"
         },
         {
           "title": "As It Was",
@@ -695,7 +696,7 @@
           "duration": "2:47",
           "releaseDate": "Sep 14, 2022",
           "album": "As It Was",
-          "cover": "/PopularAlbums/As It Was.png"
+          "cover": "PopularAlbums/As It Was.png"
         },
         {
           "title": "Another Love",
@@ -703,7 +704,7 @@
           "duration": "4:06",
           "releaseDate": "Dec 19, 2013",
           "album": "Another Love",
-          "cover": "/PopularAlbums/Another Love.png"
+          "cover": "PopularAlbums/Another Love.png"
         },
         {
           "title": "Daylight",
@@ -711,7 +712,7 @@
           "duration": "3:32",
           "releaseDate": "Jun 16, 2022",
           "album": "Daylight",
-          "cover": "/PopularAlbums/Daylight.png"
+          "cover": "PopularAlbums/Daylight.png"
         },
         {
           "title": "Beggin",
@@ -719,7 +720,7 @@
           "duration": "3:31",
           "releaseDate": "Feb 27, 2017",
           "album": "Chosen",
-          "cover": "/PopularAlbums/Beggin.png"
+          "cover": "PopularAlbums/Beggin.png"
         },
         {
           "title": "What Was I Made For",
@@ -727,7 +728,7 @@
           "duration": "3:42",
           "releaseDate": "Sep 6, 2023",
           "album": "What Was I Made F...",
-          "cover": "/PopularAlbums/What Was I Made For.png"
+          "cover": "PopularAlbums/What Was I Made For.png"
         },
         {
           "title": "Daddy Issues",
@@ -735,7 +736,7 @@
           "duration": "4:20",
           "releaseDate": "Aug 21, 2015",
           "album": "Wiped out",
-          "cover": "/PopularAlbums/Daddy Issues.png"
+          "cover": "PopularAlbums/Daddy Issues.png"
         },
         {
           "title": "Rolling In The Deep",
@@ -743,7 +744,7 @@
           "duration": "3:48",
           "releaseDate": "Jun 5, 2011",
           "album": "Adele 21",
-          "cover": "/PopularAlbums/Rolling In The Deep.png"
+          "cover": "PopularAlbums/Rolling In The Deep.png"
         },
         {
           "title": "OneShot",
@@ -751,14 +752,14 @@
           "duration": "1:15",
           "releaseDate": "Dec 14, 2023",
           "album": "Toca Donka",
-          "cover": "/PopularAlbums/OneShot.png"
+          "cover": "PopularAlbums/OneShot.png"
         }
       ]
     },
     {
       "title": "I Got Heaven",
       "artist": "Mannequin",
-      "cover": "/TopAlbums/I Got Heaven.png",
+      "cover": "TopAlbums/I Got Heaven.png",
       "releaseDate": "Oct 1, 2017",
       "album": "Mannequin",
       "time": "3:21",
@@ -768,7 +769,7 @@
     {
       "title": "Saviors",
       "artist": "Drake",
-      "cover": "/TopAlbums/Saviors.png",
+      "cover": "TopAlbums/Saviors.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Green Day",
       "time": "3:21",
@@ -777,7 +778,7 @@
     {
       "title": "Loss Of Life",
       "artist": "Drake",
-      "cover": "/TopAlbums/Loss Of Life.png",
+      "cover": "TopAlbums/Loss Of Life.png",
       "releaseDate": "Oct 6, 2017",
       "album": "MGMT",
       "time": "3:21",
@@ -786,7 +787,7 @@
     {
       "title": "All Quite On The ...",
       "artist": "Drake",
-      "cover": "/TopAlbums/All Quite On The ....png",
+      "cover": "TopAlbums/All Quite On The ....png",
       "releaseDate": "Oct 6, 2017",
       "album": "The Liberitnes",
       "time": "3:21",
@@ -795,7 +796,7 @@
     {
       "title": "Little Rope",
       "artist": "Drake",
-      "cover": "/TopAlbums/Little Rope.png",
+      "cover": "TopAlbums/Little Rope.png",
       "releaseDate": "Oct 6, 2017",
       "album": "Sleater-Kinney",
       "time": "3:21",
@@ -806,7 +807,7 @@
     {
       "artist": "Eminem",
       "title": "Eminem Greatest Hits",
-      "cover": "/LegendsArtists/Eminiem.png",
+      "cover": "LegendsArtists/Eminiem.png",
       "backgroundImage": "/LegendsArtists/EminemFon.png",
       "plays": 2259000,
       "country": "USA",
@@ -817,7 +818,7 @@
       "tracks": [
         {
           "title": "Without Me",
-          "cover": "/EminemTracks/Without Me.png",
+          "cover": "EminemTracks/Without Me.png",
           "artist": "Eminem",
           "releaseDate": "28.10.2002",
           "duration": "5:20",
@@ -825,7 +826,7 @@
         },
         {
           "title": "mockingbird",
-          "cover": "/EminemTracks/mockingbird.png",
+          "cover": "EminemTracks/mockingbird.png",
           "artist": "Eminem",
           "releaseDate": "14.05.2002",
           "duration": "4:50",
@@ -833,7 +834,7 @@
         },
         {
           "title": "The Real Slim Shady",
-          "cover": "/EminemTracks/The Real Slim Shady.png",
+          "cover": "EminemTracks/The Real Slim Shady.png",
           "artist": "Eminem",
           "releaseDate": "16.05.2000",
           "duration": "4:45",
@@ -841,7 +842,7 @@
         },
         {
           "title": "Lose Yourself",
-          "cover": "/EminemTracks/Lose Yourself.png",
+          "cover": "EminemTracks/Lose Yourself.png",
           "artist": "Eminem feat. Dido",
           "releaseDate": "20.11.2000",
           "duration": "6:44",
@@ -849,7 +850,7 @@
         },
         {
           "title": "Godzila",
-          "cover": "/EminemTracks/Godzila.png",
+          "cover": "EminemTracks/Godzila.png",
           "artist": "Eminem",
           "releaseDate": "29.04.2010",
           "duration": "4:08",
@@ -860,233 +861,233 @@
         {
           "title": "The Eminem Show",
           "year": 2000,
-          "cover": "/EminemAlbums/The Eminem Show.png"
+          "cover": "EminemAlbums/The Eminem Show.png"
         },
         {
           "title": "Encore",
           "year": 2002,
-          "cover": "/EminemAlbums/Encore.png"
+          "cover": "EminemAlbums/Encore.png"
         },
         {
           "title": "Music To Be Mrde...",
           "year": 2004,
-          "cover": "/EminemAlbums/Music To Be Mrde....png"
+          "cover": "EminemAlbums/Music To Be Mrde....png"
         },
         {
-          "title": "ReRecoverylapse",
+          "title": "ReRecoverylape",
           "year": 2009,
-          "cover": "/EminemAlbums/Recovery.png"
+          "cover": "EminemAlbums/Recovery.pn"
         },
         {
           "title": "Eminem The Slim...",
           "year": 1999,
-          "cover": "/EminemAlbums/Eminem The Slim....png"
+          "cover": "EminemAlbums/Eminem The Slim....png"
         }
       ],
       "singles": [
         {
           "title": "Lace It",
           "releaseDate": "2023",
-          "cover": "/SinglesEminem/Lace It.png"
+          "cover": "SinglesEminem/Lace It.png"
         },
         {
           "title": "Releast",
           "releaseDate": "2022",
-          "cover": "/SinglesEminem/Releast.png"
+          "cover": "SinglesEminem/Releast.png"
         },
         {
           "title": "From The D 2 Th...",
           "releaseDate": "2023",
-          "cover": "/SinglesEminem/From The D 2 Th....png"
+          "cover": "SinglesEminem/From The D 2 Th....png"
         },
         {
           "title": "911",
           "releaseDate": "2022",
-          "cover": "/SinglesEminem/911.png"
+          "cover": "SinglesEminem/911.png"
         },
         {
           "title": "Killshot",
           "releaseDate": "2018",
-          "cover": "/SinglesEminem/Killshot.png"
+          "cover": "SinglesEminem/Killshot.png"
         }
       ],
       "playlist": [
         {
           "titlePlaylist": "Full Collection",
-          "cover": "/PlaylistsEminem/Full Collection.png"
+          "cover": "PlaylistsEminem/Full Collection.png"
         },
         {
           "titlePlaylist": "Best Of Eminem",
-          "cover": "/PlaylistsEminem/Best Of Eminem.png"
+          "cover": "PlaylistsEminem/Best Of Eminem.png"
         },
         {
          "titlePlaylist": "Old Songs",
-          "cover": "/PlaylistsEminem/Old Songs.png"
+          "cover": "PlaylistsEminem/Old Songs.png"
         },
         {
           "titlePlaylist": "Fan’s Favorite",
-          "cover": "/PlaylistsEminem/Fan’s Favorite.png"
+          "cover": "PlaylistsEminem/Fan’s Favorite.png"
         },
         {
           "titlePlaylist": "New Releases",
-          "cover": "/PlaylistsEminem/New Releases.png"
+          "cover": "PlaylistsEminem/New Releases.png"
         }
       ],
       "fansAlsoListen": [
         {
           "artist": "50 Cent",
-          "cover": "/FansAlsoEminem/50 Cent.png"
+          "cover": "FansAlsoEminem/50 Cent.png"
         },
         {
           "artist": "Snoop Dog",
-          "cover": "/FansAlsoEminem/Snoop Dog.png"
+          "cover": "FansAlsoEminem/Snoop Dog.png"
         },
         {
           "artist": "Tupac",
-          "cover": "/FansAlsoEminem/Tupac.png"
+          "cover": "FansAlsoEminem/Tupac.png"
         },
         {
           "artist": "Jay+z",
-          "cover": "/FansAlsoEminem/Jay+z.png"
+          "cover": "FansAlsoEminem/Jay+z.png"
         }
       ]
     },
     {
       "artist": "BEE GEES",
-      "cover": "/LegendsArtists/bee-gees.jpg",
+      "cover": "LegendsArtists/bee-gees.jpg",
       "plays": 3238260,
       "country": "UK/Australia",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "BARBARA STREISAND",
-      "cover": "/LegendsArtists/BARBARA STREISAND.jpg",
+      "cover": "LegendsArtists/BARBARA STREISAND.jpg",
       "plays": 2938260,
       "country": "USA",
       "birthDate": "24.04.1942"
     },
     {
       "artist": "LISA STANSFIELD",
-      "cover": "/LegendsArtists/LISA-STANSFIELD.jpg",
+      "cover": "LegendsArtists/LISA-STANSFIELD.jpg",
       "plays": 2438260,
       "country": "UK",
       "birthDate": "11.04.1966"
     },
     {
       "artist": "CHRIS ISAAK",
-      "cover": "/LegendsArtists/CHRIS ISAAK.jpg",
+      "cover": "LegendsArtists/CHRIS ISAAK.jpg",
       "plays": 2238260,
       "country": "USA",
       "birthDate": "26.06.1956"
     },
     {
       "artist": "BELINDA CARLISLE",
-      "cover": "/LegendsArtists/BELINDA CARLISLE.png",
+      "cover": "LegendsArtists/BELINDA CARLISLE.png",
       "plays": 2382600,
       "country": "USA",
       "birthDate": "17.08.1958"
     },
     {
       "artist": "DESIRELESS",
-      "cover": "/LegendsArtists/XDESIRELESS.jpg",
+      "cover": "LegendsArtists/XDESIRELESS.jpg",
       "plays": 1838260,
       "country": "France",
       "birthDate": "25.12.1952"
     },
     {
       "artist": "JIMMY SOMERVILLE",
-      "cover": "/LegendsArtists/JIMMY-SOMERVILLE.jpg",
+      "cover": "LegendsArtists/JIMMY-SOMERVILLE.jpg",
       "plays": 1638260,
       "country": "UK",
       "birthDate": "22.06.1961"
     },
     {
       "artist": "DIETER BOHLEN",
-      "cover": "/LegendsArtists/DIETER BOHLEN.jpg",
+      "cover": "LegendsArtists/DIETER BOHLEN.jpg",
       "plays": 1538260,
       "country": "Germany",
       "birthDate": "07.02.1954"
     },
     {
       "artist": "PATTY RYAN",
-      "cover": "/LegendsArtists/PATTY RYAN.jpg",
+      "cover": "LegendsArtists/PATTY RYAN.jpg",
       "plays": 1438260,
       "country": "Germany",
       "birthDate": "06.05.1961"
     },
     {
       "artist": "DSCHINGHIS KHAN",
-      "cover": "/LegendsArtists/DSCHINGHIS KHAN.jpg",
+      "cover": "LegendsArtists/DSCHINGHIS KHAN.jpg",
       "plays": 1338260,
       "country": "Germany",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "Francesco Napoli",
-      "cover": "/LegendsArtists/FRANCESCO NAPOLI.jpg",
+      "cover": "LegendsArtists/FRANCESCO NAPOLI.jpg",
       "plays": 1253826,
       "country": "Italy",
       "birthDate": "26.02.1963"
     },
     {
       "artist": "SANTA ESMERALDA",
-      "cover": "/LegendsArtists/SANTA ESMERALDA.jpg",
+      "cover": "LegendsArtists/SANTA ESMERALDA.jpg",
       "plays": 1238260,
       "country": "USA/France",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "MARCIA BARRETT",
-      "cover": "/LegendsArtists/marcia-barrett.jpg",
+      "cover": "LegendsArtists/marcia-barrett.jpg",
       "plays": 1138260,
       "country": "Jamaica/UK",
       "birthDate": "14.10.1948"
     },
     {
       "artist": "N-Trance",
-      "cover": "/LegendsArtists/N-Trance.jpg",
+      "cover": "LegendsArtists/N-Trance.jpg",
       "plays": 1382600,
       "country": "UK",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "Music Instructor",
-      "cover": "/LegendsArtists/Music-Instructor.jpg",
+      "cover": "LegendsArtists/Music-Instructor.jpg",
       "plays": 953826,
       "country": "Germany",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "ZODIAC",
-      "cover": "/LegendsArtists/Zodiac.jpg",
+      "cover": "LegendsArtists/Zodiac.jpg",
       "plays": 938260,
       "country": "Latvia (USSR)",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "ROCKETS",
-      "cover": "/LegendsArtists/ROCKETS.jpg",
+      "cover": "LegendsArtists/ROCKETS.jpg",
       "plays": 853826,
       "country": "France/Italy",
       "birthDate": "27.02.1998"
     },
     {
       "artist": "KEVIN MCCOY",
-      "cover": "/LegendsArtists/Bad_Boys_Blue.jpg",
+      "cover": "LegendsArtists/Bad_Boys_Blue.jpg",
       "plays": 838260,
       "country": "USA",
       "birthDate": "05.10.1971"
     },
     {
       "artist": "Shaggy",
-      "cover": "/LegendsArtists/Shaggy.jpg",
+      "cover": "LegendsArtists/Shaggy.jpg",
       "plays": 2238226,
       "country": "Jamaica/USA",
       "birthDate": "22.10.1968"
     },
     {
       "artist": "Elvis Costello & Band",
-      "cover": "/LegendsArtists/Elvis-Costello-Band.jpg",
+      "cover": "LegendsArtists/Elvis-Costello-Band.jpg",
       "plays": 438260,
       "country": "UK",
       "birthDate": "25.08.1954"
