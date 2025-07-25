@@ -23,11 +23,11 @@ const TableArtists = ({
         {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
       </p>
 
-      <Row gutter={16} style={{ margin: "30px 0", fontWeight: 500, fontSize: 20 }}>
+      <Row gutter={16} style={{ margin: "30px 0", fontWeight: 500}}>
         <Col span={2}></Col>
         <Col span={6}></Col>
         {columns.map((col, idx) => (
-          <Col key={idx} span={col.span || 4} style={{ textAlign: "center" }}>
+          <Col key={idx} span={col.span || 4} style={{ textAlign: "center",fontSize: 20 }}>
             {col.header}
           </Col>
         ))}
