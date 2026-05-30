@@ -1,0 +1,100 @@
+import { Routes, Route } from "react-router-dom";
+import Sider from "./components/Sider/Sider";
+import Header from "./components/Header/Header";
+import ContentPage from "./pages/ContentPage";
+import MusicPlayer from "./components/MusicPlayer/MusicPlayer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import ChooseUsername from "./pages/auth/ChooseUsername";
+import useAppState from "./state/appState";
+import { LibraryProvider } from "./state/libraryState";
+
+function MainShell() {
+  const {
+    selectedAlbum,
+    setSelectedAlbum,
+    selectedArtists,
+    setSelectedArtists,
+    currentTrackIndex,
+    setCurrentTrackIndex,
+    currentPlaylist,
+    setCurrentPlaylist,
+    isSiderOpen,
+    setIsSiderOpen,
+    contentRef,
+  } = useAppState();
+
+  const siderWidth = isSiderOpen ? 250 : 0;
+
+  return (
+    <div
+      style={{ display: "flex", height: "100vh", backgroundColor: "#09090B" }}
+    >
+      <Sider isOpen={isSiderOpen} setIsOpen={setIsSiderOpen} />
+      <Header
+        isOpen={isSiderOpen}
+        setIsOpen={setIsSiderOpen}
+        setCurrentTrackIndex={setCurrentTrackIndex}
+        setCurrentPlaylist={setCurrentPlaylist}
+      />
+
+      <div
+        style={{
+          marginLeft: siderWidth,
+          flex: 1,
+          minWidth: 0,
+          display: "flex",
+          flexDirection: "column",
+          transition: "margin-left 0.3s ease",
+          paddingTop: "80px",
+        }}
+      >
+        <div
+          ref={contentRef}
+          className="custom-scrollbar"
+          style={{
+            flex: 1,
+            minWidth: 0,
+            overflowX: "hidden",
+            overflowY: "auto",
+            paddingBottom: currentTrackIndex !== null ? "120px" : "0",
+            position: "relative",
+          }}
+        >
+          <ScrollToTop scrollRef={contentRef} />
+          <ContentPage
+            selectedAlbum={selectedAlbum}
+            setSelectedAlbum={setSelectedAlbum}
+            selectedArtists={selectedArtists}
+            setSelectedArtists={setSelectedArtists}
+            currentTrackIndex={currentTrackIndex}
+            setCurrentTrackIndex={setCurrentTrackIndex}
+            setCurrentPlaylist={setCurrentPlaylist}
+          />
+        </div>
+      </div>
+
+      {currentTrackIndex !== null && currentPlaylist && (
+        <MusicPlayer
+          playlist={currentPlaylist}
+          currentIndex={currentTrackIndex}
+          setCurrentIndex={setCurrentTrackIndex}
+        />
+      )}
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LibraryProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/choose-username" element={<ChooseUsername />} />
+        <Route path="*" element={<MainShell />} />
+      </Routes>
+    </LibraryProvider>
+  );
+}

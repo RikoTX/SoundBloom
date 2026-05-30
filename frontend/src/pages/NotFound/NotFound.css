@@ -1,0 +1,201 @@
+.not-found-wrapper {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  width: 100%;
+  background-color: #09090b;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow: hidden;
+}
+
+.not-found-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.not-found-glow--left {
+  background: #cb0094;
+  top: -100px;
+  left: -150px;
+}
+
+.not-found-glow--right {
+  background: #ee10b0;
+  bottom: -120px;
+  right: -150px;
+  opacity: 0.25;
+}
+
+.not-found-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 720px;
+  width: 100%;
+}
+
+.not-found-icon {
+  font-size: 64px;
+  color: #cb0094;
+  background: rgba(203, 0, 148, 0.1);
+  border: 1px solid rgba(203, 0, 148, 0.35);
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 28px;
+  box-shadow: 0 0 60px rgba(203, 0, 148, 0.4);
+}
+
+.not-found-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  font-size: clamp(120px, 22vw, 220px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -6px;
+  background: linear-gradient(180deg, #ffffff 0%, #cb0094 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 80px rgba(203, 0, 148, 0.3);
+}
+
+.not-found-code__digit {
+  display: inline-block;
+}
+
+.not-found-code__zero {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(110px, 20vw, 200px);
+  height: clamp(110px, 20vw, 200px);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    #1a1a1d 0%,
+    #0d0d0f 55%,
+    #000000 100%
+  );
+  border: 4px solid #cb0094;
+  box-shadow:
+    0 0 40px rgba(203, 0, 148, 0.5),
+    inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.not-found-code__zero::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+}
+
+.not-found-code__zero-inner {
+  width: 22%;
+  height: 22%;
+  border-radius: 50%;
+  background: #ee10b0;
+  box-shadow: 0 0 18px rgba(238, 16, 176, 0.9);
+}
+
+.not-found-title {
+  margin: 24px 0 12px;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.not-found-title__accent {
+  color: #cb0094;
+}
+
+.not-found-description {
+  margin: 0 0 36px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 520px;
+}
+
+.not-found-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.not-found-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease,
+    box-shadow 0.2s ease, opacity 0.2s ease;
+  font-family: inherit;
+}
+
+.not-found-btn--primary {
+  background: #cb0094;
+  color: #ffffff;
+  border: 1px solid #cb0094;
+  box-shadow: 0 6px 24px rgba(203, 0, 148, 0.35);
+}
+
+.not-found-btn--primary:hover {
+  background: #ee10b0;
+  border-color: #ee10b0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(238, 16, 176, 0.45);
+}
+
+.not-found-btn--secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.not-found-btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .not-found-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .not-found-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .not-found-icon {
+    width: 96px;
+    height: 96px;
+    font-size: 48px;
+  }
+}
