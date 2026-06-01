@@ -1,6 +1,7 @@
 import { HeartOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import SongsTable from "../SongsTable/SongsTable";
+import SectionHeading from "../SectionHeading";
 import useJamendoTracks from "../../hooks/useJamendoTracks";
 
 export const JAMENDO_SONGS_FETCH_OPTS = {
@@ -44,18 +45,9 @@ export default function JamendoSongsTable({
 
   if (loading && tracks.length === 0) {
     return (
-      <div style={{ padding: "0 5%", marginTop: 35 }}>
-        <p style={{ fontWeight: 600, fontSize: 35 }}>
-          {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
-        </p>
-        <div
-          style={{
-            marginTop: 30,
-            padding: 40,
-            textAlign: "center",
-            color: "#929292",
-          }}
-        >
+      <div className="px-[5%] pt-9">
+        <SectionHeading title={title} pinkTitle={pinkTitle} />
+        <div className="mt-8 py-10 text-center text-sb-fg-muted">
           {t("common.loadingTracks")}
         </div>
       </div>

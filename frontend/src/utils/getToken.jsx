@@ -13,5 +13,6 @@ export const getToken = () => {
     email: claims.email,
     userId: claims.userId,
     isAdmin: claims.role === "admin",
+    isOperator: claims.role === "operator",
   };
 };

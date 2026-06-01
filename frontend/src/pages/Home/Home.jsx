@@ -20,8 +20,8 @@ import useCuratedAlbums from "../../hooks/useCuratedAlbums";
 import useJamendoTracks from "../../hooks/useJamendoTracks";
 import useJamendoPlaylists from "../../hooks/useJamendoPlaylists";
 import useGenreCovers from "../../hooks/useGenreCovers";
+import useCatalogTracks from "../../hooks/useCatalogTracks";
 import { formatPlaylistForPlayer } from "../../utils/formatTrackForPlayer";
-
 const HOME_POPULAR_ARTIST_NAMES = [
   "Drake",
   "Taylor Swift",
@@ -99,6 +99,11 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
   const { tracks: hitMusic, loading: hitMusicLoading } =
     useJamendoTracks(TRACK_FETCH_OPTS.hits);
 
+  const { tracks: platformTracks, loading: platformLoading } = useCatalogTracks({
+    order: "recent",
+    limit: 12,
+  });
+
   const { playlists, loading: playlistsLoading } =
     useJamendoPlaylists(PLAYLIST_OPTS);
   const { items: genres, loading: genresLoading } =
@@ -130,7 +135,7 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
   };
 
   const playFromList = (list, index) => {
-    handlePlaySong(formatPlaylistForPlayer(list, "jamendo"), index);
+    handlePlaySong(formatPlaylistForPlayer(list), index);
   };
 
   const scrollToLogin = () =>
@@ -139,6 +144,19 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
   return (
     <div>
       {!isAuth && <HeroSection onScrollToLogin={scrollToLogin} />}
+
+      {(platformLoading || platformTracks.length > 0) && (
+        <section id="platform-tracks" aria-busy={platformLoading}>
+          <SongGrid
+            title={t("home.section.platformTracks.main")}
+            pinkTitle={t("home.section.platformTracks.accent")}
+            songs={platformTracks}
+            handlePlaySong={(_, idx) => playFromList(platformTracks, idx)}
+            loading={platformLoading}
+            skeletonCount={12}
+          />
+        </section>
+      )}
 
       <section id="weekly-top-songs">
         <SongGrid

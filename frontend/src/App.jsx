@@ -1,4 +1,5 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Sider from "./components/Sider/Sider";
 import Header from "./components/Header/Header";
 import ContentPage from "./pages/ContentPage";
@@ -7,10 +8,15 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ChooseUsername from "./pages/auth/ChooseUsername";
+import ChangePassword from "./pages/auth/ChangePassword";
 import useAppState from "./state/appState";
 import { LibraryProvider } from "./state/libraryState";
+import { getToken } from "./utils/getToken";
+import { fetchMe } from "./api/authApi";
+import ToastHost from "./components/ToastHost/ToastHost";
 
 function MainShell() {
+  const navigate = useNavigate();
   const {
     selectedAlbum,
     setSelectedAlbum,
@@ -26,10 +32,39 @@ function MainShell() {
   } = useAppState();
 
   const siderWidth = isSiderOpen ? 250 : 0;
+  const [isAuth, setIsAuth] = useState(() => getToken().isAuth);
+
+  useEffect(() => {
+    const syncAuth = () => {
+      const authed = getToken().isAuth;
+      setIsAuth(authed);
+      if (!authed) {
+        setCurrentTrackIndex(null);
+        setCurrentPlaylist(null);
+      }
+    };
+    syncAuth();
+    window.addEventListener("soundbloom-auth-change", syncAuth);
+    return () => window.removeEventListener("soundbloom-auth-change", syncAuth);
+  }, [setCurrentPlaylist, setCurrentTrackIndex]);
+
+  useEffect(() => {
+    const { isAuth, token } = getToken();
+    if (!isAuth || !token) return;
+
+    fetchMe(token)
+      .then((profile) => {
+        if (profile.mustChangePassword) {
+          navigate("/change-password", { replace: true });
+        }
+      })
+      .catch(() => {});
+  }, [navigate]);
 
   return (
     <div
-      style={{ display: "flex", height: "100vh", backgroundColor: "#09090B" }}
+      className="flex h-screen bg-sb-base text-sb-fg"
+      style={{ display: "flex", height: "100vh" }}
     >
       <Sider isOpen={isSiderOpen} setIsOpen={setIsSiderOpen} />
       <Header
@@ -75,7 +110,7 @@ function MainShell() {
         </div>
       </div>
 
-      {currentTrackIndex !== null && currentPlaylist && (
+      {isAuth && currentTrackIndex !== null && currentPlaylist && (
         <MusicPlayer
           playlist={currentPlaylist}
           currentIndex={currentTrackIndex}
@@ -89,10 +124,12 @@ function MainShell() {
 export default function App() {
   return (
     <LibraryProvider>
+      <ToastHost />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/choose-username" element={<ChooseUsername />} />
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route path="*" element={<MainShell />} />
       </Routes>
     </LibraryProvider>

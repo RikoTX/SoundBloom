@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { initI18n } from "./i18n";
+import { initTheme } from "./theme/initTheme";
+
+initTheme();
 
 const redirectPath = sessionStorage.getItem("redirect");
 if (redirectPath) {

@@ -1,7 +1,7 @@
 .custom-button {
-  background-color: #09090b;
-  color: rgba(255, 255, 255, 0.600);
-  border: 1px solid #09090b;
+  background-color: var(--sb-muted);
+  color: var(--sb-fg-muted);
+  border: 1px solid var(--sb-border);
   padding: 0.6em 1.2em;
   font-size: 1em;
   display: flex;
@@ -16,7 +16,8 @@
 }
 
 .custom-button:hover {
-  opacity: 0.8;
+  background-color: var(--sb-card-hover);
+  color: var(--sb-fg);
 }
 
 .custom-button.active {
@@ -25,4 +26,5 @@
   font-size: 20px;
   font-weight: 400;
   width: 200px;
+  border-color: #cb0094;
 }

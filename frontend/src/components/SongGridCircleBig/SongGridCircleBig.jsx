@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "antd";
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
 import { motion } from "framer-motion";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 export default function SongGridCircleBig({
   title,
@@ -59,11 +60,7 @@ export default function SongGridCircleBig({
                 }}
               >
                 <img
-                  src={
-                    fan.cover?.startsWith("http")
-                      ? fan.cover
-                      : import.meta.env.BASE_URL + fan.cover
-                  }
+                  src={resolveMediaUrl(fan.cover)}
                   alt={fan.artist}
                   style={{
                     width: "100%",

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import {
   CrownOutlined,
+  UserAddOutlined,
   UserOutlined,
   DatabaseOutlined,
   FileTextOutlined,
@@ -21,7 +22,9 @@ import {
 import { getToken } from "../../utils/getToken";
 import {
   fetchAdminUsers,
+  createAdminUser,
   updateAdminUser,
+  resetAdminUserPassword,
   deleteAdminUser,
   fetchAdminStats,
   fetchAdminLogs,
@@ -32,6 +35,7 @@ import {
 import { changeAppLanguage, getStoredLocale } from "../../i18n";
 import { fileToAvatarDataUrl } from "../../utils/avatarImage";
 import { dispatchProfileChange } from "../../utils/authSession";
+import { confirmAction, notifyError, notifySuccess } from "../../utils/appNotification";
 
 const TABS = [
   { id: "users", icon: UserOutlined },
@@ -80,6 +84,9 @@ function UserEditModal({ user, onClose, onSaved, onDeleted }) {
   const [deleting, setDeleting] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [resettingPassword, setResettingPassword] = useState(false);
+  const [passwordFeedback, setPasswordFeedback] = useState(null);
 
   const handleAvatarSelect = async (event) => {
     const file = event.target.files?.[0];
@@ -106,15 +113,28 @@ function UserEditModal({ user, onClose, onSaved, onDeleted }) {
     setClearAvatar(true);
   };
 
+  const isValidUsername = (value) => /^[a-z0-9_]{3,20}$/.test(value);
+
   const handleSave = async () => {
     setSaving(true);
     setError("");
     try {
+      const trimmedUsername = username.trim().toLowerCase();
       const payload = {
-        username: username.trim() || undefined,
         role,
         clearAvatar,
       };
+      if (trimmedUsername && isValidUsername(trimmedUsername)) {
+        payload.username = trimmedUsername;
+      } else if (trimmedUsername && trimmedUsername.includes("@")) {
+        setError(t("admin.users.usernameNotEmail"));
+        setSaving(false);
+        return;
+      } else if (trimmedUsername) {
+        setError(t("auth.validation.usernameFormat"));
+        setSaving(false);
+        return;
+      }
       if (pendingAvatar) {
         payload.avatarData = pendingAvatar;
       }
@@ -130,12 +150,45 @@ function UserEditModal({ user, onClose, onSaved, onDeleted }) {
     }
   };
 
+  const handleResetPassword = async () => {
+    if (newPassword.length < 8) {
+      const msg = t("auth.changePassword.minLength");
+      setPasswordFeedback({ type: "error", text: msg });
+      notifyError(msg);
+      return;
+    }
+
+    setResettingPassword(true);
+    setError("");
+    setPasswordFeedback(null);
+    try {
+      const result = await resetAdminUserPassword(user.id, newPassword);
+      const loginEmail = result?.email || user.email;
+      const successText = t("admin.users.passwordResetDone", { email: loginEmail });
+      setNewPassword("");
+      setPasswordFeedback({ type: "success", text: successText });
+      notifySuccess(t("admin.users.passwordResetTitle"), successText);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : t("admin.error");
+      setPasswordFeedback({ type: "error", text: msg });
+      notifyError(t("admin.error"), msg);
+    } finally {
+      setResettingPassword(false);
+    }
+  };
+
   const handleDelete = async () => {
     if (user.id === currentUserId) {
       setError(t("admin.users.cannotDeleteSelf"));
       return;
     }
-    if (!window.confirm(t("admin.users.deleteConfirm"))) return;
+    const confirmed = await confirmAction({
+      title: t("admin.users.deleteConfirm"),
+      okText: t("common.yes"),
+      cancelText: t("common.cancel"),
+      danger: true,
+    });
+    if (!confirmed) return;
 
     setDeleting(true);
     setError("");
@@ -247,8 +300,45 @@ function UserEditModal({ user, onClose, onSaved, onDeleted }) {
               className="w-full rounded-xl border border-white/10 bg-[#09090B] px-4 py-2.5 text-sm text-white outline-none focus:border-[#EE10B0]/40"
             >
               <option value="user">user</option>
+              <option value="operator">operator</option>
               <option value="admin">admin</option>
             </select>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs uppercase tracking-wider text-white/35">
+              {t("admin.users.newPassword")}
+            </label>
+            <div className="flex gap-2">
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                  setPasswordFeedback(null);
+                }}
+                placeholder="Qwerty123+"
+                className="min-w-0 flex-1 rounded-xl border border-white/10 bg-[#09090B] px-4 py-2.5 text-sm text-white outline-none focus:border-[#EE10B0]/40"
+              />
+              <button
+                type="button"
+                onClick={handleResetPassword}
+                disabled={resettingPassword || newPassword.length < 8}
+                className="shrink-0 rounded-xl border border-[#0E9EEF]/40 bg-[#0E9EEF]/10 px-3 py-2 text-xs text-[#0E9EEF] hover:bg-[#0E9EEF]/20 disabled:opacity-40 cursor-pointer"
+              >
+                {resettingPassword ? "…" : t("admin.users.resetPassword")}
+              </button>
+            </div>
+            {passwordFeedback && (
+              <p
+                className={`mt-2 text-sm ${
+                  passwordFeedback.type === "success"
+                    ? "text-emerald-400"
+                    : "text-red-300"
+                }`}
+              >
+                {passwordFeedback.text}
+              </p>
+            )}
           </div>
         </div>
 
@@ -285,12 +375,148 @@ function UserEditModal({ user, onClose, onSaved, onDeleted }) {
   );
 }
 
+function CreateUserModal({ onClose, onCreated }) {
+  const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [role, setRole] = useState("user");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [result, setResult] = useState(null);
+
+  const handleCreate = async () => {
+    setSaving(true);
+    setError("");
+    setResult(null);
+    try {
+      const created = await createAdminUser({
+        email: email.trim(),
+        role,
+        username: username.trim() || undefined,
+      });
+      setResult(created);
+      onCreated();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t("admin.error"));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/70 p-4"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="w-full max-w-md rounded-2xl border border-white/10 bg-[#111113] p-6 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+      >
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-white">{t("admin.users.createTitle")}</h2>
+          <button type="button" onClick={onClose} className="text-white/40 hover:text-white cursor-pointer">
+            <CloseOutlined />
+          </button>
+        </div>
+
+        {!result ? (
+          <>
+            <div className="space-y-4">
+              <div>
+                <label className="mb-1 block text-xs text-white/45">{t("common.email")}</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-lg border border-white/10 bg-[#09090B] px-3 py-2 text-sm text-white"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs text-white/45">{t("auth.username.label")}</label>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder={t("admin.users.usernameOptional")}
+                  className="w-full rounded-lg border border-white/10 bg-[#09090B] px-3 py-2 text-sm text-white"
+                />
+              </div>
+              <div>
+                <label className="mb-1 block text-xs text-white/45">{t("admin.users.role")}</label>
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="w-full rounded-lg border border-white/10 bg-[#09090B] px-3 py-2 text-sm text-white"
+                >
+                  <option value="user">user</option>
+                  <option value="operator">operator</option>
+                  <option value="admin">admin</option>
+                </select>
+              </div>
+            </div>
+
+            {error && <p className="mt-4 text-sm text-red-300">{error}</p>}
+
+            <div className="mt-6 flex gap-3">
+              <button
+                type="button"
+                onClick={handleCreate}
+                disabled={saving || !email.trim()}
+                className="flex-1 rounded-full bg-[#EE10B0] px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-50 cursor-pointer"
+              >
+                {saving ? "…" : t("admin.users.createSubmit")}
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-full border border-white/10 px-5 py-2.5 text-sm text-white/60 cursor-pointer"
+              >
+                {t("common.cancel")}
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="space-y-3 text-sm text-white/80">
+            <p className="text-emerald-400">{result.message}</p>
+            {result.emailSent ? (
+              <p>{t("admin.users.createEmailSent", { email: result.email })}</p>
+            ) : (
+              <>
+                <p className="text-amber-300">{t("admin.users.createSmtpHint")}</p>
+                <div className="rounded-lg border border-white/10 bg-[#09090B] p-3 font-mono text-xs break-all">
+                  {result.temporaryPassword}
+                </div>
+                <p className="text-xs text-white/40">
+                  {t("admin.users.createExpires", {
+                    date: new Date(result.tempPasswordExpiresAt).toLocaleString(),
+                  })}
+                </p>
+              </>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-2 w-full rounded-full bg-[#EE10B0] px-5 py-2.5 text-sm font-semibold text-white cursor-pointer"
+            >
+              {t("common.close")}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function UsersTab() {
   const { t } = useTranslation();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [editingUser, setEditingUser] = useState(null);
+  const [creatingUser, setCreatingUser] = useState(false);
   const [success, setSuccess] = useState("");
   const { userId: currentUserId } = getToken();
 
@@ -316,13 +542,22 @@ function UsersTab() {
 
   return (
     <div className="space-y-4">
+      {creatingUser && (
+        <CreateUserModal
+          onClose={() => setCreatingUser(false)}
+          onCreated={load}
+        />
+      )}
+
       {editingUser && (
         <UserEditModal
           user={editingUser}
           onClose={() => setEditingUser(null)}
           onSaved={() => {
             setEditingUser(null);
-            setSuccess(t("admin.users.saved"));
+            const msg = t("admin.users.saved");
+            setSuccess(msg);
+            notifySuccess(msg);
             load();
             setTimeout(() => setSuccess(""), 3000);
           }}
@@ -333,15 +568,24 @@ function UsersTab() {
         />
       )}
 
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-white/45">{t("admin.users.count", { count: users.length })}</p>
-        <button
-          type="button"
-          onClick={load}
-          className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-white/60 hover:text-white cursor-pointer"
-        >
-          <ReloadOutlined /> {t("admin.refresh")}
-        </button>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setCreatingUser(true)}
+            className="inline-flex items-center gap-2 rounded-lg bg-[#EE10B0]/20 border border-[#EE10B0]/40 px-3 py-1.5 text-xs text-[#EE10B0] hover:bg-[#EE10B0]/30 cursor-pointer"
+          >
+            <UserAddOutlined /> {t("admin.users.create")}
+          </button>
+          <button
+            type="button"
+            onClick={load}
+            className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-xs text-white/60 hover:text-white cursor-pointer"
+          >
+            <ReloadOutlined /> {t("admin.refresh")}
+          </button>
+        </div>
       </div>
       {error && <p className="text-sm text-red-300">{error}</p>}
       {success && (
@@ -372,7 +616,9 @@ function UsersTab() {
                       className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
                         user.role === "admin"
                           ? "bg-[#EE10B0]/15 text-[#EE10B0]"
-                          : "bg-white/10 text-white/60"
+                          : user.role === "operator"
+                            ? "bg-[#0E9EEF]/15 text-[#0E9EEF]"
+                            : "bg-white/10 text-white/60"
                       }`}
                     >
                       {user.role}
@@ -394,9 +640,16 @@ function UsersTab() {
                             setError(t("admin.users.cannotDeleteSelf"));
                             return;
                           }
-                          if (!window.confirm(t("admin.users.deleteConfirm"))) return;
+                          const confirmed = await confirmAction({
+                            title: t("admin.users.deleteConfirm"),
+                            okText: t("common.yes"),
+                            cancelText: t("common.cancel"),
+                            danger: true,
+                          });
+                          if (!confirmed) return;
                           try {
                             await deleteAdminUser(user.id);
+                            notifySuccess(t("admin.users.deleted"));
                             await load();
                           } catch (err) {
                             setError(err instanceof Error ? err.message : t("admin.error"));
@@ -597,7 +850,9 @@ function TranslationsTab() {
           });
         }
       }
-      setSuccess(t("admin.translations.saved"));
+      const msg = t("admin.translations.saved");
+      setSuccess(msg);
+      notifySuccess(msg);
       setEditing(null);
       await load();
       await changeAppLanguage(getStoredLocale());
@@ -611,7 +866,9 @@ function TranslationsTab() {
     try {
       await createAdminTranslationKey(newKey);
       setNewKey({ key: "", en: "", ru: "", kk: "" });
-      setSuccess(t("admin.translations.created"));
+      const createdMsg = t("admin.translations.created");
+      setSuccess(createdMsg);
+      notifySuccess(createdMsg);
       await load();
     } catch (err) {
       setError(err instanceof Error ? err.message : t("admin.error"));

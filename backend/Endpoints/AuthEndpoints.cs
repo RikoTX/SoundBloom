@@ -22,6 +22,7 @@ public static class AuthEndpoints
         group.MapGet("/me", GetMeAsync).RequireAuthorization();
         group.MapPut("/avatar", UpdateAvatarAsync).RequireAuthorization();
         group.MapDelete("/avatar", RemoveAvatarAsync).RequireAuthorization();
+        group.MapPost("/change-password", ChangePasswordAsync).RequireAuthorization();
 
         return group;
     }
@@ -184,6 +185,31 @@ public static class AuthEndpoints
                 cancellationToken
             );
             return Results.Ok(profile);
+        }
+        catch (AuthServiceException ex)
+        {
+            return Results.Json(new { message = ex.Message }, statusCode: ex.StatusCode);
+        }
+    }
+
+    private static async Task<IResult> ChangePasswordAsync(
+        ChangePasswordRequest request,
+        ClaimsPrincipal user,
+        SupabaseAuthService authService,
+        CancellationToken cancellationToken
+    )
+    {
+        var userId = user.GetUserId();
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Results.Unauthorized();
+        }
+
+        try
+        {
+            var response = await authService.ChangePasswordAsync(userId, request, cancellationToken);
+            return Results.Ok(response);
         }
         catch (AuthServiceException ex)
         {

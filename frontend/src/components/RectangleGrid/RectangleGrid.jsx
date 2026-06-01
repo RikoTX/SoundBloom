@@ -1,6 +1,7 @@
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
 import { Row, Col } from "antd";
 import { motion } from "framer-motion";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 export default function RectangleGrid({
   title,
@@ -41,7 +42,7 @@ export default function RectangleGrid({
                   }}
                 >
                   <img
-                    src={import.meta.env.BASE_URL + song.cover}
+                    src={resolveMediaUrl(song.cover)}
                     style={{
                       width: "100%",
                       height: "100%",

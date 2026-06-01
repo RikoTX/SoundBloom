@@ -2,11 +2,8 @@ import React from "react";
 import { Row, Col } from "antd";
 import ViewAllButtonRectangle from "../ViewAllButtonRectangle/ViewAllButtonRectangle";
 import { motion } from "framer-motion";
-
-const resolveCover = (cover) => {
-  if (!cover) return "";
-  return cover.startsWith("http") ? cover : import.meta.env.BASE_URL + cover;
-};
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
+import SectionHeading from "../SectionHeading";
 
 const INITIAL_VISIBLE = 6;
 
@@ -26,16 +23,11 @@ const SongGridCircle = ({
 
   return (
     <div>
-      <p
-        style={{
-          fontWeight: 600,
-          fontSize: 35,
-          margin: "0px 10px 0px 4%",
-          paddingBottom: "25px",
-        }}
-      >
-        {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
-      </p>
+      <SectionHeading
+        title={title}
+        pinkTitle={pinkTitle}
+        className="ml-[4%] mb-6 pb-0"
+      />
 
       <div style={{ paddingRight: "40px", paddingLeft: "40px" }}>
         <Row gutter={[20, 20]}>
@@ -102,7 +94,7 @@ const SongGridCircle = ({
                         }}
                       >
                         <img
-                          src={resolveCover(song.cover)}
+                          src={resolveMediaUrl(song.cover)}
                           alt={name}
                           style={{
                             width: "140px",
@@ -113,13 +105,7 @@ const SongGridCircle = ({
                           }}
                           loading="lazy"
                         />
-                        <p
-                          style={{
-                            margin: "5px 0",
-                            fontWeight: 300,
-                            fontSize: "18px",
-                          }}
-                        >
+                        <p className="m-1 text-lg font-light text-sb-fg">
                           {name}
                         </p>
                       </div>

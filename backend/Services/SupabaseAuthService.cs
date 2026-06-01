@@ -124,6 +124,59 @@ public class SupabaseAuthService(
         return await BuildAuthResponseAsync(payload, cancellationToken);
     }
 
+    public async Task<AuthResponse> ChangePasswordAsync(
+        string userId,
+        ChangePasswordRequest request,
+        CancellationToken cancellationToken
+    )
+    {
+        if (!string.Equals(request.NewPassword, request.ConfirmPassword, StringComparison.Ordinal))
+        {
+            throw new AuthServiceException("Passwords do not match.");
+        }
+
+        if (string.IsNullOrWhiteSpace(_settings.SecretKey))
+        {
+            throw new AuthServiceException(
+                "Password change is not available.",
+                StatusCodes.Status503ServiceUnavailable
+            );
+        }
+
+        using var updateRequest = CreateSecretRequest(
+            HttpMethod.Put,
+            $"/auth/v1/admin/users/{Uri.EscapeDataString(userId)}",
+            new { password = request.NewPassword }
+        );
+
+        var updateResponse = await httpClient.SendAsync(updateRequest, cancellationToken);
+
+        if (!updateResponse.IsSuccessStatusCode)
+        {
+            throw new AuthServiceException(
+                "Could not update password.",
+                StatusCodes.Status502BadGateway
+            );
+        }
+
+        await PatchProfileAsync(
+            userId,
+            new Dictionary<string, object?>
+            {
+                ["must_change_password"] = false,
+                ["temp_password_expires_at"] = null,
+            },
+            cancellationToken
+        );
+
+        var profile = await GetProfileAsync(userId, cancellationToken);
+        var email = profile?.Email ?? string.Empty;
+        var username = profile?.UsernameSet == true ? profile.Username ?? "" : "";
+        var role = ResolveAppRole(profile?.Role);
+
+        return IssueAppToken(userId, email, username, role, needsUsername: string.IsNullOrWhiteSpace(username));
+    }
+
     public async Task<UsernameAvailabilityResponse> CheckUsernameAsync(
         string username,
         CancellationToken cancellationToken
@@ -194,12 +247,17 @@ public class SupabaseAuthService(
             ? profile.Username
             : string.Empty;
 
+        var mustChange = profile.MustChangePassword
+            && (profile.TempPasswordExpiresAt is null
+                || profile.TempPasswordExpiresAt >= DateTimeOffset.UtcNow);
+
         return new UserProfileResponse(
             userId,
             profile.Email,
             username,
             ResolveAppRole(profile.Role),
-            string.IsNullOrWhiteSpace(profile.AvatarUrl) ? null : profile.AvatarUrl
+            string.IsNullOrWhiteSpace(profile.AvatarUrl) ? null : profile.AvatarUrl,
+            mustChange
         );
     }
 
@@ -273,18 +331,29 @@ public class SupabaseAuthService(
         string email,
         string username,
         string role,
-        bool needsUsername
+        bool needsUsername,
+        bool mustChangePassword = false
     )
     {
         var token = jwtTokenService.CreateToken(userId, email, username, role);
 
-        return new AuthResponse(token, username, email, needsUsername);
+        return new AuthResponse(token, username, email, needsUsername, mustChangePassword);
     }
 
-    private static string ResolveAppRole(string? role) =>
-        string.Equals(role, AppRoles.Admin, StringComparison.OrdinalIgnoreCase)
-            ? AppRoles.Admin
-            : AppRoles.User;
+    private static string ResolveAppRole(string? role)
+    {
+        if (string.Equals(role, AppRoles.Admin, StringComparison.OrdinalIgnoreCase))
+        {
+            return AppRoles.Admin;
+        }
+
+        if (string.Equals(role, AppRoles.Operator, StringComparison.OrdinalIgnoreCase))
+        {
+            return AppRoles.Operator;
+        }
+
+        return AppRoles.User;
+    }
 
     private async Task<AuthResponse> BuildAuthResponseAsync(
         SupabaseAuthPayload payload,
@@ -312,12 +381,37 @@ public class SupabaseAuthService(
         var profile = await GetProfileAsync(userId!, cancellationToken);
         var role = ResolveAppRole(profile?.Role);
 
-        if (profile?.UsernameSet == true && !string.IsNullOrWhiteSpace(profile.Username))
+        var mustChange = profile?.MustChangePassword == true;
+
+        if (mustChange && profile?.TempPasswordExpiresAt is { } expires
+            && expires < DateTimeOffset.UtcNow)
         {
-            return IssueAppToken(userId!, email, profile.Username, role, needsUsername: false);
+            throw new AuthServiceException(
+                "Temporary password has expired. Ask an administrator for a new invite.",
+                StatusCodes.Status403Forbidden
+            );
         }
 
-        return IssueAppToken(userId!, email, string.Empty, role, needsUsername: true);
+        if (profile?.UsernameSet == true && !string.IsNullOrWhiteSpace(profile.Username))
+        {
+            return IssueAppToken(
+                userId!,
+                email,
+                profile.Username,
+                role,
+                needsUsername: false,
+                mustChangePassword: mustChange
+            );
+        }
+
+        return IssueAppToken(
+            userId!,
+            email,
+            string.Empty,
+            role,
+            needsUsername: true,
+            mustChangePassword: mustChange
+        );
     }
 
     private async Task ResendSignupCodeAsync(string email, CancellationToken cancellationToken)
@@ -472,14 +566,14 @@ public class SupabaseAuthService(
     )
     {
         var profiles = await QueryProfilesAsync(
-            $"/rest/v1/profiles?id=eq.{userId}&select=email,username,username_set,role,avatar_url",
+            $"/rest/v1/profiles?id=eq.{userId}&select=email,username,username_set,role,avatar_url,must_change_password,temp_password_expires_at",
             cancellationToken
         );
 
         if (profiles is null)
         {
             profiles = await QueryProfilesAsync(
-                $"/rest/v1/profiles?id=eq.{userId}&select=email,username,username_set,role",
+                $"/rest/v1/profiles?id=eq.{userId}&select=email,username,username_set,role,must_change_password,temp_password_expires_at",
                 cancellationToken
             );
         }
@@ -794,6 +888,12 @@ public class SupabaseAuthService(
 
         [JsonPropertyName("avatar_url")]
         public string? AvatarUrl { get; set; }
+
+        [JsonPropertyName("must_change_password")]
+        public bool MustChangePassword { get; set; }
+
+        [JsonPropertyName("temp_password_expires_at")]
+        public DateTimeOffset? TempPasswordExpiresAt { get; set; }
     }
 }
 

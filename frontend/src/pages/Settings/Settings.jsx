@@ -41,21 +41,22 @@ import {
   PREFS_CHANGE_EVENT,
 } from "../../utils/userPreferences";
 import { useLibrary } from "../../state/libraryState";
+import { AnimatedThemeToggler } from "../../components/ui/animated-theme-toggler";
 
 const LOCALE_LABELS = { en: "lang.en", ru: "lang.ru", kk: "lang.kk" };
 const APP_VERSION = "1.0.0";
 
 function SettingsSection({ icon: Icon, title, description, children }) {
   return (
-    <section className="rounded-2xl border border-white/[0.08] bg-[#111113] overflow-hidden">
-      <div className="flex items-start gap-4 border-b border-white/[0.06] px-5 py-4 sm:px-6">
+    <section className="rounded-2xl border border-sb-border bg-sb-elevated overflow-hidden">
+      <div className="flex items-start gap-4 border-b border-sb-border px-5 py-4 sm:px-6">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#EE10B0]/10 text-[#EE10B0]">
           <Icon />
         </div>
         <div>
-          <h2 className="text-lg font-semibold text-white">{title}</h2>
+          <h2 className="text-lg font-semibold text-sb-fg">{title}</h2>
           {description && (
-            <p className="mt-0.5 text-sm text-white/40">{description}</p>
+            <p className="mt-0.5 text-sm text-sb-fg-subtle">{description}</p>
           )}
         </div>
       </div>
@@ -68,8 +69,8 @@ function ToggleRow({ label, hint, checked, onChange, disabled }) {
   return (
     <div className="flex items-center justify-between gap-4 py-1">
       <div className="min-w-0">
-        <p className="text-sm font-medium text-white/90">{label}</p>
-        {hint && <p className="mt-0.5 text-xs text-white/40">{hint}</p>}
+        <p className="text-sm font-medium text-sb-fg">{label}</p>
+        {hint && <p className="mt-0.5 text-xs text-sb-fg-subtle">{hint}</p>}
       </div>
       <button
         type="button"
@@ -631,6 +632,17 @@ export default function Settings() {
           title={t("settings.appearance.title")}
           description={t("settings.appearance.subtitle")}
         >
+          <div className="flex items-center justify-between gap-4 py-1">
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-sb-fg">
+                {t("settings.appearance.theme")}
+              </p>
+              <p className="mt-0.5 text-xs text-sb-fg-subtle">
+                {t("settings.appearance.themeHint")}
+              </p>
+            </div>
+            <AnimatedThemeToggler duration={500} variant="circle" />
+          </div>
           <ToggleRow
             label={t("settings.appearance.reduceMotion")}
             hint={t("settings.appearance.reduceMotionHint")}

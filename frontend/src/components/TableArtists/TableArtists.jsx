@@ -2,6 +2,8 @@ import React from "react";
 import { Row, Col } from "antd";
 import ViewAllButtonRectangle from "../../components/ViewAllButtonRectangle/ViewAllButtonRectangle";
 import { motion } from "framer-motion";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
+import SectionHeading from "../SectionHeading";
 
 const TableArtists = ({
   title,
@@ -19,12 +21,10 @@ const TableArtists = ({
   const itemsToShow = showAll ? sortedSongs : sortedSongs.slice(0, 8);
 
   return (
-    <div style={{ padding: "30px 5%" }}>
-      <p style={{ fontWeight: 600, fontSize: 35, marginTop: 35 }}>
-        {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
-      </p>
+    <div className="px-[5%] py-8 text-sb-fg">
+      <SectionHeading title={title} pinkTitle={pinkTitle} className="mt-4" />
 
-      <Row gutter={16} style={{ margin: "30px 0", fontWeight: 500 }}>
+      <Row gutter={16} className="my-8 font-medium text-sb-fg-muted">
         <Col span={2}></Col>
         <Col span={6}></Col>
         {columns.map((col, idx) => (
@@ -49,11 +49,7 @@ const TableArtists = ({
             key={index}
             gutter={16}
             align="middle"
-            style={{
-              background: "#1F1F1F",
-              borderRadius: 10,
-              marginBottom: 12,
-            }}
+            className="sb-table-row mb-3"
           >
             <Col
               span={2}
@@ -65,7 +61,7 @@ const TableArtists = ({
             <Col span={6}>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <img
-                  src={import.meta.env.BASE_URL + song.cover}
+                  src={resolveMediaUrl(song.cover)}
                   alt={song.title}
                   style={{ width: 70, height: 70, borderRadius: 10 }}
                 />

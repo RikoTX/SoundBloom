@@ -1,4 +1,5 @@
 import ViewAllCircleButton from "../../components/ViewAllCircleButton/ViewAllCircleButton";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 export default function AlbumGridLess({
   title,
@@ -41,7 +42,7 @@ export default function AlbumGridLess({
             }}
           >
             <img
-              src={import.meta.env.BASE_URL+album.cover}
+              src={resolveMediaUrl(album.cover)}
               alt={album.title}
               style={{
                 width: "150px",

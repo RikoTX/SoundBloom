@@ -6,6 +6,8 @@ import SongsTableAll from "../../components/SongsTableAll/SongsTableAll";
 import usePlayerControls from "../../hooks/usePlayerControls";
 import { useReturnNavigation } from "../../hooks/useNavigateWithScroll";
 import { fetchJamendoTracks } from "../../api/JamendoMusicApi";
+import { fetchCatalogFeatured } from "../../api/catalogApi";
+import { interleaveTracks } from "../../utils/searchAllTracks";
 import { formatTotalDurationFromTracks } from "../../utils/formatTotalDuration";
 import { formatPlaylistForPlayer } from "../../utils/formatTrackForPlayer";
 import SaveButton from "../../components/SaveButton/SaveButton";
@@ -35,13 +37,18 @@ export default function PageGenre({
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    fetchJamendoTracks({
-      tags: tag,
-      order: "popularity_month",
-      limit: 30,
-    })
-      .then((data) => {
-        if (!cancelled) setTracks(data || []);
+    Promise.all([
+      fetchCatalogFeatured({ tag, order: "popular", limit: 15 }),
+      fetchJamendoTracks({
+        tags: tag,
+        order: "popularity_month",
+        limit: 30,
+      }),
+    ])
+      .then(([platform, jamendo]) => {
+        if (!cancelled) {
+          setTracks(interleaveTracks(platform, jamendo || [], 40));
+        }
       })
       .catch(() => {
         if (!cancelled) setTracks([]);
@@ -57,7 +64,7 @@ export default function PageGenre({
   const totalDuration = formatTotalDurationFromTracks(tracks);
 
   const playFromList = (list, index) => {
-    handlePlaySong(formatPlaylistForPlayer(list, "jamendo"), index);
+    handlePlaySong(formatPlaylistForPlayer(list), index);
   };
 
   if (loading && tracks.length === 0) {

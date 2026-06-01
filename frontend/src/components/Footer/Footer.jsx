@@ -23,7 +23,7 @@ function FooterLink({ label, isActive, onClick }) {
       className={`group flex w-full items-center gap-2 text-left text-sm transition-colors duration-200 cursor-pointer ${
         isActive
           ? "text-[#EE10B0]"
-          : "text-white/55 hover:text-white"
+          : "text-sb-fg-muted hover:text-sb-fg"
       }`}
     >
       <span
@@ -112,7 +112,7 @@ export default function FooterPage() {
   };
 
   return (
-    <footer className="relative mt-24 overflow-hidden border-t border-white/[0.06] bg-[#09090B]">
+    <footer className="relative mt-24 overflow-hidden border-t border-sb-border bg-sb-base">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#EE10B0]/40 to-transparent" />
       <div
         className="pointer-events-none absolute -left-32 top-0 h-64 w-64 rounded-full bg-[#EE10B0]/[0.04] blur-3xl"
@@ -144,7 +144,7 @@ export default function FooterPage() {
               />
             </button>
 
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/45">
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-sb-fg-subtle">
               {isAuth ? t("footer.taglineAuth") : t("footer.taglineGuest")}
             </p>
 
@@ -155,7 +155,7 @@ export default function FooterPage() {
                     key={label}
                     to={href}
                     aria-label={label}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/50 transition-all duration-200 hover:border-[#EE10B0]/40 hover:bg-[#EE10B0]/10 hover:text-[#EE10B0]"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-sb-border bg-sb-muted text-sb-fg-muted transition-all duration-200 hover:border-[#EE10B0]/40 hover:bg-[#EE10B0]/10 hover:text-[#EE10B0]"
                   >
                     <Icon className="text-lg" />
                   </Link>
@@ -166,7 +166,7 @@ export default function FooterPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/50 transition-all duration-200 hover:border-[#EE10B0]/40 hover:bg-[#EE10B0]/10 hover:text-[#EE10B0]"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-sb-border bg-sb-muted text-sb-fg-muted transition-all duration-200 hover:border-[#EE10B0]/40 hover:bg-[#EE10B0]/10 hover:text-[#EE10B0]"
                   >
                     <Icon className="text-lg" />
                   </a>
@@ -191,34 +191,26 @@ export default function FooterPage() {
           </div>
         </div>
 
-        {!isAuth && (
-          <div className="mt-12 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 sm:p-8">
-            <p className="text-sm leading-relaxed text-white/50">
-              {t("footer.aboutGuest")}
-            </p>
-          </div>
-        )}
-
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 sm:flex-row">
-          <p className="text-xs text-white/30">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-sb-border pt-8 sm:flex-row">
+          <p className="text-xs text-sb-fg-subtle">
             {t("common.copyright", { year: new Date().getFullYear() })}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs">
             <Link
               to="/about"
-              className="text-white/40 transition-colors hover:text-[#EE10B0]"
+              className="text-sb-fg-muted transition-colors hover:text-[#EE10B0]"
             >
               {t("common.about")}
             </Link>
             <Link
               to="/premium"
-              className="text-white/40 transition-colors hover:text-[#EE10B0]"
+              className="text-sb-fg-muted transition-colors hover:text-[#EE10B0]"
             >
               {t("common.premium")}
             </Link>
             <Link
               to="/contact"
-              className="text-white/40 transition-colors hover:text-[#EE10B0]"
+              className="text-sb-fg-muted transition-colors hover:text-[#EE10B0]"
             >
               {t("common.contact")}
             </Link>

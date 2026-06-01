@@ -14,9 +14,7 @@ public class JwtTokenService(IOptions<JwtSettings> jwtOptions)
 
     public string CreateToken(string userId, string email, string username, string role)
     {
-        var normalizedRole = string.Equals(role, AppRoles.Admin, StringComparison.OrdinalIgnoreCase)
-            ? AppRoles.Admin
-            : AppRoles.User;
+        var normalizedRole = ResolveRole(role);
 
         var claims = new List<Claim>
         {
@@ -40,5 +38,20 @@ public class JwtTokenService(IOptions<JwtSettings> jwtOptions)
         );
 
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    private static string ResolveRole(string? role)
+    {
+        if (string.Equals(role, AppRoles.Admin, StringComparison.OrdinalIgnoreCase))
+        {
+            return AppRoles.Admin;
+        }
+
+        if (string.Equals(role, AppRoles.Operator, StringComparison.OrdinalIgnoreCase))
+        {
+            return AppRoles.Operator;
+        }
+
+        return AppRoles.User;
     }
 }

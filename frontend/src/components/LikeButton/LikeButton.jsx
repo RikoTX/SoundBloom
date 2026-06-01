@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import { message } from "antd";
+import { notifyError, notifyInfo, notifySuccess } from "../../utils/appNotification";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLibrary } from "../../state/libraryState";
@@ -20,7 +20,8 @@ export default function LikeButton({
 
   if (!track?.id || !track?.source) return null;
 
-  const liked = isLiked(track.source, track.id);
+  const source = String(track.source).toLowerCase();
+  const liked = isLiked(source, track.id);
 
   const sizeClass =
     size === "sm"
@@ -34,7 +35,7 @@ export default function LikeButton({
     e.preventDefault();
 
     if (!isAuth) {
-      message.info(t("library.like.signIn"));
+      notifyInfo(t("library.like.signIn"));
       navigate("/login");
       return;
     }
@@ -42,12 +43,12 @@ export default function LikeButton({
     if (busy) return;
     setBusy(true);
     try {
-      const nowLiked = await toggleLike(track);
-      message.success(
-        nowLiked ? t("library.like.added") : t("library.like.removed")
+      const nowLiked = await toggleLike({ ...track, source });
+      notifySuccess(
+        nowLiked ? t("library.like.added") : t("library.like.removed"),
       );
     } catch (err) {
-      message.error(err.message || t("library.like.error"));
+      notifyError(err.message || t("library.like.error"));
     } finally {
       setBusy(false);
     }

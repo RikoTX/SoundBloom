@@ -10,7 +10,9 @@ import {
 } from "@ant-design/icons";
 import ElasticSlider from "../ElasticSlider/ElasticSlider";
 import LikeButton from "../LikeButton/LikeButton";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 import { getPreference, PREFS_CHANGE_EVENT } from "../../utils/userPreferences";
+import { recordSoundbloomListen } from "../../utils/recordListen";
 
 export default function MusicPlayer({
   playlist,
@@ -18,6 +20,7 @@ export default function MusicPlayer({
   setCurrentIndex,
 }) {
   const audioRef = useRef(null);
+  const listenRecordedRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(() => {
@@ -32,6 +35,7 @@ export default function MusicPlayer({
 
   useEffect(() => {
     if (!currentSong) return;
+    listenRecordedRef.current = null;
     if (audioRef.current) audioRef.current.pause();
 
     const newAudio = new Audio(audioUrl);
@@ -55,10 +59,18 @@ export default function MusicPlayer({
     if (!audio) return;
     const updateProgress = () => {
       if (audio.duration) setProgress(audio.currentTime / audio.duration);
+      if (
+        currentSong?.source === "soundbloom" &&
+        audio.currentTime >= 12 &&
+        listenRecordedRef.current !== currentSong.id
+      ) {
+        listenRecordedRef.current = currentSong.id;
+        recordSoundbloomListen(currentSong);
+      }
     };
     audio.addEventListener("timeupdate", updateProgress);
     return () => audio.removeEventListener("timeupdate", updateProgress);
-  }, [currentIndex]);
+  }, [currentIndex, currentSong]);
 
   useEffect(() => {
     const syncVolume = () => {
@@ -117,16 +129,12 @@ export default function MusicPlayer({
   if (!currentSong || !isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 pb-3 right-0 bg-[#09090B] text-white z-[1100] border-t border-[#333] px-2 sm:px-4 md:px-5 pt-2 sm:pt-2.5">
+    <div className="fixed bottom-0 left-0 pb-3 right-0 bg-sb-base text-sb-fg z-[1100] border-t border-sb-border-strong px-2 sm:px-4 md:px-5 pt-2 sm:pt-2.5">
       <div className="flex items-center gap-2 sm:gap-3 md:gap-4 h-[56px] sm:h-[64px] md:h-[70px]">
         {}
         <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 basis-0">
           <img
-            src={
-              currentSong.cover?.startsWith("http")
-                ? currentSong.cover
-                : import.meta.env.BASE_URL + currentSong.cover
-            }
+            src={resolveMediaUrl(currentSong.cover)}
             alt={currentSong.title}
             className="w-10 h-10 sm:w-12 sm:h-12 md:w-[58px] md:h-[58px] rounded-md sm:rounded-lg object-cover flex-shrink-0"
           />
@@ -207,7 +215,7 @@ export default function MusicPlayer({
                   className="fixed inset-0 z-[1150]"
                   onClick={() => setShowMobileVolume(false)}
                 />
-                <div className="absolute bottom-full right-0 mb-3 z-[1200] bg-[#18181B] border border-[#333] rounded-xl px-4 py-5 shadow-[0_8px_30px_rgba(0,0,0,0.6)]">
+                <div className="absolute bottom-full right-0 mb-3 z-[1200] bg-sb-muted border border-sb-border-strong rounded-xl px-4 py-5 shadow-[0_8px_30px_var(--sb-shadow)]">
                   <ElasticSlider
                     startingValue={0}
                     maxValue={100}
@@ -249,7 +257,7 @@ export default function MusicPlayer({
 
       {}
       <div
-        className="h-1 w-full bg-[#333] mt-1.5 sm:mt-2 md:mt-2.5 relative cursor-pointer"
+        className="h-1 w-full bg-sb-border-strong mt-1.5 sm:mt-2 md:mt-2.5 relative cursor-pointer"
         onClick={(e) => {
           const rect = e.currentTarget.getBoundingClientRect();
           const clickX = e.clientX - rect.left;

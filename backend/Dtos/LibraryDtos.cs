@@ -6,7 +6,7 @@ public record LikeTrackRequest(
     string Title,
     string? Artist,
     string? Cover,
-    string AudioUrl,
+    string? AudioUrl,
     string? Album
 );
 

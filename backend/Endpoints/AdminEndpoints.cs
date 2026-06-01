@@ -14,8 +14,10 @@ public static class AdminEndpoints
         var group = app.MapGroup("/api/admin").RequireAuthorization();
 
         group.MapGet("/users", GetUsersAsync);
+        group.MapPost("/users", CreateUserAsync);
         group.MapPatch("/users/{userId}/role", UpdateUserRoleAsync);
         group.MapPatch("/users/{userId}", UpdateUserAsync);
+        group.MapPost("/users/{userId}/reset-password", ResetUserPasswordAsync);
         group.MapDelete("/users/{userId}", DeleteUserAsync);
         group.MapGet("/stats", GetStatsAsync);
         group.MapGet("/logs", GetLogsAsync);
@@ -40,6 +42,26 @@ public static class AdminEndpoints
             admin.LogAccess(GetActor(user), "users");
             var users = await admin.GetUsersAsync(cancellationToken);
             return Results.Ok(users);
+        }
+        catch (AuthServiceException ex)
+        {
+            return Results.Json(new { message = ex.Message }, statusCode: ex.StatusCode);
+        }
+    }
+
+    private static async Task<IResult> CreateUserAsync(
+        AdminCreateUserRequest request,
+        ClaimsPrincipal user,
+        AdminService admin,
+        CancellationToken cancellationToken
+    )
+    {
+        if (!IsAdmin(user)) return Forbidden();
+
+        try
+        {
+            var created = await admin.CreateUserAsync(request, GetActor(user), cancellationToken);
+            return Results.Ok(created);
         }
         catch (AuthServiceException ex)
         {
@@ -87,6 +109,32 @@ public static class AdminEndpoints
                 cancellationToken
             );
             return Results.Ok(updated);
+        }
+        catch (AuthServiceException ex)
+        {
+            return Results.Json(new { message = ex.Message }, statusCode: ex.StatusCode);
+        }
+    }
+
+    private static async Task<IResult> ResetUserPasswordAsync(
+        string userId,
+        AdminResetPasswordRequest request,
+        ClaimsPrincipal user,
+        AdminService admin,
+        CancellationToken cancellationToken
+    )
+    {
+        if (!IsAdmin(user)) return Forbidden();
+
+        try
+        {
+            var (email, message) = await admin.ResetUserPasswordAsync(
+                userId,
+                request.Password,
+                GetActor(user),
+                cancellationToken
+            );
+            return Results.Ok(new { message, email });
         }
         catch (AuthServiceException ex)
         {

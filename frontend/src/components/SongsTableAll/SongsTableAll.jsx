@@ -1,11 +1,8 @@
 import React from "react";
 import { Row, Col } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
-
-const resolveSrc = (src) => {
-  if (!src) return "";
-  return src.startsWith("http") ? src : import.meta.env.BASE_URL + src;
-};
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
+import SectionHeading from "../SectionHeading";
 
 const SongsTableAll = ({
   title,
@@ -21,25 +18,16 @@ const SongsTableAll = ({
       : songs;
 
   return (
-    <div style={{ padding: "0 5%" }}>
+    <div className="px-[5%] text-sb-fg">
       {(title || pinkTitle) && (
-        <p style={{ fontWeight: 600, fontSize: 35, marginTop: 35 }}>
-          {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
-        </p>
+        <SectionHeading title={title} pinkTitle={pinkTitle} className="mt-9" />
       )}
 
-      <Row
-        gutter={16}
-        style={{ margin: "30px 0", fontWeight: 500, fontSize: 20 }}
-      >
-        <Col span={2}></Col>
-        <Col span={8}></Col>
+      <Row gutter={16} className="my-8 font-medium text-xl text-sb-fg-muted">
+        <Col span={2} />
+        <Col span={8} />
         {columns.map((col, idx) => (
-          <Col
-            key={idx}
-            span={col.span || 4}
-            style={{ textAlign: "center", fontSize: 20 }}
-          >
+          <Col key={idx} span={col.span || 4} className="text-center text-xl">
             {col.header}
           </Col>
         ))}
@@ -52,58 +40,40 @@ const SongsTableAll = ({
             key={song.id ?? index}
             gutter={16}
             align="middle"
+            className="sb-table-row mb-3"
             onClick={clickable ? () => onPlaySong(index) : undefined}
             style={{
-              background: "#1F1F1F",
-              borderRadius: 10,
-              marginBottom: 12,
               minHeight: hideCover ? 60 : 91,
               cursor: clickable ? "pointer" : "default",
-              transition: "background 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              if (clickable) e.currentTarget.style.background = "#2a2a32";
-            }}
-            onMouseLeave={(e) => {
-              if (clickable) e.currentTarget.style.background = "#1F1F1F";
             }}
           >
-            <Col
-              span={2}
-              style={{ fontSize: 24, fontWeight: 600, textAlign: "center" }}
-            >
+            <Col span={2} className="text-center text-2xl font-semibold">
               {clickable ? (
-                <span
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
+                <span className="inline-flex items-center gap-1.5">
                   <PlayCircleOutlined
                     style={{ color: "#EE10B0", fontSize: 22 }}
                   />
-                  {song.trackNumber || index + 1}
+                  #{index + 1}
                 </span>
               ) : (
-                <>#{index + 1}</>
+                `#${index + 1}`
               )}
             </Col>
 
             <Col span={8}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div className="flex items-center">
                 {!hideCover && (
                   <img
-                    src={resolveSrc(song.cover)}
+                    src={resolveMediaUrl(song.cover)}
                     alt={song.title}
-                    style={{ width: 75, height: 75, borderRadius: 10 }}
+                    className="h-[75px] w-[75px] rounded-[10px] object-cover"
                   />
                 )}
-                <div style={{ marginLeft: hideCover ? 0 : 12 }}>
-                  <p style={{ margin: 0, fontWeight: 600, fontSize: 20 }}>
+                <div className={hideCover ? "" : "ml-3"}>
+                  <p className="m-0 text-xl font-semibold text-sb-fg">
                     {song.title}
                   </p>
-                  <p style={{ margin: 0, color: "#929292", fontSize: 13 }}>
+                  <p className="m-0 text-[13px] text-sb-fg-muted">
                     {song.artist}
                   </p>
                 </div>
@@ -114,7 +84,7 @@ const SongsTableAll = ({
               <Col
                 key={i}
                 span={col.span || 4}
-                style={{ textAlign: "center", fontSize: 14 }}
+                className="text-center text-sm text-sb-fg-muted"
               >
                 {typeof col.render === "function"
                   ? col.render(song, index)

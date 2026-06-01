@@ -61,3 +61,24 @@ public record AdminUpdateUserRequest(
     string? AvatarData,
     bool ClearAvatar = false
 );
+
+public record AdminCreateUserRequest(
+    string Email,
+    string Role,
+    string? Username
+);
+
+public record AdminResetPasswordRequest(
+    string Password
+);
+
+public record AdminCreateUserResponse(
+    string Id,
+    string Email,
+    string Role,
+    string? Username,
+    bool EmailSent,
+    string? TemporaryPassword,
+    DateTimeOffset TempPasswordExpiresAt,
+    string Message
+);

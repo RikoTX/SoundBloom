@@ -1,6 +1,6 @@
 .custom-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #cb0094 #1a1a1a;
+  scrollbar-color: #cb0094 var(--sb-muted);
 }
 
 .custom-scroll::-webkit-scrollbar {
@@ -8,16 +8,20 @@
 }
 
 .custom-scroll::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: var(--sb-muted);
   border-radius: 4px;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
   background-color: #cb0094;
   border-radius: 4px;
-  border: 2px solid #1a1a1a;
+  border: 2px solid var(--sb-muted);
 }
 
 .custom-scroll::-webkit-scrollbar-thumb:hover {
   background-color: #ff33cc;
+}
+
+.search-item-hover:hover {
+  background-color: var(--sb-card-hover);
 }

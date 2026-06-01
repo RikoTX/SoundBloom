@@ -27,7 +27,13 @@ public record AuthResponse(
     string Token,
     string Username,
     string Email,
-    bool NeedsUsername = false
+    bool NeedsUsername = false,
+    bool MustChangePassword = false
+);
+
+public record ChangePasswordRequest(
+    [Required, MinLength(8), MaxLength(128)] string NewPassword,
+    [Required, MinLength(8), MaxLength(128)] string ConfirmPassword
 );
 
 public record MessageResponse(string Message);

@@ -41,25 +41,34 @@ export async function checkLike(source, trackId) {
 }
 
 export async function addLike(track) {
+  const source = String(track.source || "").toLowerCase();
+  const payload = {
+    trackId: String(track.id),
+    source,
+    title: track.title || "Untitled",
+    artist: track.artist || null,
+    album: track.album || null,
+  };
+
+  if (source === "soundbloom") {
+    payload.cover = null;
+    payload.audioUrl = null;
+  } else {
+    payload.cover = track.cover || null;
+    payload.audioUrl = track.music || track.audio || track.audioUrl || null;
+  }
+
   const response = await fetch(`${API_URL}/api/library/likes`, {
     method: "POST",
     headers: { ...authHeaders(), "Content-Type": "application/json" },
-    body: JSON.stringify({
-      trackId: String(track.id),
-      source: track.source,
-      title: track.title,
-      artist: track.artist || null,
-      cover: track.cover || null,
-      audioUrl: track.music || track.audio || track.audioUrl,
-      album: track.album || null,
-    }),
+    body: JSON.stringify(payload),
   });
   return parseJsonResponse(response);
 }
 
 export async function removeLike(source, trackId) {
   const response = await fetch(
-    `${API_URL}/api/library/likes/${encodeURIComponent(source)}/${encodeURIComponent(trackId)}`,
+    `${API_URL}/api/library/likes/${encodeURIComponent(String(source).toLowerCase())}/${encodeURIComponent(trackId)}`,
     { method: "DELETE", headers: authHeaders() }
   );
   if (response.status === 204) return;

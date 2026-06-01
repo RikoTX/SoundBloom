@@ -1,10 +1,11 @@
 export function formatTrackForPlayer(track, source = "jamendo") {
   const audio = track.audio || track.music || track.audioUrl;
   const id = track.id ?? track.trackId;
+  const normalizedSource = String(track.source || source || "jamendo").toLowerCase();
 
   return {
     id: id != null ? String(id) : undefined,
-    source: track.source || source,
+    source: normalizedSource,
     music: audio,
     audio,
     title: track.title,
@@ -25,7 +26,7 @@ export function likeKey(source, trackId) {
 export function likedTrackToPlayer(track) {
   return {
     id: track.trackId,
-    source: track.source,
+    source: String(track.source || "").toLowerCase(),
     music: track.audioUrl,
     audio: track.audioUrl,
     title: track.title,

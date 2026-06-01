@@ -1,6 +1,72 @@
 @import "tailwindcss";
 
+/* Theme tokens — backgrounds & cards (light / dark) */
+html {
+  color-scheme: light;
+  --sb-bg: #f4f4f5;
+  --sb-bg-elevated: #ffffff;
+  --sb-card: #ffffff;
+  --sb-card-hover: #f4f4f5;
+  --sb-muted: #e4e4e7;
+  --sb-border: rgba(0, 0, 0, 0.1);
+  --sb-border-strong: #d4d4d8;
+  --sb-fg: #09090b;
+  --sb-fg-muted: rgba(9, 9, 11, 0.65);
+  --sb-fg-subtle: rgba(9, 9, 11, 0.45);
+  --sb-scrollbar-track: #e4e4e7;
+  --sb-scrollbar-thumb: #a1a1aa;
+  --sb-input-bg: #ffffff;
+  --sb-shadow: rgba(0, 0, 0, 0.08);
+  --sb-skeleton: #e4e4e7;
+  --sb-skeleton-shine: #d4d4d8;
+  /* Hero — light */
+  --sb-hero-bg: #ffffff;
+  --sb-hero-fg: #09090b;
+  --sb-hero-fg-muted: rgba(9, 9, 11, 0.62);
+  --sb-hero-border: rgba(0, 0, 0, 0.08);
+  --sb-hero-gradient-from: #f4f4f5;
+  --sb-hero-grid-scrim: rgba(255, 255, 255, 0.55);
+}
+
+html.dark {
+  color-scheme: dark;
+  --sb-bg: #09090b;
+  --sb-bg-elevated: #111113;
+  --sb-card: #1f1f1f;
+  --sb-card-hover: #262629;
+  --sb-muted: #18181b;
+  --sb-border: rgba(255, 255, 255, 0.08);
+  --sb-border-strong: #333333;
+  --sb-fg: #ffffff;
+  --sb-fg-muted: rgba(255, 255, 255, 0.65);
+  --sb-fg-subtle: rgba(255, 255, 255, 0.4);
+  --sb-scrollbar-track: #0b090a;
+  --sb-scrollbar-thumb: #27272a;
+  --sb-input-bg: #18181b;
+  --sb-shadow: rgba(0, 0, 0, 0.45);
+  --sb-skeleton: #2a2a2a;
+  --sb-skeleton-shine: #3a3a3a;
+  /* Hero — dark */
+  --sb-hero-bg: #09090b;
+  --sb-hero-fg: #ffffff;
+  --sb-hero-fg-muted: #bdbdbd;
+  --sb-hero-border: rgba(255, 255, 255, 0.06);
+  --sb-hero-gradient-from: #09090b;
+  --sb-hero-grid-scrim: transparent;
+}
+
 @theme inline {
+  --color-sb-base: var(--sb-bg);
+  --color-sb-elevated: var(--sb-bg-elevated);
+  --color-sb-card: var(--sb-card);
+  --color-sb-card-hover: var(--sb-card-hover);
+  --color-sb-muted: var(--sb-muted);
+  --color-sb-border: var(--sb-border);
+  --color-sb-fg: var(--sb-fg);
+  --color-sb-fg-muted: var(--sb-fg-muted);
+  --color-sb-fg-subtle: var(--sb-fg-subtle);
+  --color-sb-border-strong: var(--sb-border-strong);
+  --color-sb-skeleton: var(--sb-skeleton);
   --animate-shine: shine var(--duration) infinite linear;
 
   @keyframes shine {
@@ -16,6 +82,162 @@
   }
 }
 
+.sb-shimmer {
+  background: linear-gradient(
+    110deg,
+    var(--sb-skeleton) 30%,
+    var(--sb-skeleton-shine) 50%,
+    var(--sb-skeleton) 70%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+.bg-sb-skeleton {
+  background-color: var(--sb-skeleton);
+}
+
+.sb-section-heading {
+  font-weight: 600;
+  font-size: 35px;
+  color: var(--sb-fg);
+  line-height: 1.2;
+}
+
+.sb-accent {
+  color: #cb0094;
+}
+
+.sb-scroll-btn {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--sb-card);
+  color: var(--sb-fg-muted);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sb-scroll-btn:hover {
+  background-color: #cb0094;
+  color: #fff;
+}
+
+.sb-media-card {
+  background-color: var(--sb-card);
+  color: var(--sb-fg);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sb-media-card:hover {
+  background-color: var(--sb-card-hover);
+}
+
+.sb-media-card-muted {
+  color: var(--sb-fg-muted);
+}
+
+.sb-table-row {
+  background-color: var(--sb-card) !important;
+  color: var(--sb-fg);
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.sb-table-row:hover {
+  background-color: var(--sb-card-hover) !important;
+}
+
+.sb-view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--sb-border);
+  background-color: var(--sb-card);
+  color: var(--sb-fg);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.sb-view-all-btn:hover {
+  background-color: var(--sb-card-hover);
+  border-color: rgba(203, 0, 148, 0.35);
+}
+
+.sb-view-all-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid var(--sb-border);
+  background-color: var(--sb-card);
+  color: var(--sb-fg);
+  font-size: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sb-view-all-circle:hover {
+  background-color: var(--sb-card-hover);
+}
+
+.sb-hero-panel {
+  background-color: var(--sb-hero-bg);
+  border-color: var(--sb-hero-border);
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.sb-hero-grid-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: var(--sb-hero-grid-scrim);
+}
+
+.sb-hero-overlay {
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--sb-hero-gradient-from) 97%, transparent),
+    color-mix(in srgb, var(--sb-hero-gradient-from) 85%, transparent),
+    color-mix(in srgb, var(--sb-hero-gradient-from) 25%, transparent)
+  );
+}
+
+.sb-hero-title {
+  color: var(--sb-hero-fg);
+  transition: color 0.35s ease;
+}
+
+.sb-hero-subtitle {
+  color: var(--sb-hero-fg-muted);
+  transition: color 0.35s ease;
+}
+
+.sb-hero-btn-outline {
+  color: #0e9eef;
+  border: 2px solid #0e9eef;
+  background: transparent;
+}
+
+.sb-hero-btn-outline:hover {
+  background: color-mix(in srgb, #0e9eef 12%, transparent);
+}
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
@@ -29,6 +251,18 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--sb-bg);
+  color: var(--sb-fg);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Magic UI theme toggler — View Transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 html.reduce-motion *,
@@ -68,22 +302,22 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #0b090a;
+  background: var(--sb-scrollbar-track);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #27272a;
+  background-color: var(--sb-scrollbar-thumb);
   border-radius: 10px;
-  border: 2px solid #09090b;
+  border: 2px solid var(--sb-bg);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #3f3f46;
+  background-color: var(--sb-muted);
 }
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #cb0094 #09090b;
+  scrollbar-color: #cb0094 var(--sb-bg);
 }
 
 .thin-scrollbar {
@@ -110,4 +344,57 @@ body {
       #000 var(--auth-notch-r, 46px)
     );
   }
+}
+
+.soundbloom-toast.ant-notification-notice {
+  background: var(--sb-bg-elevated) !important;
+  border: 1px solid rgba(238, 16, 176, 0.35) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55) !important;
+  padding: 14px 18px !important;
+}
+
+.soundbloom-toast .ant-notification-notice-message {
+  color: var(--sb-fg) !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+.soundbloom-toast .ant-notification-notice-description {
+  color: var(--sb-fg-muted) !important;
+}
+
+.soundbloom-toast .ant-notification-notice-close {
+  color: var(--sb-fg-subtle) !important;
+}
+
+.ant-modal-root:has(.soundbloom-confirm) .ant-modal-mask,
+.ant-modal-root:has(.soundbloom-confirm) .ant-modal-wrap {
+  z-index: 10100 !important;
+}
+
+.soundbloom-confirm .ant-modal-content {
+  background: var(--sb-bg-elevated) !important;
+  border: 1px solid var(--sb-border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6) !important;
+}
+
+.soundbloom-confirm .ant-modal-confirm-title {
+  color: var(--sb-fg) !important;
+}
+
+.soundbloom-confirm .ant-modal-confirm-content {
+  color: var(--sb-fg-muted) !important;
+}
+
+.soundbloom-confirm .ant-modal-confirm-btns .ant-btn-default {
+  background: transparent !important;
+  border-color: var(--sb-border) !important;
+  color: var(--sb-fg-muted) !important;
+}
+
+.soundbloom-confirm .ant-modal-confirm-btns .ant-btn-primary:not(.ant-btn-dangerous) {
+  background: #ee10b0 !important;
+  border-color: #ee10b0 !important;
 }

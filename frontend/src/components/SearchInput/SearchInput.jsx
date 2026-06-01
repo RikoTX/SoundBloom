@@ -5,11 +5,13 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { SearchOutlined, LoadingOutlined } from "@ant-design/icons";
-import { searchJamendoTracks } from "../../api/JamendoMusicApi";
+import { searchAllTracks } from "../../utils/searchAllTracks";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
+import { formatPlaylistForPlayer } from "../../utils/formatTrackForPlayer";
 
 const SearchInput = forwardRef(({ allSongs = [], handlePlaySong }, ref) => {
   const [searchValue, setSearchValue] = useState("");
-  const [jamendoTracks, setJamendoTracks] = useState([]);
+  const [remoteTracks, setRemoteTracks] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const filteredSongs = allSongs.filter((song) => {
@@ -23,33 +25,27 @@ const SearchInput = forwardRef(({ allSongs = [], handlePlaySong }, ref) => {
   useEffect(() => {
     const timer = setTimeout(async () => {
       if (!searchValue.trim()) {
-        setJamendoTracks([]);
+        setRemoteTracks([]);
         return;
       }
 
       setLoading(true);
-      const results = await searchJamendoTracks(searchValue);
-      setJamendoTracks(results);
+      const results = await searchAllTracks(searchValue, { limit: 20, platformLimit: 10 });
+      setRemoteTracks(results);
       setLoading(false);
     }, 500);
 
     return () => clearTimeout(timer);
   }, [searchValue]);
 
-  const handlePlayJamendoSong = (playlist, index) => {
-    const formattedPlaylist = playlist.map((track) => ({
-      music: track.audio,
-      title: track.name,
-      artist: track.artist_name,
-      cover: track.image || "default-cover.jpg",
-    }));
-    handlePlaySong(formattedPlaylist, index);
+  const handlePlayRemote = (playlist, index) => {
+    handlePlaySong(formatPlaylistForPlayer(playlist), index);
   };
 
   useImperativeHandle(ref, () => ({
     clearSearch() {
       setSearchValue("");
-      setJamendoTracks([]);
+      setRemoteTracks([]);
     },
   }));
 
@@ -133,7 +129,7 @@ const SearchInput = forwardRef(({ allSongs = [], handlePlaySong }, ref) => {
                   }}
                 >
                   <img
-                    src={import.meta.env.BASE_URL + song.cover}
+                    src={resolveMediaUrl(song.cover)}
                     alt="cover"
                     style={{
                       width: "30px",
@@ -150,10 +146,10 @@ const SearchInput = forwardRef(({ allSongs = [], handlePlaySong }, ref) => {
                 </div>
               ))}
 
-              {jamendoTracks.map((track, index) => (
+              {remoteTracks.map((track, index) => (
                 <div
-                  key={`jamendo-${index}`}
-                  onClick={() => handlePlayJamendoSong(jamendoTracks, index)}
+                  key={`remote-${track.source}-${track.id ?? index}`}
+                  onClick={() => handlePlayRemote(remoteTracks, index)}
                   style={{
                     padding: "5px 0",
                     borderBottom: "1px solid #333",
@@ -164,22 +160,23 @@ const SearchInput = forwardRef(({ allSongs = [], handlePlaySong }, ref) => {
                   }}
                 >
                   <img
-                    src={track.image || "default-cover.jpg"}
+                    src={track.cover || track.image || "default-cover.jpg"}
                     alt="cover"
                     style={{
                       width: "30px",
                       height: "30px",
                       borderRadius: "5px",
+                      objectFit: "cover",
                     }}
                   />
-                  <strong>{track.name}</strong>
+                  <strong>{track.title || track.name}</strong>
                   <span style={{ marginLeft: "10px", color: "#888" }}>
-                    by {track.artist_name}
+                    {track.artist || track.artist_name}
                   </span>
                 </div>
               ))}
 
-              {filteredSongs.length === 0 && jamendoTracks.length === 0 && (
+              {filteredSongs.length === 0 && remoteTracks.length === 0 && (
                 <p style={{ color: "#888" }}>No results found.</p>
               )}
             </>

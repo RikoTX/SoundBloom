@@ -46,13 +46,21 @@ export default function Login() {
     try {
       const data = await login({ email: email.trim(), password });
 
+      const authToken = data.token ?? data.Token;
+
+      if (data.mustChangePassword) {
+        saveAuthSession({ token: authToken });
+        navigate("/change-password");
+        return;
+      }
+
       if (data.needsUsername) {
-        sessionStorage.setItem("pendingToken", data.token ?? data.Token);
+        sessionStorage.setItem("pendingToken", authToken);
         navigate("/choose-username");
         return;
       }
 
-      saveAuthSession({ token: data.token ?? data.Token });
+      saveAuthSession({ token: authToken });
       navigate("/Home");
     } catch (err) {
       setError(

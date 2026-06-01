@@ -20,9 +20,24 @@ function fillToTotal(source, total) {
   return items;
 }
 
+function readHeroGridFade() {
+  if (typeof document === "undefined") return "#f4f4f5";
+  return document.documentElement.classList.contains("dark")
+    ? "transparent"
+    : "#f4f4f5";
+}
+
 const HeroSection = () => {
   const { t } = useTranslation();
   const [apiCovers, setApiCovers] = useState([]);
+  const [gridFade, setGridFade] = useState(readHeroGridFade);
+
+  useEffect(() => {
+    const syncTheme = () => setGridFade(readHeroGridFade());
+    syncTheme();
+    window.addEventListener("soundbloom-theme-change", syncTheme);
+    return () => window.removeEventListener("soundbloom-theme-change", syncTheme);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -45,7 +60,7 @@ const HeroSection = () => {
 
   return (
     <div className="px-4 sm:px-6 pt-2">
-      <div className="relative w-full h-[460px] sm:h-[520px] md:h-[600px] overflow-hidden rounded-2xl border border-white/5 bg-[#09090B]">
+      <div className="sb-hero-panel relative w-full h-[460px] sm:h-[520px] md:h-[600px] overflow-hidden rounded-2xl border">
         <AnimatePresence>
           {hasCovers && (
             <motion.div
@@ -54,11 +69,11 @@ const HeroSection = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="absolute inset-0"
+              className="absolute inset-0 sb-hero-grid-wrap"
             >
               <GridMotion
                 items={items}
-                gradientColor="transparent"
+                gradientColor={gridFade}
                 rows={GRID_ROWS}
                 cols={GRID_COLS}
               />
@@ -66,11 +81,11 @@ const HeroSection = () => {
           )}
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-gradient-to-r from-[#09090B] via-[#09090B]/80 to-[#09090B]/10 pointer-events-none z-[5]" />
+        <div className="sb-hero-overlay absolute inset-0 pointer-events-none z-[5]" />
 
         <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10 md:px-14 z-[10]">
           <div className="max-w-md">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-white">
+            <h1 className="sb-hero-title text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
               {t("home.hero.allThe")}{" "}
               <span className="bg-gradient-to-r from-[#EE10B0] to-[#0E9EEF] bg-clip-text text-transparent">
                 {t("home.hero.bestSongs")}
@@ -79,7 +94,7 @@ const HeroSection = () => {
               {t("home.hero.inOnePlace")}
             </h1>
 
-            <p className="mt-5 text-sm sm:text-base text-[#bdbdbd] leading-relaxed">
+            <p className="sb-hero-subtitle mt-5 text-sm sm:text-base leading-relaxed">
               {t("home.hero.subtitleLong")}
             </p>
 
@@ -92,7 +107,7 @@ const HeroSection = () => {
               </button>
               <button
                 type="button"
-                className="bg-transparent text-[#0E9EEF] border-2 border-[#0E9EEF] hover:bg-[#0E9EEF]/10 px-6 py-2.5 rounded-md text-base font-medium cursor-pointer transition-colors"
+                className="sb-hero-btn-outline px-6 py-2.5 rounded-md text-base font-medium cursor-pointer transition-colors"
               >
                 {t("home.hero.createPlaylist")}
               </button>

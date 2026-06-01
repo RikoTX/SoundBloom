@@ -11,7 +11,7 @@ export default function MarketingFooter() {
     { labelKey: "common.contact", path: "/contact" },
     { labelKey: "common.premium", path: "/premium" },
     { labelKey: "marketing.footer.privacy", path: "#" },
-    { labelKey: "marketing.footer.terms", path: "#" },
+    { labelKey: "marketing.footer.terms", path: "/terms" },
   ];
 
   return (

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StarFilled, StarOutlined } from "@ant-design/icons";
-import { message } from "antd";
+import { notifyError, notifyInfo, notifySuccess } from "../../utils/appNotification";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLibrary } from "../../state/libraryState";
@@ -33,7 +33,7 @@ export default function SaveButton({ type, item, label, className = "" }) {
 
   const handleClick = async () => {
     if (!isAuth) {
-      message.info(t("library.save.signIn"));
+      notifyInfo(t("library.save.signIn"));
       navigate("/login");
       return;
     }
@@ -47,13 +47,13 @@ export default function SaveButton({ type, item, label, className = "" }) {
       else if (type === "genre") nowSaved = await toggleGenre(item);
       else if (type === "playlist") nowSaved = await togglePlaylist(item);
 
-      message.success(
+      notifySuccess(
         nowSaved
           ? t("library.save.saved", { type: typeLabel })
-          : t("library.save.removed", { type: typeLabel })
+          : t("library.save.removed", { type: typeLabel }),
       );
     } catch (err) {
-      message.error(err.message || t("library.save.error"));
+      notifyError(err.message || t("library.save.error"));
     } finally {
       setBusy(false);
     }

@@ -5,7 +5,8 @@ import {
   PlayCircleOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { searchJamendoTracks } from "../../api/JamendoMusicApi";
+import { searchAllTracks } from "../../utils/searchAllTracks";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 import "./SearchBarWithHeader.css";
 
 const SearchInput = ({ handlePlaySong }) => {
@@ -26,7 +27,7 @@ const SearchInput = ({ handlePlaySong }) => {
     setLoading(true);
 
     const timer = setTimeout(() => {
-      searchJamendoTracks(query)
+      searchAllTracks(query, { limit: 24, platformLimit: 12 })
         .then((list) => {
           if (!cancelled) setTracks(list || []);
         })
@@ -56,72 +57,32 @@ const SearchInput = ({ handlePlaySong }) => {
   };
 
   return (
-    <div style={{ position: "relative", width: "600px" }}>
-      <div
-        style={{
-          display: "flex",
-          borderRadius: "8px",
-          overflow: "hidden",
-          backgroundColor: "#18181B",
-          border: "1px solid #333",
-        }}
-      >
+    <div className="relative w-[600px] max-w-[60vw]">
+      <div className="flex overflow-hidden rounded-lg border border-sb-border-strong bg-sb-muted">
         <input
           type="text"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder={t("nav.searchPlaceholder")}
-          style={{
-            flex: 1,
-            padding: "10px 16px",
-            border: "none",
-            outline: "none",
-            color: "#fff",
-            fontSize: "14px",
-          }}
+          className="flex-1 border-none bg-transparent px-4 py-2.5 text-sm text-sb-fg outline-none placeholder:text-sb-fg-subtle"
         />
         <button
           type="button"
-          style={{
-            padding: "8px 16px",
-            background: "none",
-            border: "none",
-            color: "#888",
-          }}
+          className="border-none bg-transparent px-4 text-sb-fg-subtle"
+          aria-hidden
         >
           <SearchOutlined />
         </button>
       </div>
 
       {searchValue && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50px",
-            left: 0,
-            width: "100%",
-            maxHeight: "400px",
-            overflowY: "auto",
-            zIndex: 9999,
-            background: "#18181B",
-            border: "1px solid #333",
-            borderRadius: "8px",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.5)",
-          }}
-          className="custom-scroll"
-        >
+        <div className="custom-scroll absolute left-0 top-[50px] z-[9999] max-h-[400px] w-full overflow-y-auto rounded-lg border border-sb-border-strong bg-sb-muted shadow-[0_8px_24px_var(--sb-shadow)]">
           {loading ? (
-            <div style={{ textAlign: "center", padding: "20px" }}>
+            <div className="py-5 text-center">
               <LoadingOutlined style={{ fontSize: 24, color: "#cb0094" }} />
             </div>
           ) : tracks.length === 0 ? (
-            <div
-              style={{
-                padding: "20px",
-                textAlign: "center",
-                color: "#888",
-              }}
-            >
+            <div className="px-5 py-5 text-center text-sb-fg-subtle">
               {t("common.noResults")}
             </div>
           ) : (
@@ -129,49 +90,27 @@ const SearchInput = ({ handlePlaySong }) => {
               <div
                 key={track.id ?? `t-${idx}`}
                 onClick={() => onPlay(tracks, idx)}
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  alignItems: "center",
-                  padding: "10px",
-                  cursor: "pointer",
-                  borderBottom: "1px solid #333",
-                }}
-                className="search-item-hover"
+                className="search-item-hover flex cursor-pointer items-center gap-2.5 border-b border-sb-border-strong p-2.5"
               >
                 <img
-                  src={track.cover}
+                  src={resolveMediaUrl(track.cover)}
                   alt={track.title}
-                  style={{
-                    width: 45,
-                    height: 45,
-                    objectFit: "cover",
-                    borderRadius: 4,
-                  }}
+                  className="h-11 w-11 shrink-0 rounded object-cover"
                 />
-                <div style={{ flex: 1, overflow: "hidden" }}>
-                  <div
-                    style={{
-                      fontWeight: 500,
-                      color: "#fff",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
+                <div className="min-w-0 flex-1 overflow-hidden">
+                  <div className="truncate font-medium text-sb-fg">
                     {track.title}
                   </div>
-                  <div style={{ fontSize: 12, color: "#888" }}>
+                  <div className="text-xs text-sb-fg-muted">
                     {track.artist}
+                    {track.source === "soundbloom" && (
+                      <span className="ml-2 rounded border border-[#0E9EEF55] px-1.5 py-px text-[10px] text-[#0E9EEF]">
+                        SoundBloom
+                      </span>
+                    )}
                   </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: 12,
-                    color: "#555",
-                    marginRight: "10px",
-                  }}
-                >
+                <div className="mr-2.5 text-xs text-sb-fg-subtle">
                   {track.time}
                 </div>
                 <PlayCircleOutlined

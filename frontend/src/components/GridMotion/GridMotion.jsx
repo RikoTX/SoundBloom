@@ -100,7 +100,7 @@ const GridMotion = ({
                 const content = combinedItems[rowIndex * cols + itemIndex];
                 return (
                   <div key={itemIndex} className="relative">
-                    <div className="relative w-full h-full overflow-hidden rounded-[10px] bg-[#111] flex items-center justify-center text-white text-[1.5rem]">
+                    <div className="relative w-full h-full overflow-hidden rounded-[10px] bg-sb-muted flex items-center justify-center text-sb-fg text-[1.5rem]">
                       {typeof content === "string" && content.startsWith("http") ? (
                         <div
                           className="w-full h-full bg-cover bg-center absolute top-0 left-0"

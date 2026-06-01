@@ -6,6 +6,7 @@ import {
   PlayCircleFilled,
   UserOutlined,
 } from "@ant-design/icons";
+import SectionHeading from "../SectionHeading";
 
 const PlaylistGrid = ({
   title,
@@ -24,15 +25,13 @@ const PlaylistGrid = ({
   return (
     <div className="mt-4 w-full max-w-full overflow-hidden">
       <div className="flex items-center justify-between pr-[4%]">
-        <p className="text-[35px] font-semibold ml-[4%] mb-5 text-white">
-          {title} <span className="text-[#cb0094]">{pinkTitle}</span>
-        </p>
+        <SectionHeading title={title} pinkTitle={pinkTitle} />
         <div className="hidden md:flex items-center gap-2">
           <button
             type="button"
             aria-label="Scroll left"
             onClick={() => scrollBy(-700)}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1F1F1F] text-white/70 hover:text-white hover:bg-[#cb0094] transition-colors cursor-pointer"
+            className="sb-scroll-btn"
           >
             <LeftOutlined />
           </button>
@@ -40,7 +39,7 @@ const PlaylistGrid = ({
             type="button"
             aria-label="Scroll right"
             onClick={() => scrollBy(700)}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1F1F1F] text-white/70 hover:text-white hover:bg-[#cb0094] transition-colors cursor-pointer"
+            className="sb-scroll-btn"
           >
             <RightOutlined />
           </button>
@@ -52,7 +51,7 @@ const PlaylistGrid = ({
         className="thin-scrollbar flex gap-7 overflow-x-auto overflow-y-hidden scroll-smooth px-[4%] py-6"
       >
         {!showSkeletons && playlist.length === 0 ? (
-          <div className="flex-shrink-0 w-full py-10 text-center text-[#929292]">
+          <div className="flex-shrink-0 w-full py-10 text-center text-sb-fg-muted">
             No playlists found
           </div>
         ) : showSkeletons ? (

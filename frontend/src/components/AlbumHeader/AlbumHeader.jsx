@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ArrowLeftOutlined, CaretRightFilled } from "@ant-design/icons";
-import { Row, Col, Modal, message } from "antd";
+import { Row, Col, Modal } from "antd";
+import { notifyError, notifySuccess } from "../../utils/appNotification";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
@@ -105,11 +107,6 @@ function PlayAllButton({ onPlayAll, onStopAll }) {
   );
 }
 
-const resolveSrc = (src) => {
-  if (!src) return "";
-  return src.startsWith("http") ? src : import.meta.env.BASE_URL + src;
-};
-
 export default function AlbumHeader({
   onBack,
   title,
@@ -143,13 +140,13 @@ export default function AlbumHeader({
         return;
       }
       await navigator.clipboard.writeText(url);
-      message.success(t("common.linkCopied"));
+      notifySuccess(t("common.linkCopied"));
     } catch (_) {
       try {
         await navigator.clipboard.writeText(url);
-        message.success(t("common.linkCopied"));
+        notifySuccess(t("common.linkCopied"));
       } catch {
-        message.error(t("common.couldNotShare"));
+        notifyError(t("common.couldNotShare"));
       }
     }
   };
@@ -240,7 +237,7 @@ export default function AlbumHeader({
       <Row gutter={[32, 32]} align="middle">
         <Col xs={24} md={6}>
           <img
-            src={resolveSrc(cover)}
+            src={resolveMediaUrl(cover)}
             alt={title}
             style={{
               width: "100%",

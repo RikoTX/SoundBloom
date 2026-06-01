@@ -31,8 +31,12 @@ public class UserLibraryService(HttpClient httpClient, IOptions<SupabaseSettings
         CancellationToken cancellationToken
     )
     {
+        source = source.Trim().ToLowerInvariant();
+        ValidateSource(source);
+        trackId = trackId.Trim();
+
         var rows = await QueryAsync<LikedTrackRow>(
-            $"/rest/v1/liked_tracks?user_id=eq.{userId}&source=eq.{Uri.EscapeDataString(source)}&track_id=eq.{Uri.EscapeDataString(trackId)}&select=id",
+            $"/rest/v1/liked_tracks?user_id=eq.{Uri.EscapeDataString(userId)}&source=eq.{Uri.EscapeDataString(source)}&track_id=eq.{Uri.EscapeDataString(trackId)}&select=id",
             cancellationToken
         );
 
@@ -45,24 +49,76 @@ public class UserLibraryService(HttpClient httpClient, IOptions<SupabaseSettings
         CancellationToken cancellationToken
     )
     {
-        ValidateSource(request.Source);
+        var source = request.Source.Trim().ToLowerInvariant();
+        ValidateSource(source);
+
+        var trackId = request.TrackId.Trim();
+
+        if (await IsLikedAsync(userId, source, trackId, cancellationToken))
+        {
+            var existing = await GetLikeRowAsync(userId, source, trackId, cancellationToken);
+            if (existing is not null)
+            {
+                return MapLike(existing);
+            }
+        }
+
+        string audioUrl;
+        string? cover;
+        string title;
+        string? artist;
+        string? album;
+
+        if (source == "soundbloom")
+        {
+            var resolved = await ResolveSoundbloomTrackAsync(trackId, cancellationToken);
+            audioUrl = resolved.AudioUrl;
+            cover = resolved.Cover;
+            title = resolved.Title;
+            artist = resolved.Artist;
+            album = resolved.Album;
+        }
+        else
+        {
+            if (string.IsNullOrWhiteSpace(request.AudioUrl))
+            {
+                throw new AuthServiceException("Audio URL is required for this track source.");
+            }
+
+            audioUrl = request.AudioUrl.Trim();
+            cover = request.Cover?.Trim();
+            title = request.Title.Trim();
+            artist = request.Artist?.Trim();
+            album = request.Album?.Trim();
+        }
+
+        if (string.IsNullOrWhiteSpace(audioUrl))
+        {
+            throw new AuthServiceException("Track audio is not available.");
+        }
 
         var body = new
         {
             user_id = userId,
-            track_id = request.TrackId.Trim(),
-            source = request.Source.Trim().ToLowerInvariant(),
-            title = request.Title.Trim(),
-            artist = request.Artist?.Trim(),
-            cover = request.Cover?.Trim(),
-            audio_url = request.AudioUrl.Trim(),
-            album = request.Album?.Trim(),
+            track_id = trackId,
+            source,
+            title,
+            artist,
+            cover,
+            audio_url = audioUrl,
+            album,
         };
 
         var row = await InsertAsync<LikedTrackRow>("/rest/v1/liked_tracks", body, cancellationToken);
 
         if (row is null)
         {
+            var existing = await GetLikeRowAsync(userId, source, trackId, cancellationToken);
+            if (existing is not null)
+            {
+                return MapLike(existing);
+            }
+
             throw new AuthServiceException(
                 "Could not save liked track.",
                 StatusCodes.Status502BadGateway
@@ -79,7 +135,9 @@ public class UserLibraryService(HttpClient httpClient, IOptions<SupabaseSettings
         CancellationToken cancellationToken
     )
     {
+        source = source.Trim().ToLowerInvariant();
         ValidateSource(source);
+        trackId = trackId.Trim();
 
         using var request = CreateSecretRequest(
             HttpMethod.Delete,
@@ -332,11 +390,76 @@ public class UserLibraryService(HttpClient httpClient, IOptions<SupabaseSettings
         }
     }
 
+    private async Task<LikedTrackRow?> GetLikeRowAsync(
+        string userId,
+        string source,
+        string trackId,
+        CancellationToken cancellationToken
+    )
+    {
+        var rows = await QueryAsync<LikedTrackRow>(
+            $"/rest/v1/liked_tracks?user_id=eq.{Uri.EscapeDataString(userId)}&source=eq.{Uri.EscapeDataString(source)}&track_id=eq.{Uri.EscapeDataString(trackId)}&select=*&limit=1",
+            cancellationToken
+        );
+        return rows?.FirstOrDefault();
+    }
+
+    private async Task<(
+        string AudioUrl,
+        string? Cover,
+        string Title,
+        string? Artist,
+        string? Album
+    )> ResolveSoundbloomTrackAsync(string trackId, CancellationToken cancellationToken)
+    {
+        var tracks = await QueryAsync<SoundbloomTrackRow>(
+            $"/rest/v1/tracks?id=eq.{Uri.EscapeDataString(trackId)}&status=eq.approved&select=id,title,authors",
+            cancellationToken
+        );
+        var track = tracks?.FirstOrDefault();
+
+        if (track?.Id is null)
+        {
+            throw new AuthServiceException(
+                "SoundBloom track not found or not published yet.",
+                StatusCodes.Status404NotFound
+            );
+        }
+
+        var files = await QueryAsync<SoundbloomFileRow>(
+            $"/rest/v1/track_files?track_id=eq.{Uri.EscapeDataString(trackId)}&select=audio_url",
+            cancellationToken
+        );
+        var audioUrl = files?.FirstOrDefault()?.AudioUrl;
+
+        if (string.IsNullOrWhiteSpace(audioUrl))
+        {
+            throw new AuthServiceException(
+                "Track audio is not available.",
+                StatusCodes.Status404NotFound
+            );
+        }
+
+        var covers = await QueryAsync<SoundbloomCoverRow>(
+            $"/rest/v1/track_covers?track_id=eq.{Uri.EscapeDataString(trackId)}&select=cover_url",
+            cancellationToken
+        );
+        var coverUrl = covers?.FirstOrDefault()?.CoverUrl;
+
+        return (
+            audioUrl,
+            coverUrl,
+            track.Title ?? "Untitled",
+            track.Authors,
+            "SoundBloom"
+        );
+    }
+
     private static void ValidateSource(string source)
     {
-        if (source is not ("jamendo" or "itunes"))
+        if (source is not ("jamendo" or "itunes" or "soundbloom"))
         {
-            throw new AuthServiceException("Track source must be jamendo or itunes.");
+            throw new AuthServiceException("Track source must be jamendo, itunes, or soundbloom.");
         }
     }
 
@@ -449,6 +572,30 @@ public class UserLibraryService(HttpClient httpClient, IOptions<SupabaseSettings
             row.UserName,
             row.CreatedAt ?? DateTime.UtcNow
         );
+
+    private sealed class SoundbloomTrackRow
+    {
+        [JsonPropertyName("id")]
+        public string? Id { get; set; }
+
+        [JsonPropertyName("title")]
+        public string? Title { get; set; }
+
+        [JsonPropertyName("authors")]
+        public string? Authors { get; set; }
+    }
+
+    private sealed class SoundbloomFileRow
+    {
+        [JsonPropertyName("audio_url")]
+        public string? AudioUrl { get; set; }
+    }
+
+    private sealed class SoundbloomCoverRow
+    {
+        [JsonPropertyName("cover_url")]
+        public string? CoverUrl { get; set; }
+    }
 
     private sealed class LikedTrackRow
     {

@@ -27,10 +27,24 @@ export function fetchAdminUsers() {
   return adminFetch("/users");
 }
 
+export function createAdminUser(payload) {
+  return adminFetch("/users", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
 export function updateUserRole(userId, role) {
   return adminFetch(`/users/${encodeURIComponent(userId)}/role`, {
     method: "PATCH",
     body: JSON.stringify({ role }),
+  });
+}
+
+export function resetAdminUserPassword(userId, password) {
+  return adminFetch(`/users/${encodeURIComponent(userId)}/reset-password`, {
+    method: "POST",
+    body: JSON.stringify({ password }),
   });
 }
 

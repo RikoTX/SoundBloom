@@ -1,10 +1,6 @@
 import { Row, Col } from "antd";
 import { motion } from "framer-motion";
-
-const resolveCover = (cover) => {
-  if (!cover) return "";
-  return cover.startsWith("http") ? cover : import.meta.env.BASE_URL + cover;
-};
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 export default function GridCircleShowAll({
   title,
@@ -93,7 +89,7 @@ export default function GridCircleShowAll({
                     }}
                   >
                     <img
-                      src={resolveCover(artist.cover)}
+                      src={resolveMediaUrl(artist.cover)}
                       alt={name}
                       style={{
                         width: 140,

@@ -20,6 +20,8 @@ builder.Services.Configure<SupabaseSettings>(
     builder.Configuration.GetSection(SupabaseSettings.SectionName)
 );
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(JwtSettings.SectionName));
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(AppSettings.SectionName));
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(SmtpSettings.SectionName));
 
 var supabaseSettings = builder.Configuration.GetSection(SupabaseSettings.SectionName).Get<SupabaseSettings>()
     ?? throw new InvalidOperationException("Supabase settings are missing from configuration.");
@@ -61,7 +63,12 @@ builder.Services.AddHttpClient<SupabaseAuthService>();
 builder.Services.AddHttpClient<UserLibraryService>();
 builder.Services.AddHttpClient<TranslationService>();
 builder.Services.AddHttpClient<AdminService>();
+builder.Services.AddHttpClient<ArtistService>();
+builder.Services.AddHttpClient<OperatorService>();
+builder.Services.AddHttpClient<CatalogService>();
+builder.Services.AddHttpClient<TrackAnalyticsService>();
 builder.Services.AddSingleton<AdminLogStore>();
+builder.Services.AddSingleton<UserInviteEmailService>();
 builder.Services.AddSingleton<JwtTokenService>();
 
 builder.Services
@@ -99,6 +106,11 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 30 * 1024 * 1024;
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -114,6 +126,9 @@ app.MapAuthEndpoints();
 app.MapLibraryEndpoints();
 app.MapI18nEndpoints();
 app.MapAdminEndpoints();
+app.MapArtistEndpoints();
+app.MapOperatorEndpoints();
+app.MapCatalogEndpoints();
 
 var adminLogs = app.Services.GetRequiredService<AdminLogStore>();
 adminLogs.Add("info", "system", "SoundBloom admin API ready", "system");

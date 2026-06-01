@@ -114,6 +114,20 @@ export async function uploadAvatar({ token, avatarData }) {
   return parseJsonResponse(response);
 }
 
+export async function changePassword({ token, newPassword, confirmPassword }) {
+  const response = await fetch(`${API_URL}/api/auth/change-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ newPassword, confirmPassword }),
+  });
+
+  return parseJsonResponse(response);
+}
+
 export async function removeAvatar(token) {
   const response = await fetch(`${API_URL}/api/auth/avatar`, {
     method: "DELETE",

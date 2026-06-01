@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import HeroVideoDialog from "../HeroVideoDialog/HeroVideoDialog";
+import SectionHeading from "../SectionHeading";
 
 function extractYouTubeId(url) {
   if (!url) return null;
@@ -45,15 +46,13 @@ const MusicVideoGrid = ({
   return (
     <div className="mt-4 w-full max-w-full overflow-hidden">
       <div className="flex items-center justify-between pr-[4%]">
-        <p className="text-[35px] font-semibold ml-[4%] mb-5 text-white">
-          {title} <span className="text-[#cb0094]">{pinkTitle}</span>
-        </p>
+        <SectionHeading title={title} pinkTitle={pinkTitle} />
         <div className="hidden md:flex items-center gap-2">
           <button
             type="button"
             aria-label="Scroll left"
             onClick={() => scrollBy(-700)}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1F1F1F] text-white/70 hover:text-white hover:bg-[#cb0094] transition-colors cursor-pointer"
+            className="sb-scroll-btn"
           >
             <LeftOutlined />
           </button>
@@ -61,7 +60,7 @@ const MusicVideoGrid = ({
             type="button"
             aria-label="Scroll right"
             onClick={() => scrollBy(700)}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1F1F1F] text-white/70 hover:text-white hover:bg-[#cb0094] transition-colors cursor-pointer"
+            className="sb-scroll-btn"
           >
             <RightOutlined />
           </button>
@@ -76,19 +75,11 @@ const MusicVideoGrid = ({
           ? Array.from({ length: skeletonCount }).map((_, i) => (
               <div
                 key={`sk-${i}`}
-                className="flex-shrink-0 w-[300px] sm:w-[360px] md:w-[400px] bg-[#1F1F1F] rounded-xl p-2.5"
+                className="flex-shrink-0 w-[300px] sm:w-[360px] md:w-[400px] bg-sb-card rounded-xl p-2.5"
               >
-                <div
-                  className="w-full aspect-video rounded-[8px]"
-                  style={{
-                    background:
-                      "linear-gradient(110deg, #2a2a2a 30%, #3a3a3a 50%, #2a2a2a 70%)",
-                    backgroundSize: "200% 100%",
-                    animation: "shimmer 1.4s linear infinite",
-                  }}
-                />
-                <div className="h-4 w-3/4 rounded bg-[#2a2a2a] mt-3" />
-                <div className="h-3 w-1/2 rounded bg-[#2a2a2a] mt-2" />
+                <div className="w-full aspect-video rounded-[8px] sb-shimmer" />
+                <div className="h-4 w-3/4 rounded bg-sb-skeleton mt-3" />
+                <div className="h-3 w-1/2 rounded bg-sb-skeleton mt-2" />
               </div>
             ))
           : videos.map((video, index) => (
@@ -103,7 +94,7 @@ const MusicVideoGrid = ({
                 }}
                 className="flex-shrink-0 w-[300px] sm:w-[360px] md:w-[400px]"
               >
-                <div className="bg-[#1F1F1F] rounded-xl p-2.5 transition-all duration-200 hover:bg-[#262629] hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(203,0,148,0.25)]">
+                <div className="sb-media-card rounded-xl p-2.5 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(203,0,148,0.25)]">
                   <HeroVideoDialog
                     animationStyle="from-center"
                     videoSrc={getEmbedSrc(video)}
@@ -112,12 +103,12 @@ const MusicVideoGrid = ({
                     className="rounded-[8px] overflow-hidden"
                   />
                   <p
-                    className="m-2 font-semibold text-white text-base truncate"
+                    className="m-2 font-semibold text-sb-fg text-base truncate"
                     title={video.title}
                   >
                     {video.title}
                   </p>
-                  <div className="flex justify-between mx-2 text-xs text-[#929292]">
+                  <div className="flex justify-between mx-2 text-xs text-sb-fg-muted">
                     <p className="truncate">{video.artist}</p>
                     {video.views && <p>{video.views}</p>}
                   </div>

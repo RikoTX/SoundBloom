@@ -6,11 +6,7 @@ import LibraryEmpty, {
   countLabel,
 } from "../../components/Library/LibraryLayout";
 import { useLibrary } from "../../state/libraryState";
-
-function resolveSrc(src) {
-  if (!src) return "";
-  return src.startsWith("http") ? src : import.meta.env.BASE_URL + src;
-}
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 export default function SavedGenres() {
   const navigate = useNavigate();
@@ -59,7 +55,7 @@ export default function SavedGenres() {
             >
               {genre.cover ? (
                 <img
-                  src={resolveSrc(genre.cover)}
+                  src={resolveMediaUrl(genre.cover)}
                   alt={genre.label}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

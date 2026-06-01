@@ -92,9 +92,9 @@ export function LibraryProvider({ children }) {
   const isLiked = useCallback(
     (source, trackId) => {
       if (!trackId || !source) return false;
-      return likeSet.has(likeKey(source, trackId));
+      return likeSet.has(likeKey(String(source).toLowerCase(), String(trackId)));
     },
-    [likeSet]
+    [likeSet],
   );
 
   const toggleLike = useCallback(
@@ -102,24 +102,39 @@ export function LibraryProvider({ children }) {
       const { token: currentToken } = getToken();
       if (!currentToken || !track?.id || !track?.source) return false;
 
-      const key = likeKey(track.source, track.id);
+      const source = String(track.source).toLowerCase();
+      const trackId = String(track.id);
+      const key = likeKey(source, trackId);
       const currentlyLiked = likeSet.has(key);
 
       if (currentlyLiked) {
-        await libraryApi.removeLike(track.source, track.id);
+        await libraryApi.removeLike(source, trackId);
         setLikes((prev) =>
           prev.filter(
-            (t) => !(t.source === track.source && t.trackId === String(track.id))
-          )
+            (t) =>
+              !(
+                String(t.source).toLowerCase() === source &&
+                String(t.trackId) === trackId
+              ),
+          ),
         );
         return false;
       }
 
-      const saved = await libraryApi.addLike(track);
-      setLikes((prev) => [saved, ...prev]);
+      const saved = await libraryApi.addLike({ ...track, source });
+      setLikes((prev) => {
+        const withoutDup = prev.filter(
+          (t) =>
+            !(
+              String(t.source).toLowerCase() === source &&
+              String(t.trackId) === trackId
+            ),
+        );
+        return [saved, ...withoutDup];
+      });
       return true;
     },
-    [likeSet]
+    [likeSet],
   );
 
   const isAlbumSaved = useCallback(

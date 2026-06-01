@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import {
@@ -18,6 +18,7 @@ const usernamePattern = /^[a-zA-Z0-9_]{3,20}$/;
 
 export default function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
   const [step, setStep] = useState("register");
   const [email, setEmail] = useState("");
@@ -33,6 +34,12 @@ export default function Register() {
   const [pendingToken, setPendingToken] = useState("");
   const [usernameAvailable, setUsernameAvailable] = useState(null);
   const [checkingUsername, setCheckingUsername] = useState(false);
+
+  useEffect(() => {
+    if (location.state?.reason === "playback") {
+      setInfo(t("auth.register.listenGate"));
+    }
+  }, [location.state, t]);
 
   const emailError = useMemo(() => {
     if (step !== "register" || (!submitted && !email)) return "";
@@ -355,7 +362,19 @@ export default function Register() {
             className="mt-1 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 accent-[#cb0094]"
           />
           <span className="text-sm leading-relaxed text-white/50">
-            {t("auth.register.agreeTerms")}
+            <Trans
+              i18nKey="auth.register.agreeTerms"
+              components={{
+                link: (
+                  <Link
+                    to="/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#EE10B0] hover:underline font-medium"
+                  />
+                ),
+              }}
+            />
           </span>
         </label>
 

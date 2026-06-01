@@ -6,11 +6,7 @@ import LibraryEmpty, {
   countLabel,
 } from "../../components/Library/LibraryLayout";
 import { useLibrary } from "../../state/libraryState";
-
-function resolveSrc(src) {
-  if (!src) return "";
-  return src.startsWith("http") ? src : import.meta.env.BASE_URL + src;
-}
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
 export default function SavedPlaylists() {
   const navigate = useNavigate();
@@ -56,7 +52,7 @@ export default function SavedPlaylists() {
               <div className="aspect-square rounded-lg overflow-hidden mb-3 bg-[#27272A]">
                 {playlist.cover ? (
                   <img
-                    src={resolveSrc(playlist.cover)}
+                    src={resolveMediaUrl(playlist.cover)}
                     alt={playlist.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />

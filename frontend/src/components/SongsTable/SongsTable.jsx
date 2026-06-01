@@ -1,8 +1,9 @@
 import React from "react";
 import { Row, Col } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
 import ViewAllButtonRectangle from "../../components/ViewAllButtonRectangle/ViewAllButtonRectangle";
 import { motion } from "framer-motion";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
+import SectionHeading from "../SectionHeading";
 
 const SongsTable = ({
   title,
@@ -21,19 +22,21 @@ const SongsTable = ({
   const itemsToShow = showAll ? sortedSongs : sortedSongs.slice(0, 4);
 
   return (
-    <div style={{ padding: "0 5%" }}>
-      <p style={{ fontWeight: 600, fontSize: 35, marginTop: 35 }}>
-        {title} <span style={{ color: "#cb0094" }}>{pinkTitle}</span>
-      </p>
+    <div className="px-[5%] text-sb-fg">
+      <SectionHeading
+        title={title}
+        pinkTitle={pinkTitle}
+        className="mt-9 mb-0"
+      />
 
       <Row
         gutter={16}
-        style={{ margin: "30px 0", fontWeight: 500, fontSize: 20 }}
+        className="my-8 font-medium text-xl text-sb-fg-muted"
       >
-        <Col span={2}></Col>
-        <Col span={8}></Col>
+        <Col span={2} />
+        <Col span={8} />
         {columns.map((col, idx) => (
-          <Col key={idx} span={col.span || 4} style={{ textAlign: "center", fontSize: 20 }}>
+          <Col key={idx} span={col.span || 4} className="text-center text-xl">
             {col.header}
           </Col>
         ))}
@@ -49,49 +52,36 @@ const SongsTable = ({
           <Row
             gutter={16}
             align="middle"
+            className="sb-table-row mb-3"
             onClick={
               typeof onPlaySong === "function"
                 ? () => onPlaySong(itemsToShow, index)
                 : undefined
             }
             style={{
-              background: "#1F1F1F",
-              borderRadius: 10,
-              marginBottom: 12,
               cursor:
                 typeof onPlaySong === "function" ? "pointer" : "default",
-              transition: "background 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              if (typeof onPlaySong === "function")
-                e.currentTarget.style.background = "#2a2a32";
-            }}
-            onMouseLeave={(e) => {
-              if (typeof onPlaySong === "function")
-                e.currentTarget.style.background = "#1F1F1F";
             }}
           >
             <Col
               span={2}
-              style={{ fontSize: 24, fontWeight: 600, textAlign: "center" }}
+              className="text-center text-2xl font-semibold text-sb-fg"
             >
               #{index + 1}
             </Col>
 
             <Col span={8}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div className="flex items-center">
                 <img
-                  src={
-                        song.cover?.startsWith("http")
-                          ? song.cover
-                          : import.meta.env.BASE_URL + song.cover
-                      }
+                  src={resolveMediaUrl(song.cover)}
                   alt={song.title}
-                  style={{ width: 75, height: 75, borderRadius: 10 }}
+                  className="h-[75px] w-[75px] rounded-[10px] object-cover"
                 />
-                <div style={{ marginLeft: 12 }}>
-                  <p style={{ margin: 0, fontWeight: 600, fontSize: 20 }}>{song.title}</p>
-                  <p style={{ margin: 0, color: "#929292", fontSize: 13 }}>
+                <div className="ml-3">
+                  <p className="m-0 text-xl font-semibold text-sb-fg">
+                    {song.title}
+                  </p>
+                  <p className="m-0 text-[13px] text-sb-fg-muted">
                     {song.artist}
                   </p>
                 </div>
@@ -102,7 +92,7 @@ const SongsTable = ({
               <Col
                 key={i}
                 span={col.span || 4}
-                style={{ textAlign: "center", fontSize: 14 }}
+                className="text-center text-sm text-sb-fg-muted"
               >
                 {typeof col.render === "function"
                   ? col.render(song, index)
@@ -114,7 +104,7 @@ const SongsTable = ({
       ))}
 
       {!showAll && songs.length > 4 && (
-        <div style={{ textAlign: "center", marginTop: 20 }}>
+        <div className="mt-5 text-center">
           <ViewAllButtonRectangle onToggle={() => setShowAll(true)} />
         </div>
       )}

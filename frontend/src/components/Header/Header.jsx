@@ -4,6 +4,7 @@ import {
   SettingOutlined,
   SearchOutlined,
   CrownOutlined,
+  SafetyCertificateOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ import SearchBarWithHeader from "../SearchBarWithHeader/SearchBarWithHeader";
 import usePlayerControls from "../../hooks/usePlayerControls";
 import DiaTextReveal from "../DiaTextReveal/DiaTextReveal";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
+import { AnimatedThemeToggler } from "../ui/animated-theme-toggler";
 import { getPreference, PREFS_CHANGE_EVENT } from "../../utils/userPreferences";
 
 export default function Header({
@@ -33,6 +35,7 @@ export default function Header({
   const [username, setUsername] = useState("");
   const [avatarUrl, setAvatarUrl] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isOperator, setIsOperator] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [showHeaderNews, setShowHeaderNews] = useState(
     () => getPreference("showHeaderNews") !== false,
@@ -43,9 +46,10 @@ export default function Header({
   );
   useEffect(() => {
     const loadAuth = () => {
-      const { isAuth, username, isAdmin: admin, token } = getToken();
+      const { isAuth, username, isAdmin: admin, isOperator: operator, token } = getToken();
       setToken(isAuth);
       setIsAdmin(admin);
+      setIsOperator(operator);
       if (username) setUsername(username);
       if (!isAuth || !token) {
         setAvatarUrl(null);
@@ -108,23 +112,7 @@ export default function Header({
   );
 
   return (
-    <header
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "70px",
-        background: "#09090B",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 20px",
-        borderBottom: "1px solid #444",
-        zIndex: 1100,
-        overflow: "visible",
-      }}
-    >
+    <header className="fixed top-0 left-0 z-[1100] flex h-[70px] w-full items-center justify-between overflow-visible border-b border-sb-border-strong bg-sb-base px-5">
       <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
         <button
           onClick={() => setIsOpen((prev) => !prev)}
@@ -136,7 +124,7 @@ export default function Header({
           }}
         >
           <span
-            className={`block w-8 h-[3px] bg-white rounded transition-all duration-300 ${
+            className={`block w-8 h-[3px] bg-sb-fg rounded transition-all duration-300 ${
               isOpen ? "rotate-45 translate-y-[8px]" : ""
             }`}
           />
@@ -146,7 +134,7 @@ export default function Header({
             }`}
           />
           <span
-            className={`block w-8 h-[3px] bg-white rounded transition-all duration-300 ${
+            className={`block w-8 h-[3px] bg-sb-fg rounded transition-all duration-300 ${
               isOpen ? "-rotate-45 -translate-y-[8px]" : ""
             }`}
           />
@@ -177,7 +165,7 @@ export default function Header({
           position: "relative",
           height: "30px",
           overflow: "hidden",
-          color: "white",
+          color: "var(--sb-fg)",
           fontSize: "16px",
           flex: 1,
           margin: "0 40px",
@@ -204,7 +192,7 @@ export default function Header({
           <Col key={item.labelKey}>
             <button
               onClick={() => navigate(item.path)}
-              className="text-[16px] font-normal text-white/60 hover:text-white transition-all"
+              className="text-[16px] font-normal text-sb-fg-muted hover:text-sb-fg transition-all"
             >
               {t(item.labelKey)}
             </button>
@@ -212,6 +200,7 @@ export default function Header({
         ))}
       </Row>
       <div className="flex items-center gap-4 ml-10 overflow-visible relative z-[1200]">
+        <AnimatedThemeToggler duration={500} variant="circle" />
         <LanguageSwitcher compact />
         {token ? (
           <div
@@ -234,6 +223,17 @@ export default function Header({
                 aria-label={t("admin.open")}
               >
                 <CrownOutlined className="text-lg" />
+              </button>
+            )}
+
+            {isOperator && (
+              <button
+                onClick={() => navigate("/operator")}
+                className="flex items-center gap-1 rounded-lg border border-[#0E9EEF]/30 bg-[#0E9EEF]/10 px-2 py-1 text-[#0E9EEF] hover:bg-[#0E9EEF]/20 transition cursor-pointer"
+                title={t("operator.open")}
+                aria-label={t("operator.open")}
+              >
+                <SafetyCertificateOutlined className="text-lg" />
               </button>
             )}
 
@@ -272,7 +272,7 @@ export default function Header({
           <div className="flex items-center gap-4  transition-all duration-300 opacity-100">
             <button
               onClick={() => navigate("/login")}
-              className="text-white border border-white/30 px-4 py-2 rounded-lg hover:bg-white/10 transition"
+              className="text-sb-fg border border-sb-border px-4 py-2 rounded-lg hover:bg-sb-muted transition"
             >
               {t("common.login")}
             </button>

@@ -13,7 +13,9 @@ import useCuratedAlbums from "../../hooks/useCuratedAlbums";
 import useJamendoTracks from "../../hooks/useJamendoTracks";
 import useJamendoPlaylists from "../../hooks/useJamendoPlaylists";
 import useGenreCovers from "../../hooks/useGenreCovers";
+import useCatalogTracks from "../../hooks/useCatalogTracks";
 import useSearchState from "../../state/searchState";
+import { formatPlaylistForPlayer } from "../../utils/formatTrackForPlayer";
 import { TRENDING_MUSIC_VIDEOS } from "../../constants/trendingMusicVideos";
 
 const SEARCH_ARTIST_NAMES = [
@@ -66,6 +68,10 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
     order: "releasedate_desc",
     limit: 12,
   });
+  const { tracks: platformTracks, loading: platformLoading } = useCatalogTracks({
+    order: "recent",
+    limit: 10,
+  });
   const { playlists, loading: playlistsLoading } = useJamendoPlaylists({
     order: "creationdate_desc",
     limit: 10,
@@ -99,13 +105,7 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
   };
 
   const playFromList = (list, index) => {
-    const formatted = list.map((track) => ({
-      music: track.audio || track.music,
-      title: track.title,
-      artist: track.artist,
-      cover: track.cover,
-    }));
-    handlePlaySong(formatted, index);
+    handlePlaySong(formatPlaylistForPlayer(list), index);
   };
 
   return (
@@ -149,6 +149,19 @@ export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
           videos={TRENDING_MUSIC_VIDEOS}
         />
       </section>
+
+      {(platformLoading || platformTracks.length > 0) && (
+        <section id="platform-tracks-search" aria-busy={platformLoading}>
+          <SongGrid
+            title={t("home.section.platformTracks.main")}
+            pinkTitle={t("home.section.platformTracks.accent")}
+            songs={platformTracks}
+            loading={platformLoading}
+            skeletonCount={10}
+            handlePlaySong={(_, idx) => playFromList(platformTracks, idx)}
+          />
+        </section>
+      )}
 
       <section id="new-release-songs">
         <SongGrid

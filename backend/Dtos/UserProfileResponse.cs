@@ -5,7 +5,8 @@ public record UserProfileResponse(
     string Email,
     string Username,
     string Role,
-    string? AvatarUrl
+    string? AvatarUrl,
+    bool MustChangePassword = false
 );
 
 public record UpdateAvatarRequest(string AvatarData);

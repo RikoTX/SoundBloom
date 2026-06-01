@@ -5,6 +5,7 @@ import {
   RightOutlined,
   PlayCircleFilled,
 } from "@ant-design/icons";
+import SectionHeading from "../SectionHeading";
 
 const MusicGenresGrid = ({
   title,
@@ -23,15 +24,13 @@ const MusicGenresGrid = ({
   return (
     <div className="mt-4 w-full max-w-full overflow-hidden">
       <div className="flex items-center justify-between pr-[4%]">
-        <p className="text-[35px] font-semibold ml-[4%] mb-5 text-white">
-          {title} <span className="text-[#cb0094]">{pinkTitle}</span>
-        </p>
+        <SectionHeading title={title} pinkTitle={pinkTitle} />
         <div className="hidden md:flex items-center gap-2">
           <button
             type="button"
             aria-label="Scroll left"
             onClick={() => scrollBy(-700)}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1F1F1F] text-white/70 hover:text-white hover:bg-[#cb0094] transition-colors cursor-pointer"
+            className="sb-scroll-btn"
           >
             <LeftOutlined />
           </button>
@@ -39,7 +38,7 @@ const MusicGenresGrid = ({
             type="button"
             aria-label="Scroll right"
             onClick={() => scrollBy(700)}
-            className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1F1F1F] text-white/70 hover:text-white hover:bg-[#cb0094] transition-colors cursor-pointer"
+            className="sb-scroll-btn"
           >
             <RightOutlined />
           </button>
@@ -54,7 +53,7 @@ const MusicGenresGrid = ({
           ? Array.from({ length: skeletonCount }).map((_, i) => (
               <div
                 key={`sk-${i}`}
-                className="flex-shrink-0 w-[260px] h-[180px] rounded-2xl bg-[#1F1F1F]"
+                className="flex-shrink-0 w-[260px] h-[180px] rounded-2xl sb-shimmer"
                 style={{
                   background:
                     "linear-gradient(110deg, #1a1a1a 30%, #2a2a2a 50%, #1a1a1a 70%)",
@@ -77,7 +76,7 @@ const MusicGenresGrid = ({
               >
                 <div
                   onClick={() => onClickGenre?.(genre)}
-                  className="group relative w-[260px] h-[180px] rounded-2xl overflow-hidden cursor-pointer bg-[#1F1F1F] border border-white/5 transition-all duration-300 hover:-translate-y-1 hover:bg-[#262629] hover:border-white/10 hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)]"
+                  className="group relative w-[260px] h-[180px] rounded-2xl overflow-hidden cursor-pointer bg-sb-card border border-sb-border transition-all duration-300 hover:-translate-y-1 hover:bg-sb-card-hover hover:shadow-[0_12px_32px_var(--sb-shadow)]"
                 >
                   {genre.cover && (
                     <>
@@ -97,17 +96,17 @@ const MusicGenresGrid = ({
                     </>
                   )}
 
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#1F1F1F] via-[#1F1F1F]/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--sb-card)] via-[color-mix(in_srgb,var(--sb-card)_60%,transparent)] to-transparent" />
 
                   <div className="relative z-10 h-full flex flex-col justify-between p-4">
-                    <h3 className="text-white text-2xl font-bold tracking-tight">
+                    <h3 className="text-sb-fg text-2xl font-bold tracking-tight">
                       {genre.label}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center transition-all duration-300 group-hover:bg-[#EE10B0] group-hover:scale-105">
-                        <PlayCircleFilled className="!text-white !text-[22px]" />
+                      <div className="w-9 h-9 rounded-full bg-sb-muted flex items-center justify-center transition-all duration-300 group-hover:bg-[#EE10B0] group-hover:scale-105">
+                        <PlayCircleFilled className="!text-sb-fg !text-[22px] group-hover:!text-white" />
                       </div>
-                      <span className="text-[#929292] text-xs font-medium group-hover:text-white/80 transition-colors">
+                      <span className="text-sb-fg-muted text-xs font-medium group-hover:text-sb-fg transition-colors">
                         Play genre
                       </span>
                     </div>
