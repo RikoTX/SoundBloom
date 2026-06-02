@@ -38,4 +38,6 @@ public record ChangePasswordRequest(
 
 public record MessageResponse(string Message);
 
+public record RegisterResponse(string Message, bool SkipVerification = false);
+
 public record UsernameAvailabilityResponse(bool Available, string Username);

@@ -11,11 +11,13 @@ namespace backend.Services;
 public class SupabaseAuthService(
     HttpClient httpClient,
     IOptions<SupabaseSettings> supabaseOptions,
-    JwtTokenService jwtTokenService)
+    JwtTokenService jwtTokenService,
+    SignupVerificationService signupVerification,
+    SignupEmailService signupEmail)
 {
     private readonly SupabaseSettings _settings = supabaseOptions.Value;
 
-    public async Task<MessageResponse> RegisterAsync(
+    public async Task<RegisterResponse> RegisterAsync(
         RegisterRequest request,
         CancellationToken cancellationToken
     )
@@ -24,11 +26,44 @@ public class SupabaseAuthService(
 
         if (!string.IsNullOrWhiteSpace(_settings.SecretKey))
         {
-            var createResult = await TryCreateUserViaAdminAsync(
+            if (_settings.AutoConfirmEmail)
+            {
+                var createResult = await TryCreateUserViaAdminAsync(
+                    email,
+                    request.Password,
+                    emailConfirm: true,
+                    cancellationToken
+                );
+
+                return new RegisterResponse(
+                    createResult == AdminCreateResult.AlreadyExists
+                        ? "Аккаунт уже есть. Войдите с паролем."
+                        : "Аккаунт создан. Войдите с вашим паролем.",
+                    SkipVerification: true
+                );
+            }
+
+            var createResultNormal = await TryCreateUserViaAdminAsync(
                 email,
                 request.Password,
+                emailConfirm: false,
                 cancellationToken
             );
+
+            if (signupEmail.CanSend && signupVerification.IsAvailable)
+            {
+                await signupVerification.IssueAndSendAsync(
+                    email,
+                    request.Password,
+                    cancellationToken
+                );
+
+                return new RegisterResponse(
+                    createResultNormal == AdminCreateResult.AlreadyExists
+                        ? "Новый код отправлен на вашу почту."
+                        : "Код отправлен на вашу почту. Введите его на следующем шаге."
+                );
+            }
 
             try
             {
@@ -36,17 +71,25 @@ public class SupabaseAuthService(
             }
             catch (AuthServiceException ex) when (ex.StatusCode == StatusCodes.Status429TooManyRequests)
             {
-                return new MessageResponse(
-                    createResult == AdminCreateResult.AlreadyExists
+                return new RegisterResponse(
+                    createResultNormal == AdminCreateResult.AlreadyExists
                         ? "This email is already registered. Supabase email limit reached — wait 10-15 minutes, then tap Resend code or try Login."
                         : "Account created. Email limit reached — wait 10-15 minutes and tap Resend code on the site."
                 );
             }
+            catch (AuthServiceException ex) when (IsEmailDeliveryError(ex.Message))
+            {
+                throw new AuthServiceException(
+                    "Не удалось отправить код. Добавьте Smtp в appsettings.local.json (Gmail) "
+                    + "и выполните SQL create_signup_verification_codes.sql в Supabase.",
+                    StatusCodes.Status503ServiceUnavailable
+                );
+            }
 
-            return new MessageResponse(
-                createResult == AdminCreateResult.AlreadyExists
-                    ? "Account already exists. A new verification code was sent to your email."
-                    : "Verification code sent to your email."
+            return new RegisterResponse(
+                createResultNormal == AdminCreateResult.AlreadyExists
+                    ? "Код отправлен на вашу почту."
+                    : "Код отправлен на вашу почту. Введите его на следующем шаге."
             );
         }
 
@@ -63,16 +106,21 @@ public class SupabaseAuthService(
 
         if (response.IsSuccessStatusCode && !string.IsNullOrWhiteSpace(payload?.AccessToken))
         {
-            return new MessageResponse("Verification code sent to your email.");
+            return new RegisterResponse("Verification code sent to your email.");
         }
 
         if (response.IsSuccessStatusCode)
         {
-            return new MessageResponse("Verification code sent to your email.");
+            return new RegisterResponse("Verification code sent to your email.");
         }
 
         throw MapAuthError(response.StatusCode, payload);
     }
+
+    private static bool IsEmailDeliveryError(string message) =>
+        message.Contains("confirmation email", StringComparison.OrdinalIgnoreCase)
+        || message.Contains("sending email", StringComparison.OrdinalIgnoreCase)
+        || message.Contains("email rate limit", StringComparison.OrdinalIgnoreCase);
 
     public async Task<AuthResponse> VerifyEmailAsync(
         VerifyEmailRequest request,
@@ -81,6 +129,19 @@ public class SupabaseAuthService(
     {
         var email = request.Email.Trim().ToLowerInvariant();
         var code = request.Code.Trim();
+
+        var (appCodeValid, password) = await signupVerification.TryValidateAsync(
+            email,
+            code,
+            cancellationToken);
+
+        if (appCodeValid)
+        {
+            await ConfirmUserByEmailAsync(email, cancellationToken);
+            await signupVerification.DeleteAsync(email, cancellationToken);
+            var loginPayload = await LoginWithPasswordAsync(email, password, cancellationToken);
+            return await BuildAuthResponseAsync(loginPayload, cancellationToken);
+        }
 
         using var message = CreatePublicRequest(
             HttpMethod.Post,
@@ -103,8 +164,16 @@ public class SupabaseAuthService(
     )
     {
         var email = request.Email.Trim().ToLowerInvariant();
+
+        if (await signupVerification.HasPendingAsync(email, cancellationToken)
+            && signupEmail.CanSend)
+        {
+            await signupVerification.ResendAsync(email, cancellationToken);
+            return new MessageResponse("Новый код отправлен на вашу почту.");
+        }
+
         await ResendSignupCodeAsync(email, cancellationToken);
-        return new MessageResponse("Verification code sent again.");
+        return new MessageResponse("Код отправлен повторно.");
     }
 
     public async Task<AuthResponse> LoginAsync(
@@ -113,15 +182,103 @@ public class SupabaseAuthService(
     )
     {
         var email = request.Email.Trim().ToLowerInvariant();
+        var payload = await LoginWithPasswordAsync(email, request.Password, cancellationToken);
+        return await BuildAuthResponseAsync(payload, cancellationToken);
+    }
 
+    private async Task<SupabaseAuthPayload> LoginWithPasswordAsync(
+        string email,
+        string password,
+        CancellationToken cancellationToken
+    )
+    {
         using var message = CreatePublicRequest(
             HttpMethod.Post,
             "/auth/v1/token?grant_type=password",
-            new { email, password = request.Password }
+            new { email, password }
         );
 
-        var payload = await SendAsync(message, cancellationToken);
-        return await BuildAuthResponseAsync(payload, cancellationToken);
+        return await SendAsync(message, cancellationToken);
+    }
+
+    private async Task ConfirmUserByEmailAsync(string email, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(_settings.SecretKey))
+        {
+            return;
+        }
+
+        var userId = await FindAuthUserIdByEmailAsync(email, cancellationToken);
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            throw new AuthServiceException(
+                "Пользователь не найден после подтверждения.",
+                StatusCodes.Status502BadGateway
+            );
+        }
+
+        using var updateRequest = CreateSecretRequest(
+            HttpMethod.Put,
+            $"/auth/v1/admin/users/{Uri.EscapeDataString(userId)}",
+            new { email_confirm = true }
+        );
+
+        var updateResponse = await httpClient.SendAsync(updateRequest, cancellationToken);
+
+        if (!updateResponse.IsSuccessStatusCode)
+        {
+            throw new AuthServiceException(
+                "Не удалось подтвердить email.",
+                StatusCodes.Status502BadGateway
+            );
+        }
+    }
+
+    private async Task<string?> FindAuthUserIdByEmailAsync(
+        string email,
+        CancellationToken cancellationToken)
+    {
+        using var profileRequest = CreateSecretRequest(
+            HttpMethod.Get,
+            $"/rest/v1/profiles?email=eq.{Uri.EscapeDataString(email)}&select=id&limit=1"
+        );
+
+        var profileResponse = await httpClient.SendAsync(profileRequest, cancellationToken);
+
+        if (profileResponse.IsSuccessStatusCode)
+        {
+            var profiles = await profileResponse.Content.ReadFromJsonAsync<List<ProfileIdRow>>(
+                cancellationToken: cancellationToken
+            );
+            var profileId = profiles?.FirstOrDefault()?.Id;
+
+            if (!string.IsNullOrWhiteSpace(profileId))
+            {
+                return profileId;
+            }
+        }
+
+        using var listRequest = CreateSecretRequest(
+            HttpMethod.Get,
+            "/auth/v1/admin/users?per_page=1000"
+        );
+
+        var listResponse = await httpClient.SendAsync(listRequest, cancellationToken);
+
+        if (!listResponse.IsSuccessStatusCode)
+        {
+            return null;
+        }
+
+        var wrapped = await listResponse.Content.ReadFromJsonAsync<AdminUsersListResponse>(
+            cancellationToken: cancellationToken
+        );
+
+        return wrapped?.Users?
+            .FirstOrDefault(u =>
+                string.Equals(u.Email?.Trim(), email, StringComparison.OrdinalIgnoreCase))
+            ?.Id;
     }
 
     public async Task<AuthResponse> ChangePasswordAsync(
@@ -436,6 +593,7 @@ public class SupabaseAuthService(
     private async Task<AdminCreateResult> TryCreateUserViaAdminAsync(
         string email,
         string password,
+        bool emailConfirm,
         CancellationToken cancellationToken
     )
     {
@@ -446,7 +604,7 @@ public class SupabaseAuthService(
             {
                 email,
                 password,
-                email_confirm = false,
+                email_confirm = emailConfirm,
             }
         );
 
@@ -802,6 +960,14 @@ public class SupabaseAuthService(
             message = "Invalid or expired verification code.";
         }
 
+        if (IsEmailDeliveryError(message))
+        {
+            message =
+                "Не удалось отправить письмо с кодом. Для разработки добавьте в appsettings.local.json: "
+                + "\"Supabase\": { \"AutoConfirmEmail\": true }. "
+                + "Или настройте SMTP в Supabase → Authentication.";
+        }
+
         return new AuthServiceException(message, (int)statusCode);
     }
 
@@ -831,6 +997,27 @@ public class SupabaseAuthService(
 
         [JsonPropertyName("user")]
         public SupabaseUser? User { get; set; }
+    }
+
+    private sealed class AdminUserListItem
+    {
+        [JsonPropertyName("id")]
+        public string? Id { get; set; }
+
+        [JsonPropertyName("email")]
+        public string? Email { get; set; }
+    }
+
+    private sealed class AdminUsersListResponse
+    {
+        [JsonPropertyName("users")]
+        public List<AdminUserListItem>? Users { get; set; }
+    }
+
+    private sealed class ProfileIdRow
+    {
+        [JsonPropertyName("id")]
+        public string? Id { get; set; }
     }
 
     private sealed class SupabaseAdminUserPayload

@@ -6,6 +6,7 @@ import AuthLayout from "../../components/auth/AuthLayout";
 import AuthInput from "../../components/auth/AuthInput";
 import {
   checkUsername,
+  login,
   register,
   resendCode,
   setUsername,
@@ -126,7 +127,26 @@ export default function Register() {
 
     try {
       const data = await register({ email: email.trim(), password });
+
+      if (data.skipVerification) {
+        const auth = await login({ email: email.trim(), password });
+        setInfo(data.message || t("auth.register.createdLogin"));
+
+        if (auth.needsUsername) {
+          setPendingToken(auth.token);
+          setStep("username");
+          setSubmitted(false);
+          return;
+        }
+
+        saveAuthSession({ token: auth.token });
+        navigate("/Home");
+        return;
+      }
+
       setInfo(data.message || t("auth.verify.codeSent"));
+      setPassword("");
+      setConfirmPassword("");
       setStep("verify");
       setSubmitted(false);
     } catch (err) {
@@ -213,11 +233,7 @@ export default function Register() {
         subtitle={t("auth.verify.subtitle", { email })}
       >
         <p className="mb-2 px-1 text-xs leading-relaxed text-white/40">
-          The code looks like{" "}
-          <span className="text-white/60">123456</span>. If you only received a
-          link, ask the project owner to add{" "}
-          <code className="text-white/55">{`{{ .Token }}`}</code> to the Supabase
-          Confirm sign-up email template, then tap Resend code.
+          {t("auth.verify.codeHint")}
         </p>
         <form onSubmit={handleVerify} className="space-y-4 sm:space-y-5">
           <AuthInput

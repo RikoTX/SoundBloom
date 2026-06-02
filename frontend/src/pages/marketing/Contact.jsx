@@ -6,10 +6,7 @@ import MarketingPageShell from "../../components/marketing/MarketingPageShell";
 import GlassCard from "../../components/marketing/GlassCard";
 import ContactField from "../../components/marketing/ContactField";
 import SectionReveal from "../../components/marketing/SectionReveal";
-import {
-  isContactFormConfigured,
-  sendContactForm,
-} from "../../api/sendContactForm";
+import { sendContactForm } from "../../api/sendContactForm";
 
 const CONTACT_EMAIL = "amirzhanchikk@gmail.com";
 
@@ -46,14 +43,20 @@ export default function Contact() {
     },
   ];
 
-  const formReady = isContactFormConfigured();
-
   const canSubmit =
-    formReady &&
     !sending &&
     name.trim().length > 1 &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) &&
-    message.trim().length > 10;
+    message.trim().length >= 10;
+
+  const validationHint =
+    name.trim().length < 2
+      ? t("marketing.contact.hintName")
+      : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+        ? t("marketing.contact.hintEmail")
+        : message.trim().length < 10
+          ? t("marketing.contact.hintMessage")
+          : "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -137,6 +140,10 @@ export default function Contact() {
                     <p className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
                       {error}
                     </p>
+                  )}
+
+                  {!canSubmit && validationHint && (
+                    <p className="text-sm text-white/40">{validationHint}</p>
                   )}
 
                   <motion.button

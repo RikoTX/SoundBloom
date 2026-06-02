@@ -19,9 +19,11 @@ builder.Services.AddOpenApi();
 builder.Services.Configure<SupabaseSettings>(
     builder.Configuration.GetSection(SupabaseSettings.SectionName)
 );
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(JwtSettings.SectionName));
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(AppSettings.SectionName));
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection(SmtpSettings.SectionName));
+builder.Services.Configure<ContactSettings>(builder.Configuration.GetSection(ContactSettings.SectionName));
 
 var supabaseSettings = builder.Configuration.GetSection(SupabaseSettings.SectionName).Get<SupabaseSettings>()
     ?? throw new InvalidOperationException("Supabase settings are missing from configuration.");
@@ -67,8 +69,12 @@ builder.Services.AddHttpClient<ArtistService>();
 builder.Services.AddHttpClient<OperatorService>();
 builder.Services.AddHttpClient<CatalogService>();
 builder.Services.AddHttpClient<TrackAnalyticsService>();
+builder.Services.AddHttpClient<ContactMessageService>();
 builder.Services.AddSingleton<AdminLogStore>();
 builder.Services.AddSingleton<UserInviteEmailService>();
+builder.Services.AddSingleton<SignupEmailService>();
+builder.Services.AddHttpClient<SignupVerificationService>();
+builder.Services.AddSingleton<ContactEmailService>();
 builder.Services.AddSingleton<JwtTokenService>();
 
 builder.Services
@@ -129,6 +135,7 @@ app.MapAdminEndpoints();
 app.MapArtistEndpoints();
 app.MapOperatorEndpoints();
 app.MapCatalogEndpoints();
+app.MapContactEndpoints();
 
 var adminLogs = app.Services.GetRequiredService<AdminLogStore>();
 adminLogs.Add("info", "system", "SoundBloom admin API ready", "system");
