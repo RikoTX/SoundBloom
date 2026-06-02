@@ -41,7 +41,13 @@ import {
   PREFS_CHANGE_EVENT,
 } from "../../utils/userPreferences";
 import { useLibrary } from "../../state/libraryState";
+import { useSubscription } from "../../state/subscriptionState";
+import { cancelSubscription, fetchPaymentMethods } from "../../api/subscriptionApi";
+import { Modal } from "antd";
+import { notifyError, notifySuccess } from "../../utils/appNotification";
+import PaymentCheckoutModal from "../../components/checkout/PaymentCheckoutModal";
 import { AnimatedThemeToggler } from "../../components/ui/animated-theme-toggler";
+import { brandLabel } from "../../utils/cardBrand";
 
 const LOCALE_LABELS = { en: "lang.en", ru: "lang.ru", kk: "lang.kk" };
 const APP_VERSION = "1.0.0";
@@ -118,6 +124,12 @@ export default function Settings() {
   const { isAuth, token, username: tokenUsername, email: tokenEmail, role } =
     getToken();
   const { likes, savedAlbums, savedGenres, savedPlaylists } = useLibrary();
+  const { status: subStatus, refresh: refreshSubscription } = useSubscription();
+
+  const [paymentMethods, setPaymentMethods] = useState([]);
+  const [checkoutPlan, setCheckoutPlan] = useState(null);
+  const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const [cancelLoading, setCancelLoading] = useState(false);
 
   const [prefs, setPrefs] = useState(getAllPreferences);
   const [volume, setVolume] = useState(getPlayerVolume);
@@ -151,6 +163,21 @@ export default function Settings() {
     window.addEventListener(PREFS_CHANGE_EVENT, reloadPrefs);
     return () => window.removeEventListener(PREFS_CHANGE_EVENT, reloadPrefs);
   }, [reloadPrefs]);
+
+  useEffect(() => {
+    if (!isAuth || !token) return;
+    let cancelled = false;
+    fetchPaymentMethods()
+      .then((list) => {
+        if (!cancelled) setPaymentMethods(Array.isArray(list) ? list : []);
+      })
+      .catch(() => {
+        if (!cancelled) setPaymentMethods([]);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuth, token, subStatus.plan]);
 
   useEffect(() => {
     if (!isAuth || !token) return;
@@ -298,6 +325,42 @@ export default function Settings() {
     clearAuthSession();
     navigate("/login");
   };
+
+  const handleConfirmCancelSubscription = async () => {
+    setCancelLoading(true);
+    try {
+      const data = await cancelSubscription();
+      await refreshSubscription();
+      window.dispatchEvent(new Event("soundbloom-subscription-change"));
+      setCancelModalOpen(false);
+      notifySuccess(
+        t("settings.subscription.cancelSuccess"),
+        data.message,
+      );
+    } catch (err) {
+      notifyError(
+        t("settings.subscription.cancelFailed"),
+        err instanceof Error
+          ? err.message
+          : t("settings.subscription.cancelFailed"),
+      );
+    } finally {
+      setCancelLoading(false);
+    }
+  };
+
+  const defaultCard = paymentMethods.find((m) => m.isDefault) ?? paymentMethods[0];
+
+  const planLabelKey =
+    subStatus.plan === "premium"
+      ? "marketing.premium.planPremium"
+      : subStatus.plan === "family"
+        ? "marketing.premium.planFamily"
+        : "marketing.premium.free";
+
+  const expiresLabel = subStatus.expiresAt
+    ? new Date(subStatus.expiresAt).toLocaleDateString()
+    : null;
 
   const repeatOptions = useMemo(
     () => [
@@ -508,6 +571,102 @@ export default function Settings() {
           )}
         </SettingsSection>
 
+        <SettingsSection
+          icon={CrownOutlined}
+          title={t("settings.subscription.title")}
+          description={t("settings.subscription.subtitle")}
+        >
+          <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-4 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-wider text-white/35">
+                  {t("settings.subscription.current")}
+                </p>
+                <p className="text-lg font-semibold text-white">{t(planLabelKey)}</p>
+                {subStatus.isActive && expiresLabel && (
+                  <p className="mt-1 text-sm text-white/45">
+                    {t("settings.subscription.expires", { date: expiresLabel })}
+                  </p>
+                )}
+                {!subStatus.isActive && subStatus.plan === "free" && (
+                  <p className="mt-1 text-sm text-white/45">
+                    {t("settings.subscription.freeHint")}
+                  </p>
+                )}
+              </div>
+              {subStatus.isActive && (
+                <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
+                  {t("settings.subscription.active")}
+                </span>
+              )}
+            </div>
+
+            {defaultCard && (
+              <div className="border-t border-white/[0.06] pt-3">
+                <p className="text-xs uppercase tracking-wider text-white/35">
+                  {t("settings.subscription.savedCard")}
+                </p>
+                <p className="mt-1 text-sm text-white/80">
+                  {brandLabel(defaultCard.brand)} •••• {defaultCard.lastFour}
+                  <span className="text-white/40">
+                    {" "}
+                    — {String(defaultCard.expMonth).padStart(2, "0")}/
+                    {String(defaultCard.expYear).padStart(2, "0")}
+                  </span>
+                </p>
+                <p className="text-xs text-white/40">{defaultCard.cardholderName}</p>
+              </div>
+            )}
+
+            {!subStatus.isActive && (
+              <p className="text-sm text-white/50">
+                {t("settings.subscription.skipsLine", {
+                  remaining: subStatus.skipsRemaining,
+                  limit: subStatus.skipsLimit,
+                })}
+              </p>
+            )}
+
+            <div className="flex flex-wrap gap-2 pt-1">
+              {subStatus.plan !== "premium" && (
+                <button
+                  type="button"
+                  onClick={() => setCheckoutPlan("premium")}
+                  className="rounded-full bg-[#EE10B0] px-5 py-2 text-sm font-semibold text-white hover:bg-[#cb0094] cursor-pointer"
+                >
+                  {t("settings.subscription.buyPremium")}
+                </button>
+              )}
+              {subStatus.plan !== "family" && (
+                <button
+                  type="button"
+                  onClick={() => setCheckoutPlan("family")}
+                  className="rounded-full border border-white/15 px-5 py-2 text-sm text-white/80 hover:border-[#EE10B0]/40 hover:text-white cursor-pointer"
+                >
+                  {t("settings.subscription.buyFamily")}
+                </button>
+              )}
+              <Link
+                to="/premium"
+                className="rounded-full border border-white/10 px-5 py-2 text-sm text-white/60 hover:text-white"
+              >
+                {t("settings.subscription.viewPlans")}
+              </Link>
+              {(subStatus.isActive || subStatus.canCancel) && (
+                <button
+                  type="button"
+                  disabled={cancelLoading}
+                  onClick={() => setCancelModalOpen(true)}
+                  className="rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2 text-sm text-red-300 transition hover:bg-red-500/15 disabled:opacity-50 cursor-pointer relative z-10"
+                >
+                  {cancelLoading
+                    ? t("settings.subscription.canceling")
+                    : t("settings.subscription.cancel")}
+                </button>
+              )}
+            </div>
+          </div>
+        </SettingsSection>
 
         <SettingsSection
           icon={DatabaseOutlined}
@@ -717,6 +876,51 @@ export default function Settings() {
           </div>
         </SettingsSection>
       </div>
+
+      <Modal
+        title={t("settings.subscription.cancelConfirmTitle")}
+        open={cancelModalOpen}
+        centered
+        zIndex={10100}
+        okText={t("settings.subscription.cancelConfirmOk")}
+        cancelText={t("common.cancel")}
+        okButtonProps={{ danger: true }}
+        confirmLoading={cancelLoading}
+        onCancel={() => {
+          if (!cancelLoading) setCancelModalOpen(false);
+        }}
+        onOk={handleConfirmCancelSubscription}
+        styles={{
+          content: {
+            background: "var(--sb-bg-elevated)",
+            border: "1px solid var(--sb-border)",
+          },
+          header: {
+            background: "var(--sb-bg-elevated)",
+            borderBottom: "1px solid var(--sb-border)",
+          },
+          body: { background: "var(--sb-bg-elevated)" },
+          footer: {
+            background: "var(--sb-bg-elevated)",
+            borderTop: "1px solid var(--sb-border)",
+          },
+        }}
+      >
+        <p className="text-sm leading-relaxed text-sb-fg-muted m-0">
+          {t("settings.subscription.cancelConfirmBody")}
+        </p>
+      </Modal>
+
+      <PaymentCheckoutModal
+        open={Boolean(checkoutPlan)}
+        plan={checkoutPlan ?? "premium"}
+        onClose={() => setCheckoutPlan(null)}
+        onSuccess={async () => {
+          await refreshSubscription();
+          const list = await fetchPaymentMethods().catch(() => []);
+          setPaymentMethods(Array.isArray(list) ? list : []);
+        }}
+      />
     </div>
   );
 }

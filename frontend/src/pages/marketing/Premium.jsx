@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { CheckOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import MarketingPageShell from "../../components/marketing/MarketingPageShell";
 import GlassCard from "../../components/marketing/GlassCard";
 import SectionReveal from "../../components/marketing/SectionReveal";
+import PaymentCheckoutModal from "../../components/checkout/PaymentCheckoutModal";
+import { useSubscription } from "../../state/subscriptionState";
+import { getToken } from "../../utils/getToken";
 
 function PremiumBadge({ children }) {
   return (
@@ -16,7 +20,28 @@ function PremiumBadge({ children }) {
 
 export default function Premium() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { status, refresh } = useSubscription();
   const [selectedPlan, setSelectedPlan] = useState("premium");
+  const [checkoutPlan, setCheckoutPlan] = useState(null);
+  const [checkoutMsg, setCheckoutMsg] = useState("");
+
+  const openCheckout = (planId) => {
+    if (planId === "free") return;
+
+    const { isAuth } = getToken();
+    if (!isAuth) {
+      navigate("/register");
+      return;
+    }
+
+    setCheckoutPlan(planId);
+  };
+
+  const handleCheckoutSuccess = async (data) => {
+    await refresh();
+    setCheckoutMsg(data?.message ?? "");
+  };
 
   const FEATURES = [
     "marketing.premium.noAds",
@@ -83,6 +108,11 @@ export default function Premium() {
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/45 sm:text-lg">
               {t("marketing.premium.heroDesc")}
             </p>
+            {status.isActive && (
+              <p className="mt-4 text-sm text-emerald-400">
+                {t("subscription.currentPlan", { plan: status.plan })}
+              </p>
+            )}
           </motion.div>
         </div>
       </section>
@@ -161,6 +191,11 @@ export default function Premium() {
 
                   <motion.button
                     type="button"
+                    disabled={plan.id === "free"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openCheckout(plan.id);
+                    }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className={`mt-8 w-full rounded-full py-3.5 text-sm font-semibold transition-all duration-200 ${
@@ -169,7 +204,9 @@ export default function Premium() {
                         : "border border-white/15 bg-white/[0.04] text-white/80 hover:border-[#cb0094]/30 hover:text-white"
                     }`}
                   >
-                    {t(plan.ctaKey)}
+                    {plan.id === "free" && status.plan === "free"
+                        ? t("marketing.premium.currentPlan")
+                        : t(plan.ctaKey)}
                   </motion.button>
                 </GlassCard>
               </motion.div>
@@ -189,16 +226,32 @@ export default function Premium() {
           <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/45 sm:text-base">
             {t("marketing.premium.upgradeDesc")}
           </p>
+          {checkoutMsg && (
+            <p className="mt-4 text-sm text-emerald-300">{checkoutMsg}</p>
+          )}
           <motion.button
             type="button"
+            onClick={() =>
+              openCheckout(selectedPlan === "free" ? "premium" : selectedPlan)
+            }
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="mt-8 rounded-full bg-[#cb0094] px-10 py-3.5 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(203,0,148,0.35)] transition hover:bg-[#EE10B0]"
           >
-            {t("marketing.premium.trial")}
+            {t("subscription.checkout.openPayment")}
           </motion.button>
+          <p className="mt-3 text-xs text-white/35">
+            {t("subscription.checkout.fakeHint")}
+          </p>
         </GlassCard>
       </SectionReveal>
+
+      <PaymentCheckoutModal
+        open={Boolean(checkoutPlan)}
+        plan={checkoutPlan ?? "premium"}
+        onClose={() => setCheckoutPlan(null)}
+        onSuccess={handleCheckoutSuccess}
+      />
     </MarketingPageShell>
   );
 }

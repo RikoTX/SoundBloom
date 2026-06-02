@@ -11,9 +11,11 @@ import ChooseUsername from "./pages/auth/ChooseUsername";
 import ChangePassword from "./pages/auth/ChangePassword";
 import useAppState from "./state/appState";
 import { LibraryProvider } from "./state/libraryState";
+import { SubscriptionProvider } from "./state/subscriptionState";
 import { getToken } from "./utils/getToken";
 import { fetchMe } from "./api/authApi";
 import ToastHost from "./components/ToastHost/ToastHost";
+import { App as AntApp, ConfigProvider } from "antd";
 
 function MainShell() {
   const navigate = useNavigate();
@@ -123,15 +125,27 @@ function MainShell() {
 
 export default function App() {
   return (
-    <LibraryProvider>
-      <ToastHost />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/choose-username" element={<ChooseUsername />} />
-        <Route path="/change-password" element={<ChangePassword />} />
-        <Route path="*" element={<MainShell />} />
-      </Routes>
-    </LibraryProvider>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#ee10b0",
+        },
+      }}
+    >
+      <AntApp>
+        <LibraryProvider>
+          <SubscriptionProvider>
+            <ToastHost />
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/choose-username" element={<ChooseUsername />} />
+              <Route path="/change-password" element={<ChangePassword />} />
+              <Route path="*" element={<MainShell />} />
+            </Routes>
+          </SubscriptionProvider>
+        </LibraryProvider>
+      </AntApp>
+    </ConfigProvider>
   );
 }

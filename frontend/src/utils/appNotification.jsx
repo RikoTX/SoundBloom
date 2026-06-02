@@ -30,23 +30,35 @@ export function confirmAction({
   danger = false,
 }) {
   return new Promise((resolve) => {
+    let settled = false;
+    const finish = (value) => {
+      if (settled) return;
+      settled = true;
+      resolve(value);
+    };
+
     Modal.confirm({
       title,
       content,
       centered: true,
       zIndex: MODAL_Z_INDEX,
       maskClosable: true,
-      okText,
-      cancelText,
+      okText: okText ?? "OK",
+      cancelText: cancelText ?? "Cancel",
       okButtonProps: danger ? { danger: true } : undefined,
       className: "soundbloom-confirm",
+      getContainer: () => document.body,
       icon: (
         <ExclamationCircleOutlined
           style={{ color: danger ? "#f87171" : "#EE10B0" }}
         />
       ),
-      onOk: () => resolve(true),
-      onCancel: () => resolve(false),
+      onOk: () => {
+        finish(true);
+        return Promise.resolve();
+      },
+      onCancel: () => finish(false),
+      onClose: () => finish(false),
     });
   });
 }

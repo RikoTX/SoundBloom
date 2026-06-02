@@ -69,6 +69,7 @@ builder.Services.AddHttpClient<ArtistService>();
 builder.Services.AddHttpClient<OperatorService>();
 builder.Services.AddHttpClient<CatalogService>();
 builder.Services.AddHttpClient<TrackAnalyticsService>();
+builder.Services.AddHttpClient<SubscriptionService>();
 builder.Services.AddHttpClient<ContactMessageService>();
 builder.Services.AddSingleton<AdminLogStore>();
 builder.Services.AddSingleton<UserInviteEmailService>();
@@ -136,6 +137,7 @@ app.MapArtistEndpoints();
 app.MapOperatorEndpoints();
 app.MapCatalogEndpoints();
 app.MapContactEndpoints();
+app.MapSubscriptionEndpoints();
 
 var adminLogs = app.Services.GetRequiredService<AdminLogStore>();
 adminLogs.Add("info", "system", "SoundBloom admin API ready", "system");
