@@ -5,6 +5,7 @@ import {
   SearchOutlined,
   CrownOutlined,
   SafetyCertificateOutlined,
+  GiftOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -223,6 +224,17 @@ export default function Header({
                 aria-label={t("admin.open")}
               >
                 <CrownOutlined className="text-lg" />
+              </button>
+            )}
+
+            {isAdmin && (
+              <button
+                onClick={() => navigate("/admin/promos")}
+                className="flex items-center gap-1 rounded-lg border border-[#EE10B0]/30 bg-[#EE10B0]/10 px-2 py-1 text-[#EE10B0] hover:bg-[#EE10B0]/20 transition cursor-pointer"
+                title={t("promo.adminTab")}
+                aria-label={t("promo.adminTab")}
+              >
+                <GiftOutlined className="text-lg" />
               </button>
             )}
 

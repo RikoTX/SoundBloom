@@ -9,12 +9,27 @@ using Microsoft.Extensions.Options;
 
 namespace backend.Services;
 
-public class SubscriptionService(HttpClient httpClient, IOptions<SupabaseSettings> supabaseOptions)
+public class SubscriptionService(
+    HttpClient httpClient,
+    IOptions<SupabaseSettings> supabaseOptions,
+    PromoService promo
+)
 {
     public const int FreeSkipLimit = 3;
     public const int DefaultAdSeconds = 30;
+    public const int PremiumMonthlyKzt = 3990;
+    public const int FamilyMonthlyKzt = 5990;
+    public const int FamilyMaxMembers = 6;
 
     private readonly SupabaseSettings _settings = supabaseOptions.Value;
+
+    public static int MonthlyPriceKzt(string plan) =>
+        (plan ?? "").Trim().ToLowerInvariant() switch
+        {
+            "family" => FamilyMonthlyKzt,
+            "premium" => PremiumMonthlyKzt,
+            _ => 0,
+        };
 
     private static readonly JsonSerializerOptions SupabasePatchJsonOptions = new()
     {
@@ -28,7 +43,343 @@ public class SubscriptionService(HttpClient httpClient, IOptions<SupabaseSetting
         var row = await GetProfileSubscriptionRowAsync(userId, cancellationToken)
             ?? throw new AuthServiceException("Profile not found.", StatusCodes.Status404NotFound);
 
-        return BuildStatus(row);
+        return await ResolveStatusAsync(userId, row, cancellationToken);
+    }
+
+    private async Task<SubscriptionStatusResponse> ResolveStatusAsync(
+        string userId,
+        ProfileSubscriptionRow row,
+        CancellationToken cancellationToken)
+    {
+        var status = BuildStatus(row);
+
+        if (status.Plan != "free")
+        {
+            return status;
+        }
+
+        var owner = await GetActiveFamilyOwnerAsync(userId, cancellationToken);
+        return owner is null ? status : BuildFamilyMemberStatus(owner.SubscriptionExpiresAt);
+    }
+
+    private SubscriptionStatusResponse BuildFamilyMemberStatus(DateTimeOffset? expiresAt) =>
+        new(
+            Plan: "family",
+            IsActive: true,
+            CanCancel: false,
+            ExpiresAt: expiresAt,
+            SkipsToday: 0,
+            SkipsLimit: FreeSkipLimit,
+            SkipsRemaining: 999,
+            UnlimitedSkips: true,
+            NoAds: true,
+            CanDownload: true,
+            LosslessAudio: true,
+            ExclusiveMixes: true,
+            FamilySlots: 0,
+            FamilyMixPlaylists: "enabled"
+        );
+
+    private async Task<ProfileSubscriptionRow?> GetActiveFamilyOwnerAsync(
+        string userId,
+        CancellationToken cancellationToken)
+    {
+        var membership = await QueryAsync<FamilyMemberRow>(
+            $"/rest/v1/family_members?member_id=eq.{Uri.EscapeDataString(userId)}&select=owner_id&limit=1",
+            cancellationToken
+        );
+
+        var ownerId = membership?.FirstOrDefault()?.OwnerId;
+        if (string.IsNullOrWhiteSpace(ownerId))
+        {
+            return null;
+        }
+
+        var owner = await GetProfileSubscriptionRowAsync(ownerId, cancellationToken);
+        if (owner is null)
+        {
+            return null;
+        }
+
+        var plan = NormalizePlan(owner.SubscriptionPlan);
+        return plan == "family" && IsPlanActive(plan, owner.SubscriptionExpiresAt) ? owner : null;
+    }
+
+    public async Task<FamilyInfoDto> GetFamilyAsync(string userId, CancellationToken cancellationToken)
+    {
+        var row = await GetProfileSubscriptionRowAsync(userId, cancellationToken)
+            ?? throw new AuthServiceException("Profile not found.", StatusCodes.Status404NotFound);
+
+        var ownPlan = NormalizePlan(row.SubscriptionPlan);
+        var isOwner = ownPlan == "family" && IsPlanActive(ownPlan, row.SubscriptionExpiresAt);
+
+        IReadOnlyList<FamilyMemberDto> members = isOwner
+            ? await LoadFamilyMembersAsync(userId, cancellationToken)
+            : [];
+
+        string? managedBy = null;
+        var owner = await GetActiveFamilyOwnerAsync(userId, cancellationToken);
+        if (owner?.Id is not null)
+        {
+            var ownerProfile = await GetProfileLookupAsync(owner.Id, cancellationToken);
+            managedBy = ownerProfile?.Username ?? "—";
+        }
+
+        return new FamilyInfoDto(
+            IsOwner: isOwner,
+            IsMember: managedBy is not null,
+            Plan: ownPlan,
+            Slots: FamilyMaxMembers,
+            Used: members.Count,
+            ManagedByUsername: managedBy,
+            Members: members
+        );
+    }
+
+    public async Task<FamilyMemberDto> AddFamilyMemberAsync(
+        string userId,
+        string username,
+        CancellationToken cancellationToken)
+    {
+        var row = await GetProfileSubscriptionRowAsync(userId, cancellationToken)
+            ?? throw new AuthServiceException("Profile not found.", StatusCodes.Status404NotFound);
+
+        var ownPlan = NormalizePlan(row.SubscriptionPlan);
+        if (ownPlan != "family" || !IsPlanActive(ownPlan, row.SubscriptionExpiresAt))
+        {
+            throw new AuthServiceException(
+                "Добавлять участников может только владелец активной Family-подписки.",
+                StatusCodes.Status403Forbidden
+            );
+        }
+
+        var name = (username ?? "").Trim();
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new AuthServiceException("Введите никнейм пользователя.");
+        }
+
+        var target = await FindProfileByUsernameAsync(name, cancellationToken)
+            ?? throw new AuthServiceException(
+                $"Пользователь @{name} не найден.",
+                StatusCodes.Status404NotFound
+            );
+
+        if (string.Equals(target.Id, userId, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new AuthServiceException("Нельзя добавить самого себя.");
+        }
+
+        var existing = await QueryAsync<FamilyMemberRow>(
+            $"/rest/v1/family_members?member_id=eq.{Uri.EscapeDataString(target.Id!)}&select=owner_id&limit=1",
+            cancellationToken
+        );
+
+        if (existing is { Count: > 0 })
+        {
+            var ownedByMe = string.Equals(
+                existing[0].OwnerId,
+                userId,
+                StringComparison.OrdinalIgnoreCase
+            );
+            throw new AuthServiceException(
+                ownedByMe
+                    ? "Этот пользователь уже в вашей семье."
+                    : "Этот пользователь уже состоит в другой семейной подписке.",
+                StatusCodes.Status409Conflict
+            );
+        }
+
+        var current = await LoadFamilyMembersAsync(userId, cancellationToken);
+        if (current.Count >= FamilyMaxMembers)
+        {
+            throw new AuthServiceException(
+                $"Достигнут лимит участников ({FamilyMaxMembers}).",
+                StatusCodes.Status409Conflict
+            );
+        }
+
+        using var insert = CreateSecretRequest(
+            HttpMethod.Post,
+            "/rest/v1/family_members",
+            new
+            {
+                owner_id = userId,
+                member_id = target.Id,
+                member_username = target.Username,
+            }
+        );
+        insert.Headers.Add("Prefer", "return=minimal");
+
+        var response = await httpClient.SendAsync(insert, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            var detail = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            var tableMissing =
+                detail.Contains("family_members", StringComparison.OrdinalIgnoreCase)
+                && (
+                    detail.Contains("does not exist", StringComparison.OrdinalIgnoreCase)
+                    || detail.Contains("schema cache", StringComparison.OrdinalIgnoreCase)
+                    || detail.Contains("Could not find", StringComparison.OrdinalIgnoreCase)
+                );
+
+            if (tableMissing)
+            {
+                throw new AuthServiceException(
+                    "Выполните SQL: backend/sql/add_family_sharing.sql в Supabase.",
+                    StatusCodes.Status503ServiceUnavailable
+                );
+            }
+
+            throw new AuthServiceException(
+                string.IsNullOrWhiteSpace(detail)
+                    ? "Не удалось добавить участника."
+                    : $"Не удалось добавить участника: {detail}",
+                StatusCodes.Status502BadGateway
+            );
+        }
+
+        return new FamilyMemberDto(
+            target.Id!,
+            target.Username ?? name,
+            target.AvatarUrl,
+            DateTimeOffset.UtcNow
+        );
+    }
+
+    public async Task RemoveFamilyMemberAsync(
+        string userId,
+        string memberId,
+        CancellationToken cancellationToken)
+    {
+        using var request = CreateSecretRequest(
+            HttpMethod.Delete,
+            $"/rest/v1/family_members?owner_id=eq.{Uri.EscapeDataString(userId)}"
+            + $"&member_id=eq.{Uri.EscapeDataString(memberId)}"
+        );
+
+        var response = await httpClient.SendAsync(request, cancellationToken);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new AuthServiceException(
+                "Не удалось удалить участника.",
+                StatusCodes.Status502BadGateway
+            );
+        }
+    }
+
+    public async Task<IReadOnlyList<UserSearchDto>> SearchUsersForFamilyAsync(
+        string userId,
+        string query,
+        CancellationToken cancellationToken)
+    {
+        var term = (query ?? "").Trim();
+        if (term.Length < 1)
+        {
+            return [];
+        }
+
+        var pattern = $"*{term}*";
+        var rows = await QueryAsync<ProfileLookupRow>(
+            $"/rest/v1/profiles?username=ilike.{Uri.EscapeDataString(pattern)}"
+            + "&select=id,username,avatar_url&order=username.asc&limit=8",
+            cancellationToken
+        );
+
+        if (rows is null)
+        {
+            return [];
+        }
+
+        return rows
+            .Where(r =>
+                !string.IsNullOrWhiteSpace(r.Id)
+                && !string.IsNullOrWhiteSpace(r.Username)
+                && !string.Equals(r.Id, userId, StringComparison.OrdinalIgnoreCase))
+            .Select(r => new UserSearchDto(r.Id!, r.Username!, r.AvatarUrl))
+            .ToList();
+    }
+
+    private async Task<List<FamilyMemberDto>> LoadFamilyMembersAsync(
+        string ownerId,
+        CancellationToken cancellationToken)
+    {
+        var rows = await QueryAsync<FamilyMemberRow>(
+            $"/rest/v1/family_members?owner_id=eq.{Uri.EscapeDataString(ownerId)}"
+            + "&select=member_id,member_username,added_at&order=added_at.asc",
+            cancellationToken
+        );
+
+        if (rows is null || rows.Count == 0)
+        {
+            return [];
+        }
+
+        var ids = rows
+            .Where(r => !string.IsNullOrWhiteSpace(r.MemberId))
+            .Select(r => r.MemberId!)
+            .ToList();
+
+        var profiles = new Dictionary<string, ProfileLookupRow>(StringComparer.OrdinalIgnoreCase);
+
+        if (ids.Count > 0)
+        {
+            var inList = string.Join(",", ids.Select(Uri.EscapeDataString));
+            var profileRows = await QueryAsync<ProfileLookupRow>(
+                $"/rest/v1/profiles?id=in.({inList})&select=id,username,avatar_url",
+                cancellationToken
+            );
+
+            foreach (var p in profileRows ?? [])
+            {
+                if (!string.IsNullOrWhiteSpace(p.Id))
+                {
+                    profiles[p.Id!] = p;
+                }
+            }
+        }
+
+        return rows
+            .Where(r => !string.IsNullOrWhiteSpace(r.MemberId))
+            .Select(r =>
+            {
+                profiles.TryGetValue(r.MemberId!, out var p);
+                return new FamilyMemberDto(
+                    r.MemberId!,
+                    p?.Username ?? r.MemberUsername ?? "—",
+                    p?.AvatarUrl,
+                    r.AddedAt
+                );
+            })
+            .ToList();
+    }
+
+    private async Task<ProfileLookupRow?> FindProfileByUsernameAsync(
+        string username,
+        CancellationToken cancellationToken)
+    {
+        var rows = await QueryAsync<ProfileLookupRow>(
+            $"/rest/v1/profiles?username=ilike.{Uri.EscapeDataString(username)}"
+            + "&select=id,username,avatar_url&limit=1",
+            cancellationToken
+        );
+
+        return rows?.FirstOrDefault();
+    }
+
+    private async Task<ProfileLookupRow?> GetProfileLookupAsync(
+        string userId,
+        CancellationToken cancellationToken)
+    {
+        var rows = await QueryAsync<ProfileLookupRow>(
+            $"/rest/v1/profiles?id=eq.{Uri.EscapeDataString(userId)}&select=id,username,avatar_url&limit=1",
+            cancellationToken
+        );
+
+        return rows?.FirstOrDefault();
     }
 
     public async Task<SkipTrackResponse> RecordSkipAsync(
@@ -168,8 +519,24 @@ public class SubscriptionService(HttpClient httpClient, IOptions<SupabaseSetting
         }
 
         var months = Math.Clamp(request.Months, 1, 24);
-        var expiresAt = DateTimeOffset.UtcNow.AddMonths(months);
-        var amount = plan == "family" ? 5990 * months : 3990 * months;
+        var amount = MonthlyPriceKzt(plan) * months;
+        var bonusMonths = 0;
+
+        PromoComputation? promoComp = null;
+        if (!string.IsNullOrWhiteSpace(request.PromoCode))
+        {
+            promoComp = await promo.ValidateAsync(
+                userId,
+                request.PromoCode!,
+                plan,
+                months,
+                cancellationToken
+            );
+            amount = promoComp.AmountAfter;
+            bonusMonths = promoComp.BonusMonths;
+        }
+
+        var expiresAt = DateTimeOffset.UtcNow.AddMonths(months + bonusMonths);
 
         PaymentMethodDto? usedMethod = null;
         Guid? paymentMethodId = request.PaymentMethodId;
@@ -217,8 +584,19 @@ public class SubscriptionService(HttpClient httpClient, IOptions<SupabaseSetting
 
         await InsertPaymentAsync(userId, plan, months, amount, paymentMethodId, cancellationToken);
 
+        if (promoComp is not null)
+        {
+            await promo.RedeemAsync(userId, plan, promoComp, cancellationToken);
+        }
+
+        var message = promoComp is null
+            ? $"Подписка {plan} активна до {expiresAt:dd.MM.yyyy}."
+            : bonusMonths > 0
+                ? $"Промокод применён: +{bonusMonths} мес. Подписка {plan} активна до {expiresAt:dd.MM.yyyy}."
+                : $"Промокод применён. Подписка {plan} активна до {expiresAt:dd.MM.yyyy}.";
+
         return new FakeCheckoutResponse(
-            $"Подписка {plan} активна до {expiresAt:dd.MM.yyyy}.",
+            message,
             plan,
             expiresAt,
             usedMethod
@@ -438,7 +816,9 @@ public class SubscriptionService(HttpClient httpClient, IOptions<SupabaseSetting
         var row = await GetProfileSubscriptionRowAsync(userId, cancellationToken)
             ?? throw new AuthServiceException("Profile not found.", StatusCodes.Status404NotFound);
 
-        if (!BuildStatus(row).CanDownload)
+        var status = await ResolveStatusAsync(userId, row, cancellationToken);
+
+        if (!status.CanDownload)
         {
             throw new AuthServiceException(
                 "Скачивание доступно только с Premium или Family.",
@@ -774,6 +1154,33 @@ public class SubscriptionService(HttpClient httpClient, IOptions<SupabaseSetting
     {
         [JsonPropertyName("title")]
         public string? Title { get; set; }
+    }
+
+    private sealed class FamilyMemberRow
+    {
+        [JsonPropertyName("owner_id")]
+        public string? OwnerId { get; set; }
+
+        [JsonPropertyName("member_id")]
+        public string? MemberId { get; set; }
+
+        [JsonPropertyName("member_username")]
+        public string? MemberUsername { get; set; }
+
+        [JsonPropertyName("added_at")]
+        public DateTimeOffset AddedAt { get; set; }
+    }
+
+    private sealed class ProfileLookupRow
+    {
+        [JsonPropertyName("id")]
+        public string? Id { get; set; }
+
+        [JsonPropertyName("username")]
+        public string? Username { get; set; }
+
+        [JsonPropertyName("avatar_url")]
+        public string? AvatarUrl { get; set; }
     }
 
     private sealed class PaymentMethodRow

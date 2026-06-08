@@ -16,6 +16,109 @@ public static class SubscriptionEndpoints
         group.MapPost("/checkout", FakeCheckoutAsync);
         group.MapPost("/cancel", CancelSubscriptionAsync);
         group.MapGet("/tracks/{trackId}/download", DownloadTrackAsync);
+        group.MapGet("/family", GetFamilyAsync);
+        group.MapGet("/family/search", SearchFamilyUsersAsync);
+        group.MapPost("/family/members", AddFamilyMemberAsync);
+        group.MapDelete("/family/members/{memberId}", RemoveFamilyMemberAsync);
+    }
+
+    private static async Task<IResult> GetFamilyAsync(
+        System.Security.Claims.ClaimsPrincipal user,
+        SubscriptionService subscription,
+        CancellationToken cancellationToken)
+    {
+        var userId = user.GetUserId();
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Results.Unauthorized();
+        }
+
+        try
+        {
+            var result = await subscription.GetFamilyAsync(userId, cancellationToken);
+            return Results.Ok(result);
+        }
+        catch (AuthServiceException ex)
+        {
+            return Results.Json(new { message = ex.Message }, statusCode: ex.StatusCode);
+        }
+    }
+
+    private static async Task<IResult> SearchFamilyUsersAsync(
+        string q,
+        System.Security.Claims.ClaimsPrincipal user,
+        SubscriptionService subscription,
+        CancellationToken cancellationToken)
+    {
+        var userId = user.GetUserId();
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Results.Unauthorized();
+        }
+
+        try
+        {
+            var result = await subscription.SearchUsersForFamilyAsync(userId, q, cancellationToken);
+            return Results.Ok(result);
+        }
+        catch (AuthServiceException ex)
+        {
+            return Results.Json(new { message = ex.Message }, statusCode: ex.StatusCode);
+        }
+    }
+
+    private static async Task<IResult> AddFamilyMemberAsync(
+        AddFamilyMemberRequest request,
+        System.Security.Claims.ClaimsPrincipal user,
+        SubscriptionService subscription,
+        CancellationToken cancellationToken)
+    {
+        var userId = user.GetUserId();
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Results.Unauthorized();
+        }
+
+        try
+        {
+            var result = await subscription.AddFamilyMemberAsync(
+                userId,
+                request.Username,
+                cancellationToken
+            );
+            return Results.Ok(result);
+        }
+        catch (AuthServiceException ex)
+        {
+            return Results.Json(new { message = ex.Message }, statusCode: ex.StatusCode);
+        }
+    }
+
+    private static async Task<IResult> RemoveFamilyMemberAsync(
+        string memberId,
+        System.Security.Claims.ClaimsPrincipal user,
+        SubscriptionService subscription,
+        CancellationToken cancellationToken)
+    {
+        var userId = user.GetUserId();
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Results.Unauthorized();
+        }
+
+        try
+        {
+            await subscription.RemoveFamilyMemberAsync(userId, memberId, cancellationToken);
+            return Results.NoContent();
+        }
+        catch (AuthServiceException ex)
+        {
+            return Results.Json(new { message = ex.Message }, statusCode: ex.StatusCode);
+        }
     }
 
     private static async Task<IResult> GetStatusAsync(

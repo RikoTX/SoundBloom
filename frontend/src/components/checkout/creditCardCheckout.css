@@ -274,6 +274,116 @@ html.dark .cc-checkout {
   margin-top: 8px;
 }
 
+.cc-checkout .promo-section {
+  max-width: 400px;
+  margin: 14px auto 0;
+}
+
+.cc-checkout .promo-toggle {
+  background: none;
+  border: none;
+  color: #ee10b0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cc-checkout .promo-row {
+  display: flex;
+  gap: 8px;
+}
+
+.cc-checkout .promo-field {
+  flex: 1;
+  border-radius: 10px;
+  border: 1px solid var(--sb-border, rgba(255, 255, 255, 0.12));
+  background: var(--sb-muted, rgba(255, 255, 255, 0.04));
+  color: var(--sb-fg);
+  padding: 10px 12px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.cc-checkout .promo-field:focus {
+  border-color: #ee10b0;
+}
+
+.cc-checkout .promo-apply {
+  border: none;
+  border-radius: 10px;
+  background: #ee10b0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cc-checkout .promo-apply:hover:not(:disabled) {
+  background: #d10e9d;
+}
+
+.cc-checkout .promo-apply:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cc-checkout .promo-applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 10px 12px;
+}
+
+.cc-checkout .promo-applied-text {
+  font-size: 13px;
+  color: var(--sb-fg);
+}
+
+.cc-checkout .promo-applied-text strong {
+  color: #10b981;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.cc-checkout .promo-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-left: 6px;
+}
+
+.cc-checkout .promo-price-old {
+  color: var(--sb-fg-subtle);
+  text-decoration: line-through;
+  font-size: 12px;
+}
+
+.cc-checkout .promo-price-new {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.cc-checkout .promo-remove {
+  background: none;
+  border: none;
+  color: var(--sb-fg-muted);
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .payment-checkout-modal .ant-modal-close {
   color: var(--sb-fg-muted);
 }

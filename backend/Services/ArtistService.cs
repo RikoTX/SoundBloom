@@ -3,11 +3,16 @@ using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 using backend.Configuration;
 using backend.Dtos;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace backend.Services;
 
-public class ArtistService(HttpClient httpClient, IOptions<SupabaseSettings> supabaseOptions)
+public class ArtistService(
+    HttpClient httpClient,
+    IOptions<SupabaseSettings> supabaseOptions,
+    ILogger<ArtistService> logger
+)
 {
     private const int MaxAudioBytes = 20 * 1024 * 1024;
     private const int MaxCoverBytes = 15 * 1024 * 1024;
@@ -240,6 +245,19 @@ public class ArtistService(HttpClient httpClient, IOptions<SupabaseSettings> sup
         );
     }
 
+    private static readonly string[] TrackChildTables =
+    [
+        "track_play_events",
+        "liked_tracks",
+        "track_tags",
+        "track_licenses",
+        "track_authors",
+        "track_lyrics",
+        "track_covers",
+        "track_files",
+        "moderation_requests",
+    ];
+
     public async Task DeleteTrackAsync(
         string userId,
         string trackId,
@@ -253,6 +271,24 @@ public class ArtistService(HttpClient httpClient, IOptions<SupabaseSettings> sup
             throw new AuthServiceException("Artist profile not found.");
         }
 
+        var owned = await QueryAsync<TrackRow>(
+            $"/rest/v1/tracks?id=eq.{Uri.EscapeDataString(trackId)}&artist_id=eq.{Uri.EscapeDataString(artist.Id)}&select=id",
+            cancellationToken
+        );
+
+        if (owned is null || owned.Count == 0)
+        {
+            throw new AuthServiceException(
+                "Track not found or you do not have permission to delete it.",
+                StatusCodes.Status404NotFound
+            );
+        }
+
+        foreach (var table in TrackChildTables)
+        {
+            await DeleteByTrackIdAsync(table, trackId, cancellationToken);
+        }
+
         using var request = CreateSecretRequest(
             HttpMethod.Delete,
             $"/rest/v1/tracks?id=eq.{Uri.EscapeDataString(trackId)}&artist_id=eq.{Uri.EscapeDataString(artist.Id)}"
@@ -262,11 +298,54 @@ public class ArtistService(HttpClient httpClient, IOptions<SupabaseSettings> sup
 
         if (!response.IsSuccessStatusCode)
         {
+            var error = await response.Content.ReadAsStringAsync(cancellationToken);
+            logger.LogError(
+                "Supabase delete track {TrackId} failed with {StatusCode}: {Error}",
+                trackId,
+                (int)response.StatusCode,
+                error
+            );
             throw new AuthServiceException(
-                "Could not delete track.",
+                string.IsNullOrWhiteSpace(error)
+                    ? "Could not delete track."
+                    : $"Could not delete track: {error}",
                 StatusCodes.Status502BadGateway
             );
         }
+    }
+
+    private async Task DeleteByTrackIdAsync(
+        string table,
+        string trackId,
+        CancellationToken cancellationToken
+    )
+    {
+        using var request = CreateSecretRequest(
+            HttpMethod.Delete,
+            $"/rest/v1/{table}?track_id=eq.{Uri.EscapeDataString(trackId)}"
+        );
+
+        var response = await httpClient.SendAsync(request, cancellationToken);
+
+        if (response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return;
+        }
+
+        var error = await response.Content.ReadAsStringAsync(cancellationToken);
+        logger.LogError(
+            "Supabase delete from {Table} for track {TrackId} failed with {StatusCode}: {Error}",
+            table,
+            trackId,
+            (int)response.StatusCode,
+            error
+        );
+        throw new AuthServiceException(
+            string.IsNullOrWhiteSpace(error)
+                ? "Could not delete track dependencies."
+                : $"Could not delete track dependencies ({table}): {error}",
+            StatusCodes.Status502BadGateway
+        );
     }
 
     private async Task<ArtistProfileResponse?> GetArtistByUserIdAsync(
@@ -482,8 +561,16 @@ public class ArtistService(HttpClient httpClient, IOptions<SupabaseSettings> sup
         if (!response.IsSuccessStatusCode)
         {
             var error = await response.Content.ReadAsStringAsync(cancellationToken);
+            logger.LogError(
+                "Supabase insert into {Path} failed with {StatusCode}: {Error}",
+                path,
+                (int)response.StatusCode,
+                error
+            );
             throw new AuthServiceException(
-                string.IsNullOrWhiteSpace(error) ? "Database write failed." : "Database write failed.",
+                string.IsNullOrWhiteSpace(error)
+                    ? "Database write failed."
+                    : $"Database write failed: {error}",
                 StatusCodes.Status502BadGateway
             );
         }

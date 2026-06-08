@@ -13,9 +13,45 @@ public static class CatalogEndpoints
 
         group.MapGet("/tracks", SearchTracksAsync);
         group.MapGet("/tracks/featured", FeaturedTracksAsync);
+        group.MapGet("/tracks/{trackId}/audio", StreamAudioAsync);
+        group.MapGet("/tracks/{trackId}/cover", StreamCoverAsync);
         group.MapPost("/tracks/{trackId}/listen", RecordListenAsync);
 
         return group;
+    }
+
+    private static async Task<IResult> StreamAudioAsync(
+        string trackId,
+        HttpContext http,
+        CatalogService catalog,
+        CancellationToken cancellationToken
+    )
+    {
+        var media = await catalog.GetTrackAudioAsync(trackId, cancellationToken);
+        if (media is null)
+        {
+            return Results.NotFound();
+        }
+
+        http.Response.Headers.CacheControl = "public, max-age=604800, immutable";
+        return Results.File(media.Data, media.ContentType, enableRangeProcessing: true);
+    }
+
+    private static async Task<IResult> StreamCoverAsync(
+        string trackId,
+        HttpContext http,
+        CatalogService catalog,
+        CancellationToken cancellationToken
+    )
+    {
+        var media = await catalog.GetTrackCoverAsync(trackId, cancellationToken);
+        if (media is null)
+        {
+            return Results.NotFound();
+        }
+
+        http.Response.Headers.CacheControl = "public, max-age=604800, immutable";
+        return Results.File(media.Data, media.ContentType, enableRangeProcessing: true);
     }
 
     private static async Task<IResult> SearchTracksAsync(

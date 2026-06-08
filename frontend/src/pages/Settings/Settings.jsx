@@ -42,6 +42,7 @@ import {
 } from "../../utils/userPreferences";
 import { useLibrary } from "../../state/libraryState";
 import { useSubscription } from "../../state/subscriptionState";
+import FamilyManager from "../../components/subscription/FamilyManager";
 import { cancelSubscription, fetchPaymentMethods } from "../../api/subscriptionApi";
 import { Modal } from "antd";
 import { notifyError, notifySuccess } from "../../utils/appNotification";
@@ -84,15 +85,11 @@ function ToggleRow({ label, hint, checked, onChange, disabled }) {
         aria-checked={checked}
         disabled={disabled}
         onClick={() => onChange(!checked)}
-        className={`relative h-7 w-12 shrink-0 rounded-full transition-colors cursor-pointer disabled:opacity-40 ${
-          checked ? "bg-[#EE10B0]" : "bg-white/15"
+        className={`flex h-7 w-12 shrink-0 items-center rounded-full p-0.5 transition-colors cursor-pointer disabled:opacity-40 ${
+          checked ? "bg-[#EE10B0] justify-end" : "bg-white/15 justify-start"
         }`}
       >
-        <span
-          className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
-            checked ? "translate-x-[22px]" : "translate-x-0.5"
-          }`}
-        />
+        <span className="h-6 w-6 rounded-full bg-white shadow" />
       </button>
     </div>
   );
@@ -652,7 +649,7 @@ export default function Settings() {
               >
                 {t("settings.subscription.viewPlans")}
               </Link>
-              {(subStatus.isActive || subStatus.canCancel) && (
+              {subStatus.canCancel && (
                 <button
                   type="button"
                   disabled={cancelLoading}
@@ -665,6 +662,8 @@ export default function Settings() {
                 </button>
               )}
             </div>
+
+            {subStatus.plan === "family" && <FamilyManager />}
           </div>
         </SettingsSection>
 

@@ -416,13 +416,22 @@ public class AdminService(
         message.Headers.Add("Prefer", "return=representation");
 
         var response = await httpClient.SendAsync(message, cancellationToken);
-        var payload = await response.Content.ReadFromJsonAsync<List<AuthUserRow>>(
-            cancellationToken: cancellationToken
-        );
 
-        if (response.IsSuccessStatusCode && !string.IsNullOrWhiteSpace(payload?.FirstOrDefault()?.Id))
+        if (response.IsSuccessStatusCode)
         {
-            return payload!.First().Id!;
+            var payload = await response.Content.ReadFromJsonAsync<AuthUserRow>(
+                cancellationToken: cancellationToken
+            );
+
+            if (!string.IsNullOrWhiteSpace(payload?.Id))
+            {
+                return payload!.Id!;
+            }
+
+            throw new AuthServiceException(
+                "Could not create auth user.",
+                StatusCodes.Status502BadGateway
+            );
         }
 
         if ((int)response.StatusCode == StatusCodes.Status422UnprocessableEntity)

@@ -49,7 +49,8 @@ public record FakeCheckoutRequest(
     int Months = 1,
     Guid? PaymentMethodId = null,
     bool SaveCard = true,
-    NewCardPaymentDto? NewCard = null
+    NewCardPaymentDto? NewCard = null,
+    string? PromoCode = null
 );
 
 public record FakeCheckoutResponse(
@@ -76,3 +77,24 @@ public record CancelSubscriptionResponse(
 );
 
 public record TrackDownloadResponse(string DownloadUrl, string Title, string Format);
+
+public record FamilyMemberDto(
+    string UserId,
+    string Username,
+    string? AvatarUrl,
+    DateTimeOffset AddedAt
+);
+
+public record FamilyInfoDto(
+    bool IsOwner,
+    bool IsMember,
+    string Plan,
+    int Slots,
+    int Used,
+    string? ManagedByUsername,
+    IReadOnlyList<FamilyMemberDto> Members
+);
+
+public record AddFamilyMemberRequest(string Username);
+
+public record UserSearchDto(string UserId, string Username, string? AvatarUrl);

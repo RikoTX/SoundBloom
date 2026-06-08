@@ -221,7 +221,8 @@ export default function MusicPlayer({
       return;
     }
 
-    if (currentSong?.source !== "soundbloom" || !currentSong?.id) {
+    const src = currentSong?.source ?? "soundbloom";
+    if (src !== "soundbloom" || !currentSong?.id) {
       notifyError(t("subscription.download.onlyPlatform"));
       return;
     }
@@ -333,12 +334,12 @@ export default function MusicPlayer({
 
         <div className="flex items-center justify-end gap-2 sm:gap-3 md:gap-4 flex-1 basis-0 min-w-0">
           {!adActive && <LikeButton track={currentSong} size="md" />}
-          {!adActive && status.canDownload && currentSong?.source === "soundbloom" && (
+          {!adActive && status.canDownload && currentSong?.id && (
             <button
               type="button"
               title={t("subscription.download.button")}
               onClick={handleDownload}
-              className="hidden sm:flex p-1.5 text-pink-400 hover:text-pink-300 transition-colors cursor-pointer"
+              className="flex p-1.5 text-pink-400 hover:text-pink-300 transition-colors cursor-pointer"
             >
               <DownloadOutlined className="text-lg" />
             </button>

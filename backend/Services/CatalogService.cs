@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 
 namespace backend.Services;
 
+public sealed record TrackMedia(byte[] Data, string ContentType);
+
 public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> supabaseOptions)
 {
     private const string Source = "soundbloom";
@@ -117,8 +119,10 @@ public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> su
             .Distinct()
             .ToList();
 
-        var covers = await LoadCoversAsync(trackIds, cancellationToken);
-        var files = await LoadFilesAsync(trackIds, cancellationToken);
+        // Only fetch which tracks HAVE a cover/file — never the heavy base64 payloads.
+        // Audio and covers are streamed lazily through dedicated endpoints.
+        var coverIds = await LoadIdsWithMediaAsync("track_covers", trackIds, cancellationToken);
+        var fileIds = await LoadIdsWithMediaAsync("track_files", trackIds, cancellationToken);
         var artists = await LoadArtistsAsync(artistIds, cancellationToken);
 
         var result = new List<CatalogTrackResponse>();
@@ -130,7 +134,7 @@ public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> su
                 continue;
             }
 
-            if (!files.TryGetValue(row.Id, out var file) || string.IsNullOrWhiteSpace(file.AudioUrl))
+            if (!fileIds.Contains(row.Id))
             {
                 continue;
             }
@@ -139,7 +143,9 @@ public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> su
                 ? row.Authors
                 : artists.GetValueOrDefault(row.ArtistId ?? "", "SoundBloom Artist");
 
-            covers.TryGetValue(row.Id, out var coverUrl);
+            var coverUrl = coverIds.Contains(row.Id)
+                ? $"/api/catalog/tracks/{row.Id}/cover"
+                : null;
 
             result.Add(
                 new CatalogTrackResponse(
@@ -147,7 +153,7 @@ public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> su
                     row.Title ?? "Untitled",
                     artistName,
                     coverUrl,
-                    file.AudioUrl,
+                    $"/api/catalog/tracks/{row.Id}/audio",
                     Source,
                     0,
                     "—",
@@ -159,7 +165,8 @@ public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> su
         return result;
     }
 
-    private async Task<Dictionary<string, string>> LoadCoversAsync(
+    private async Task<HashSet<string>> LoadIdsWithMediaAsync(
+        string table,
         List<string> trackIds,
         CancellationToken cancellationToken
     )
@@ -170,37 +177,84 @@ public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> su
         }
 
         var inList = string.Join(",", trackIds.Select(Uri.EscapeDataString));
-        var rows = await QueryAsync<CoverRow>(
-            $"/rest/v1/track_covers?track_id=in.({inList})&select=track_id,cover_url",
+        var rows = await QueryAsync<MediaIdRow>(
+            $"/rest/v1/{table}?track_id=in.({inList})&select=track_id",
             cancellationToken
         );
 
         return (rows ?? [])
-            .Where(r => !string.IsNullOrWhiteSpace(r.TrackId) && !string.IsNullOrWhiteSpace(r.CoverUrl))
-            .GroupBy(r => r.TrackId!)
-            .ToDictionary(g => g.Key, g => g.First().CoverUrl!);
+            .Select(r => r.TrackId)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Select(id => id!)
+            .ToHashSet();
     }
 
-    private async Task<Dictionary<string, FileRow>> LoadFilesAsync(
-        List<string> trackIds,
+    public async Task<TrackMedia?> GetTrackAudioAsync(
+        string trackId,
         CancellationToken cancellationToken
     )
     {
-        if (trackIds.Count == 0)
+        if (string.IsNullOrWhiteSpace(_settings.SecretKey))
         {
-            return [];
+            return null;
         }
 
-        var inList = string.Join(",", trackIds.Select(Uri.EscapeDataString));
         var rows = await QueryAsync<FileRow>(
-            $"/rest/v1/track_files?track_id=in.({inList})&select=track_id,audio_url",
+            $"/rest/v1/track_files?track_id=eq.{Uri.EscapeDataString(trackId)}&select=audio_url&limit=1",
             cancellationToken
         );
 
-        return (rows ?? [])
-            .Where(r => !string.IsNullOrWhiteSpace(r.TrackId))
-            .GroupBy(r => r.TrackId!)
-            .ToDictionary(g => g.Key, g => g.First());
+        return DecodeDataUrl(rows?.FirstOrDefault()?.AudioUrl);
+    }
+
+    public async Task<TrackMedia?> GetTrackCoverAsync(
+        string trackId,
+        CancellationToken cancellationToken
+    )
+    {
+        if (string.IsNullOrWhiteSpace(_settings.SecretKey))
+        {
+            return null;
+        }
+
+        var rows = await QueryAsync<CoverRow>(
+            $"/rest/v1/track_covers?track_id=eq.{Uri.EscapeDataString(trackId)}&select=cover_url&limit=1",
+            cancellationToken
+        );
+
+        return DecodeDataUrl(rows?.FirstOrDefault()?.CoverUrl);
+    }
+
+    private static TrackMedia? DecodeDataUrl(string? dataUrl)
+    {
+        if (string.IsNullOrWhiteSpace(dataUrl)
+            || !dataUrl.StartsWith("data:", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        var comma = dataUrl.IndexOf(',');
+        if (comma < 0)
+        {
+            return null;
+        }
+
+        var meta = dataUrl[5..comma];
+        var contentType = meta.Split(';')[0];
+        if (string.IsNullOrWhiteSpace(contentType))
+        {
+            contentType = "application/octet-stream";
+        }
+
+        try
+        {
+            var bytes = Convert.FromBase64String(dataUrl[(comma + 1)..]);
+            return new TrackMedia(bytes, contentType);
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
     }
 
     private async Task<Dictionary<string, string>> LoadArtistsAsync(
@@ -270,6 +324,12 @@ public class CatalogService(HttpClient httpClient, IOptions<SupabaseSettings> su
     }
 
     private sealed class TagTrackRow
+    {
+        [JsonPropertyName("track_id")]
+        public string? TrackId { get; set; }
+    }
+
+    private sealed class MediaIdRow
     {
         [JsonPropertyName("track_id")]
         public string? TrackId { get; set; }

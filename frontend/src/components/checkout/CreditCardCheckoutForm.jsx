@@ -4,9 +4,12 @@ import IMask from "imask";
 import CreditCardVisual from "./CreditCardVisual";
 import { brandLabel, detectCardBrand, digitsOnly } from "../../utils/cardBrand";
 import { notifyError } from "../../utils/appNotification";
+import { validatePromo } from "../../api/promoApi";
 import "./creditCardCheckout.css";
 
 const PLAN_PRICES = { premium: "$9.99", family: "$14.99" };
+const PLAN_PRICE_NUM = { premium: 9.99, family: 14.99 };
+const formatUsd = (n) => `$${n.toFixed(2)}`;
 
 function BrandMark({ brand }) {
   const label = brandLabel(brand);
@@ -57,6 +60,10 @@ export default function CreditCardCheckoutForm({
   }, [hasSaved, savedMethods]);
   const [saveCard, setSaveCard] = useState(true);
   const [flipped, setFlipped] = useState(false);
+  const [showPromo, setShowPromo] = useState(false);
+  const [promoInput, setPromoInput] = useState("");
+  const [promoChecking, setPromoChecking] = useState(false);
+  const [appliedPromo, setAppliedPromo] = useState(null);
   const [holderName, setHolderName] = useState("");
   const [displayNumber, setDisplayNumber] = useState("");
   const [displayExpire, setDisplayExpire] = useState("");
@@ -137,7 +144,25 @@ export default function CreditCardCheckoutForm({
     };
   }, [useSaved]);
 
-  const priceLabel = PLAN_PRICES[plan] ?? "";
+  const basePriceNum = PLAN_PRICE_NUM[plan] ?? 0;
+  const basePriceLabel = PLAN_PRICES[plan] ?? "";
+
+  const hasMoneyDiscount =
+    appliedPromo &&
+    appliedPromo.bonusMonths === 0 &&
+    appliedPromo.amountBefore > 0 &&
+    appliedPromo.amountAfter < appliedPromo.amountBefore;
+
+  const effectivePriceNum = hasMoneyDiscount
+    ? basePriceNum * (appliedPromo.amountAfter / appliedPromo.amountBefore)
+    : basePriceNum;
+
+  const effectivePriceLabel = hasMoneyDiscount
+    ? formatUsd(effectivePriceNum)
+    : basePriceLabel;
+
+  // Price shown on the pay button (reflects the discount).
+  const priceLabel = effectivePriceLabel;
 
   const savedPreview = useMemo(() => {
     const m = savedMethods.find(
@@ -170,9 +195,34 @@ export default function CreditCardCheckoutForm({
         colorClass: brand,
       };
 
+  const applyPromo = async () => {
+    const code = promoInput.trim().toUpperCase();
+    if (!code) return;
+    setPromoChecking(true);
+    try {
+      const result = await validatePromo(code, plan);
+      setAppliedPromo({ code, ...result });
+    } catch (err) {
+      setAppliedPromo(null);
+      notifyError(
+        t("subscription.promo.invalid"),
+        err instanceof Error ? err.message : t("subscription.promo.invalid"),
+      );
+    } finally {
+      setPromoChecking(false);
+    }
+  };
+
+  const removePromo = () => {
+    setAppliedPromo(null);
+    setPromoInput("");
+  };
+
+  const promoCode = appliedPromo?.code ?? null;
+
   const handlePay = async () => {
     if (useSaved && selectedMethodId != null) {
-      await onSubmit({ paymentMethodId: String(selectedMethodId) });
+      await onSubmit({ paymentMethodId: String(selectedMethodId), promoCode });
       return;
     }
 
@@ -204,6 +254,7 @@ export default function CreditCardCheckoutForm({
 
     await onSubmit({
       saveCard,
+      promoCode,
       newCard: {
         cardholderName: name,
         lastFour: digits.slice(-4),
@@ -221,7 +272,7 @@ export default function CreditCardCheckoutForm({
         <p className="demo-hint">
           {t("subscription.payment.planLine", {
             plan: t(`subscription.plan.${plan}`),
-            price: priceLabel,
+            price: basePriceLabel,
           })}
         </p>
       </div>
@@ -322,6 +373,59 @@ export default function CreditCardCheckoutForm({
           {t("subscription.payment.saveCard")}
         </label>
       )}
+
+      <div className="promo-section">
+        {!showPromo && !appliedPromo ? (
+          <button
+            type="button"
+            className="promo-toggle"
+            onClick={() => setShowPromo(true)}
+          >
+            {t("subscription.promo.have")}
+          </button>
+        ) : appliedPromo ? (
+          <div className="promo-applied">
+            <span className="promo-applied-text">
+              <strong>{appliedPromo.code}</strong> — {appliedPromo.message}
+              {hasMoneyDiscount && (
+                <span className="promo-price">
+                  <span className="promo-price-old">{basePriceLabel}</span>
+                  <span className="promo-price-new">{effectivePriceLabel}</span>
+                </span>
+              )}
+            </span>
+            <button type="button" className="promo-remove" onClick={removePromo}>
+              {t("subscription.promo.remove")}
+            </button>
+          </div>
+        ) : (
+          <div className="promo-row">
+            <input
+              type="text"
+              className="promo-field"
+              placeholder={t("subscription.promo.placeholder")}
+              value={promoInput}
+              onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  applyPromo();
+                }
+              }}
+            />
+            <button
+              type="button"
+              className="promo-apply"
+              disabled={promoChecking || !promoInput.trim()}
+              onClick={applyPromo}
+            >
+              {promoChecking
+                ? t("subscription.promo.checking")
+                : t("subscription.promo.apply")}
+            </button>
+          </div>
+        )}
+      </div>
 
       <div className="pay-actions">
         <button

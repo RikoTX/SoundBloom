@@ -120,6 +120,7 @@ export default function TrackAnalyticsModal({ trackId, onClose, onPlay }) {
       ),
       0,
     );
+    onClose?.();
   };
 
   return (

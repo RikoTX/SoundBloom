@@ -19,6 +19,7 @@ import SavedGenres from "./Library/SavedGenres";
 import SavedPlaylists from "./Library/SavedPlaylists";
 import Settings from "./Settings/Settings";
 import AdminPanel from "./Admin/AdminPanel";
+import PromoCodes from "./Admin/PromoCodes";
 import MyTracks from "./ArtistStudio/MyTracks";
 import OperatorPanel from "./Operator/OperatorPanel";
 import RequireAuth from "../components/auth/RequireAuth";
@@ -124,6 +125,14 @@ export default function ContentPage({
           element={
             <RequireAuth>
               <AdminPanel />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/promos"
+          element={
+            <RequireAuth>
+              <PromoCodes />
             </RequireAuth>
           }
         />

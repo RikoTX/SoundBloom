@@ -58,6 +58,7 @@ export async function fakeCheckout({
   paymentMethodId = null,
   saveCard = true,
   newCard = null,
+  promoCode = null,
 }) {
   const body = { plan, months, saveCard };
 
@@ -65,6 +66,10 @@ export async function fakeCheckout({
     body.paymentMethodId = paymentMethodId;
   } else if (newCard) {
     body.newCard = newCard;
+  }
+
+  if (promoCode) {
+    body.promoCode = promoCode;
   }
 
   const response = await fetch(`${API_URL}/api/subscription/checkout`, {
@@ -80,6 +85,41 @@ export async function cancelSubscription() {
     method: "POST",
     headers: authHeaders(),
   });
+  return parseJson(response);
+}
+
+export async function fetchFamily() {
+  const response = await fetch(`${API_URL}/api/subscription/family`, {
+    headers: authHeaders(),
+  });
+  return parseJson(response);
+}
+
+export async function searchFamilyUsers(query) {
+  const q = (query || "").trim();
+  if (!q) return [];
+  const response = await fetch(
+    `${API_URL}/api/subscription/family/search?q=${encodeURIComponent(q)}`,
+    { headers: authHeaders() },
+  );
+  return parseJson(response);
+}
+
+export async function addFamilyMember(username) {
+  const response = await fetch(`${API_URL}/api/subscription/family/members`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ username }),
+  });
+  return parseJson(response);
+}
+
+export async function removeFamilyMember(memberId) {
+  const response = await fetch(
+    `${API_URL}/api/subscription/family/members/${encodeURIComponent(memberId)}`,
+    { method: "DELETE", headers: authHeaders() },
+  );
+  if (response.status === 204) return null;
   return parseJson(response);
 }
 

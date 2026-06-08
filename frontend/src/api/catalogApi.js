@@ -5,14 +5,20 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5223";
 const DEFAULT_COVER =
   "https://usercontent.jamendo.com?type=album&id=0&width=300";
 
+function toAbsoluteMediaUrl(url) {
+  if (!url) return "";
+  return url.startsWith("/api/") ? `${API_URL}${url}` : url;
+}
+
 export function mapCatalogTrack(track) {
+  const audio = toAbsoluteMediaUrl(track.audioUrl);
   return {
     id: track.id,
     title: track.title,
     artist: track.artist,
-    cover: track.cover || DEFAULT_COVER,
-    music: track.audioUrl,
-    audio: track.audioUrl,
+    cover: toAbsoluteMediaUrl(track.cover) || DEFAULT_COVER,
+    music: audio,
+    audio,
     time: track.time || "—",
     duration: track.durationSeconds || 0,
     source: track.source || "soundbloom",
