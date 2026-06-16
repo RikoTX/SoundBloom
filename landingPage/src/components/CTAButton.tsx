@@ -92,12 +92,13 @@ export function CTAButton({
 
   if (href) {
     const external = href.startsWith("http");
+    const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)/.test(href);
     return (
       <motion.a
         {...sharedProps}
         href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noreferrer" : undefined}
+        target={external && !isLocalhost ? "_blank" : undefined}
+        rel={external && !isLocalhost ? "noreferrer" : undefined}
       >
         {inner}
       </motion.a>

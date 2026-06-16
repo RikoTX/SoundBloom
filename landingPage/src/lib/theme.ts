@@ -14,5 +14,5 @@ export const EASE_BLOOM: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const EASE_GSAP = "power3.out";
 export const EASE_GSAP_INOUT = "power4.inOut";
 
-/** The live SoundBloom app (GitHub Pages deploy). */
-export const APP_URL = "https://rikotx.github.io/SoundBloom";
+/** Local SoundBloom app (Vite frontend). */
+export const APP_URL = "http://localhost:5173/SoundBloom/Home";

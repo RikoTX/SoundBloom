@@ -175,8 +175,8 @@ export const PRESENTATION: Record<Lang, PresentationContent> = {
         { title: "Supabase", text: "PostgreSQL · Auth · Storage · Row Level Security" },
       ],
       stats: [
-        { value: "69+", label: "эндпоинтов API", sub: "REST" },
-        { value: "3", label: "источника каталога", sub: "Jamendo · iTunes · SB" },
+        { value: "71", label: "эндпоинтов API", sub: "REST" },
+        { value: "24", label: "таблиц в БД", sub: "PostgreSQL · public" },
         { value: "3", label: "языка интерфейса", sub: "ru · kk · en" },
         { value: "10", label: "модулей backend", sub: "Endpoints" },
       ],
@@ -218,7 +218,7 @@ export const PRESENTATION: Record<Lang, PresentationContent> = {
       heading: "Итоги: функциональность, надёжность, масштаб",
       stats: [
         { value: "3", label: "языка UI", sub: "ru · kk · en" },
-        { value: "69+", label: "API эндпоинтов", sub: "ASP.NET Core" },
+        { value: "71", label: "API эндпоинтов", sub: "ASP.NET Core" },
         { value: "6", label: "ключевых модулей", sub: "Auth · Catalog · Library…" },
         { value: "2", label: "роли модерации", sub: "Admin · Operator" },
       ],
@@ -322,8 +322,8 @@ export const PRESENTATION: Record<Lang, PresentationContent> = {
         { title: "Supabase", text: "PostgreSQL · Auth · Storage · Row Level Security" },
       ],
       stats: [
-        { value: "69+", label: "API endpoints", sub: "REST" },
-        { value: "3", label: "catalog sources", sub: "Jamendo · iTunes · SB" },
+        { value: "71", label: "API endpoints", sub: "REST" },
+        { value: "24", label: "database tables", sub: "PostgreSQL · public" },
         { value: "3", label: "UI languages", sub: "ru · kk · en" },
         { value: "10", label: "backend modules", sub: "Endpoints" },
       ],
@@ -347,7 +347,7 @@ export const PRESENTATION: Record<Lang, PresentationContent> = {
       heading: "Outcomes: functionality, reliability, scale",
       stats: [
         { value: "3", label: "UI languages", sub: "ru · kk · en" },
-        { value: "69+", label: "API endpoints", sub: "ASP.NET Core" },
+        { value: "71", label: "API endpoints", sub: "ASP.NET Core" },
         { value: "6", label: "core modules", sub: "Auth · Catalog · Library…" },
         { value: "2", label: "moderation roles", sub: "Admin · Operator" },
       ],
@@ -445,8 +445,8 @@ export const PRESENTATION: Record<Lang, PresentationContent> = {
         { title: "Supabase", text: "PostgreSQL · Auth · Storage · RLS" },
       ],
       stats: [
-        { value: "69+", label: "API эндпоинт", sub: "REST" },
-        { value: "3", label: "каталог көзі", sub: "Jamendo · iTunes · SB" },
+        { value: "71", label: "API эндпоинт", sub: "REST" },
+        { value: "24", label: "БД кестелері", sub: "PostgreSQL · public" },
         { value: "3", label: "UI тілі", sub: "ru · kk · en" },
         { value: "10", label: "backend модулі", sub: "Endpoints" },
       ],
@@ -470,7 +470,7 @@ export const PRESENTATION: Record<Lang, PresentationContent> = {
       heading: "Нәтижелер: функционалдылық, сенімділік",
       stats: [
         { value: "3", label: "UI тілі", sub: "ru · kk · en" },
-        { value: "69+", label: "API эндпоинт", sub: "ASP.NET Core" },
+        { value: "71", label: "API эндпоинт", sub: "ASP.NET Core" },
         { value: "6", label: "негізгі модуль", sub: "Auth · Catalog…" },
         { value: "2", label: "модерация рөлі", sub: "Admin · Operator" },
       ],
