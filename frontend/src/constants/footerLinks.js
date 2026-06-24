@@ -35,7 +35,7 @@ export const FOOTER_ACCESS = [
   {
     id: "explore",
     labelKey: "footer.explore",
-    path: "/Search",
+    path: "/Home",
     hash: "music-genres",
   },
   {
@@ -53,13 +53,13 @@ export const FOOTER_ACCESS = [
   {
     id: "genres",
     labelKey: "footer.genres",
-    path: "/Search",
+    path: "/Home",
     hash: "music-genres",
   },
   {
     id: "playlists",
     labelKey: "footer.playlists",
-    path: "/Search",
+    path: "/Home",
     hash: "mood-playlists",
   },
 ];

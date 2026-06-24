@@ -1,42 +1,19 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import useNavigateWithScroll from "../../hooks/useNavigateWithScroll";
+import {
+  LoadingOutlined,
+  PlayCircleFilled,
+  SearchOutlined,
+} from "@ant-design/icons";
+import SectionHeading from "../../components/SectionHeading";
 import usePlayerControls from "../../hooks/usePlayerControls";
-import PlaylistGrid from "../../components/PlaylistGrid/PlaylistGrid";
-import SongGridCircle from "../../components/SongGridCircle/SongGridCircle";
-import MusicVideoGrid from "../../components/MusicVideoGrid/MusicVideoGrid";
-import MusicGenresGrid from "../../components/MusicGenresGrid/MusicGenresGrid";
-import SongGrid from "../../components/SongGrid/SongGrid";
-import AlbumGrid from "../../components/AlbumGrid/AlbumGrid";
-
-import useArtistsList from "../../hooks/useArtistsList";
-import useCuratedAlbums from "../../hooks/useCuratedAlbums";
-import useJamendoTracks from "../../hooks/useJamendoTracks";
-import useJamendoPlaylists from "../../hooks/useJamendoPlaylists";
-import useGenreCovers from "../../hooks/useGenreCovers";
-import useCatalogTracks from "../../hooks/useCatalogTracks";
-import useSearchState from "../../state/searchState";
+import useTrackSearch from "../../hooks/useTrackSearch";
+import useNavigateWithScroll from "../../hooks/useNavigateWithScroll";
 import { formatPlaylistForPlayer } from "../../utils/formatTrackForPlayer";
-import { TRENDING_MUSIC_VIDEOS } from "../../constants/trendingMusicVideos";
+import { resolveMediaUrl } from "../../utils/resolveMediaUrl";
 
-const SEARCH_ARTIST_NAMES = [
-  "Drake",
-  "Taylor Swift",
-  "Eminem",
-  "The Weeknd",
-  "Adele",
-  "Billie Eilish",
-];
-
-const SEARCH_TOP_ALBUMS = [
-  { artist: "Eminem", album: "The Eminem Show" },
-  { artist: "Adele", album: "21" },
-  { artist: "Taylor Swift", album: "1989" },
-  { artist: "The Weeknd", album: "After Hours" },
-  { artist: "Drake", album: "Scorpion" },
-  { artist: "Billie Eilish", album: "Happier Than Ever" },
-];
-
-const SEARCH_GENRE_TAGS = [
+const QUICK_GENRES = [
   { tag: "pop", labelKey: "home.genre.pop" },
   { tag: "rock", labelKey: "home.genre.rock" },
   { tag: "electronic", labelKey: "home.genre.electronic" },
@@ -47,141 +24,135 @@ const SEARCH_GENRE_TAGS = [
 
 export default function Search({ setCurrentTrackIndex, setCurrentPlaylist }) {
   const { t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlQuery = searchParams.get("q") || "";
+  const [searchValue, setSearchValue] = useState(urlQuery);
+  const { tracks, loading } = useTrackSearch(searchValue);
   const navigateWithScroll = useNavigateWithScroll();
   const { handlePlaySong } = usePlayerControls(
     setCurrentPlaylist,
-    setCurrentTrackIndex
+    setCurrentTrackIndex,
   );
 
-  const { showPopularAll, setShowPopularAll } = useSearchState();
+  const trimmed = searchValue.trim();
 
-  const searchGenres = SEARCH_GENRE_TAGS.map((g) => ({
-    ...g,
-    label: t(g.labelKey),
-  }));
+  useEffect(() => {
+    setSearchValue(urlQuery);
+  }, [urlQuery]);
 
-  const { artists, loading: artistsLoading } =
-    useArtistsList(SEARCH_ARTIST_NAMES);
-  const { albums, loading: albumsLoading } =
-    useCuratedAlbums(SEARCH_TOP_ALBUMS);
-  const { tracks: newRelease, loading: newReleaseLoading } = useJamendoTracks({
-    order: "releasedate_desc",
-    limit: 12,
-  });
-  const { tracks: platformTracks, loading: platformLoading } = useCatalogTracks({
-    order: "recent",
-    limit: 10,
-  });
-  const { playlists, loading: playlistsLoading } = useJamendoPlaylists({
-    order: "creationdate_desc",
-    limit: 10,
-  });
-  const { items: genres, loading: genresLoading } =
-    useGenreCovers(searchGenres);
+  const handleSearchChange = (value) => {
+    setSearchValue(value);
+    const q = value.trim();
+    setSearchParams(q ? { q } : {}, { replace: true });
+  };
 
-  const openArtist = (artist) => {
-    const name = artist.name || artist.artist;
-    if (!name) return;
-    navigateWithScroll(`/PageArtists/${encodeURIComponent(name)}`, {
-      state: { from: "search" },
+  const playTrack = (index) => {
+    handlePlaySong(formatPlaylistForPlayer(tracks), index);
+  };
+
+  const openGenre = (tag, label) => {
+    navigateWithScroll(`/PageGenre/${tag}`, {
+      state: { label, from: "search" },
     });
-  };
-
-  const openAlbums = (album) => {
-    if (!album?.id) return;
-    navigateWithScroll(`/PageAlbums/${album.id}`, { state: { from: "search" } });
-  };
-
-  const openPlaylist = (pl) => {
-    if (!pl?.id) return;
-    navigateWithScroll(`/PagePlaylist/${pl.id}`, { state: { from: "search" } });
-  };
-
-  const openGenre = (genre) => {
-    if (!genre?.tag) return;
-    navigateWithScroll(`/PageGenre/${genre.tag}`, {
-      state: { label: genre.label, from: "search" },
-    });
-  };
-
-  const playFromList = (list, index) => {
-    handlePlaySong(formatPlaylistForPlayer(list), index);
   };
 
   return (
-    <div>
-      <section id="music-genres">
-        <MusicGenresGrid
-          title={t("home.section.musicGenres.main")}
-          pinkTitle={t("home.section.musicGenres.accent")}
-          genres={genres}
-          loading={genresLoading}
-          onClickGenre={openGenre}
-        />
-      </section>
+    <div className="px-[4%] pb-14 pt-6">
+      <SectionHeading
+        title={t("search.pageTitleMain")}
+        pinkTitle={t("search.pageTitleAccent")}
+      />
 
-      <section id="mood-playlists">
-        <PlaylistGrid
-          title={t("home.section.moodPlaylist.main")}
-          pinkTitle={t("home.section.moodPlaylist.accent")}
-          playlist={playlists}
-          loading={playlistsLoading}
-          onClickPlaylist={openPlaylist}
+      <div className="mt-8 flex max-w-3xl items-stretch overflow-hidden rounded-xl border border-sb-border-strong bg-sb-muted shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+        <input
+          type="search"
+          value={searchValue}
+          onChange={(e) => handleSearchChange(e.target.value)}
+          placeholder={t("nav.searchPlaceholder")}
+          autoFocus
+          className="min-w-0 flex-1 border-none bg-transparent px-5 py-4 text-base text-sb-fg outline-none placeholder:text-sb-fg-subtle"
         />
-      </section>
+        <div className="flex items-center px-5 text-[#cb0094]">
+          <SearchOutlined className="text-xl" />
+        </div>
+      </div>
 
-      <section id="popular-artists">
-        <SongGridCircle
-          title={t("home.section.popularArtists.main")}
-          pinkTitle={t("home.section.popularArtists.accent")}
-          items={artists}
-          showAll={showPopularAll}
-          setShowAll={setShowPopularAll}
-          loading={artistsLoading}
-          onClickItem={openArtist}
-        />
-      </section>
-
-      <section id="music-videos">
-        <MusicVideoGrid
-          title={t("home.section.musicVideo.main")}
-          pinkTitle={t("home.section.musicVideo.accent")}
-          videos={TRENDING_MUSIC_VIDEOS}
-        />
-      </section>
-
-      {(platformLoading || platformTracks.length > 0) && (
-        <section id="platform-tracks-search" aria-busy={platformLoading}>
-          <SongGrid
-            title={t("home.section.platformTracks.main")}
-            pinkTitle={t("home.section.platformTracks.accent")}
-            songs={platformTracks}
-            loading={platformLoading}
-            skeletonCount={10}
-            handlePlaySong={(_, idx) => playFromList(platformTracks, idx)}
-          />
-        </section>
+      {!trimmed && (
+        <div className="mt-8 max-w-3xl">
+          <p className="text-sm leading-relaxed text-sb-fg-subtle">
+            {t("search.emptyHint")}
+          </p>
+          <p className="mt-6 text-xs uppercase tracking-widest text-sb-fg-muted">
+            {t("search.quickGenres")}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {QUICK_GENRES.map(({ tag, labelKey }) => {
+              const label = t(labelKey);
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => openGenre(tag, label)}
+                  className="cursor-pointer rounded-full border border-[#cb009444] bg-sb-muted px-4 py-2 text-sm text-sb-fg transition hover:border-[#cb0094] hover:text-[#ee10b0]"
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       )}
 
-      <section id="new-release-songs">
-        <SongGrid
-          title={t("home.section.newRelease.main")}
-          pinkTitle={t("home.section.newRelease.accent")}
-          songs={newRelease}
-          loading={newReleaseLoading}
-          handlePlaySong={(_, idx) => playFromList(newRelease, idx)}
-        />
-      </section>
+      {trimmed && loading && (
+        <div className="mt-12 flex justify-center py-16">
+          <LoadingOutlined style={{ fontSize: 36, color: "#cb0094" }} />
+        </div>
+      )}
 
-      <section id="top-albums">
-        <AlbumGrid
-          title={t("home.section.topAlbums.main")}
-          pinkTitle={t("home.section.topAlbums.accent")}
-          albums={albums}
-          loading={albumsLoading}
-          onClickAlbum={openAlbums}
-        />
-      </section>
+      {trimmed && !loading && tracks.length === 0 && (
+        <p className="mt-12 text-center text-sb-fg-subtle">{t("common.noResults")}</p>
+      )}
+
+      {trimmed && !loading && tracks.length > 0 && (
+        <div className="mt-10">
+          <p className="mb-4 text-sm text-sb-fg-muted">
+            {t("search.resultsFor", { query: trimmed, count: tracks.length })}
+          </p>
+          <div className="space-y-2">
+            {tracks.map((track, idx) => (
+              <button
+                key={`${track.source || "jamendo"}-${track.id ?? idx}`}
+                type="button"
+                onClick={() => playTrack(idx)}
+                className="sb-table-row flex w-full cursor-pointer items-center gap-4 rounded-xl px-3 py-3 text-left transition hover:bg-sb-muted/80"
+              >
+                <img
+                  src={resolveMediaUrl(track.cover)}
+                  alt=""
+                  className="h-14 w-14 shrink-0 rounded-lg object-cover"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium text-sb-fg">{track.title}</p>
+                  <p className="truncate text-sm text-sb-fg-muted">
+                    {track.artist}
+                    {track.source === "soundbloom" && (
+                      <span className="ml-2 rounded border border-[#0E9EEF55] px-1.5 py-px text-[10px] text-[#0E9EEF]">
+                        SoundBloom
+                      </span>
+                    )}
+                  </p>
+                </div>
+                {track.time && (
+                  <span className="shrink-0 text-xs tabular-nums text-sb-fg-subtle">
+                    {track.time}
+                  </span>
+                )}
+                <PlayCircleFilled className="shrink-0 text-2xl text-[#cb0094]" />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -138,12 +138,9 @@ export default function Home({ setCurrentTrackIndex, setCurrentPlaylist }) {
     handlePlaySong(formatPlaylistForPlayer(list), index);
   };
 
-  const scrollToLogin = () =>
-    loginRef.current?.scrollIntoView({ behavior: "smooth" });
-
   return (
     <div>
-      {!isAuth && <HeroSection onScrollToLogin={scrollToLogin} />}
+      {!isAuth && <HeroSection />}
 
       {(platformLoading || platformTracks.length > 0) && (
         <section id="platform-tracks" aria-busy={platformLoading}>
