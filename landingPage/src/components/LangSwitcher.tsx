@@ -27,7 +27,7 @@ export function LangSwitcher() {
             )}
             <span
               className={`relative z-10 transition-colors ${
-                active ? "text-white" : "text-bone/55 hover:text-bone"
+                active ? "text-white" : "text-bone/70 hover:text-bone"
               }`}
             >
               {short}

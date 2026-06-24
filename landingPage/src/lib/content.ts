@@ -15,7 +15,6 @@ export interface FeatureItem {
   no: string;
   title: string;
   text: string;
-  tag: string;
 }
 
 export interface Stat {
@@ -144,19 +143,18 @@ export const CONTENT: Record<Lang, SiteContent> = {
     features: {
       index: "04",
       label: "Client experience",
-      heading: "Interface, player and catalog",
+      heading: "",
       items: [
-        { no: "01", title: "Music player", text: "Streaming, queue, likes, Jamendo and iTunes previews alongside artist uploads.", tag: "Player" },
-        { no: "02", title: "Library & search", text: "Playlists, albums, genres, saved tracks — all tied to the account.", tag: "Library" },
-        { no: "03", title: "Localization ru / kk / en", text: "Full UI translation; switch language without losing context.", tag: "i18n" },
-        { no: "04", title: "Artist Studio", text: "Artist registration, track upload, moderation, listening analytics.", tag: "Creators" },
-        { no: "05", title: "Premium & Family", text: "Lossless, offline downloads, no ads, family plan and promo codes.", tag: "Plans" },
-        { no: "06", title: "Responsive & themes", text: "Dark and light theme, responsive layout, GitHub Pages deploy.", tag: "UX" },
+        { no: "01", title: "Music player", text: "Streaming, queue, likes — Jamendo, iTunes and artist uploads in one player." },
+        { no: "02", title: "Library & search", text: "Playlists, albums, genres and saved tracks tied to your account." },
+        { no: "03", title: "ru / kk / en", text: "Full UI in three languages without losing your place." },
+        { no: "04", title: "Artist Studio", text: "Upload tracks, pass moderation, view listening analytics." },
+        { no: "05", title: "Premium & Family", text: "Lossless, offline downloads, no ads, family plan and promo codes." },
       ],
       stats: [
-        { value: "71", label: "API endpoints" },
-        { value: "3", label: "Languages — EN · RU · KK" },
-        { value: "24", label: "Database tables" },
+        { value: "71", label: "REST API" },
+        { value: "3", label: "UI languages" },
+        { value: "24", label: "DB tables" },
         { value: "2", label: "Moderation roles" },
       ],
     },
@@ -203,20 +201,20 @@ export const CONTENT: Record<Lang, SiteContent> = {
         "Цель — стриминговый frontend с библиотекой и artist studio, backend на .NET с каталогом, подписками и модерацией.",
         "Актуальность: платформа с lossless-звуком, умным каталогом, студией артиста и локализацией ru/kk/en повышает вовлечённость и даёт музыкантам собственную площадку.",
       ],
-      pull: "Цель достигнута: платформа развёрнута и работает.",
+      pull: "",
     },
     problem: {
       index: "02",
       label: "Проблема и актуальность",
       heading: "Почему современному стримингу не хватает «живого» звука",
-      problemTitle: "Шум",
+      problemTitle: "Проблемы",
       problems: [
         "Прерывания и сжатый звук рвут момент",
         "Артистам сложно публиковать и анализировать треки",
         "Нужны поиск, три языка на любом устройстве",
         "Нет единой платформы для слушателя и артиста",
       ],
-      solutionTitle: "Расцвет",
+      solutionTitle: "актуальность",
       solutions: [
         "Lossless, Premium и Family без рекламы",
         "Artist Studio: загрузка, модерация, аналитика",
@@ -246,20 +244,19 @@ export const CONTENT: Record<Lang, SiteContent> = {
     features: {
       index: "04",
       label: "Клиентский опыт",
-      heading: "Интерфейс, плеер и каталог",
+      heading: "",
       items: [
-        { no: "01", title: "Музыкальный плеер", text: "Стриминг, очередь, лайки, превью Jamendo и iTunes рядом с треками артистов.", tag: "Плеер" },
-        { no: "02", title: "Библиотека и поиск", text: "Плейлисты, альбомы, жанры, сохранённые треки — всё привязано к аккаунту.", tag: "Библиотека" },
-        { no: "03", title: "Локализация ru / kk / en", text: "Полный перевод интерфейса; переключение языка без сброса сценария.", tag: "i18n" },
-        { no: "04", title: "Artist Studio", text: "Регистрация артиста, загрузка треков, модерация, аналитика прослушиваний.", tag: "Артистам" },
-        { no: "05", title: "Premium и Family", text: "Lossless, офлайн-скачивание, без рекламы, семейный тариф и промокоды.", tag: "Тарифы" },
-        { no: "06", title: "Светлая и темная тема", text: "Светлая и темная тема, подстраивается под вас.", tag: "UX" },
+        { no: "01", title: "Музыкальный плеер", text: "Стриминг, очередь, лайки — Jamendo, iTunes и треки артистов в одном плеере." },
+        { no: "02", title: "Библиотека и поиск", text: "Плейлисты, альбомы, жанры и сохранённые треки в аккаунте." },
+        { no: "03", title: "ru / kk / en", text: "Полный интерфейс на трёх языках без сброса сценария." },
+        { no: "04", title: "Artist Studio", text: "Загрузка треков, модерация и аналитика прослушиваний." },
+        { no: "05", title: "Premium и Family", text: "Lossless, офлайн, без рекламы, семейный тариф и промокоды." },
       ],
       stats: [
-        { value: "71", label: "API эндпоинтов" },
-        { value: "3", label: "Языка — EN · RU · KK" },
-        { value: "24", label: "Таблиц в БД" },
-        { value: "2", label: "Роли модерации" },
+        { value: "71", label: "REST API" },
+        { value: "3", label: "языка UI" },
+        { value: "24", label: "таблиц БД" },
+        { value: "2", label: "роли модерации" },
       ],
     },
     finale: {
@@ -340,20 +337,19 @@ export const CONTENT: Record<Lang, SiteContent> = {
     features: {
       index: "04",
       label: "Клиент тәжірибесі",
-      heading: "Интерфейс, плеер және каталог",
+      heading: "",
       items: [
-        { no: "01", title: "Музыкалық плеер", text: "Стриминг, кезек, лайктар, Jamendo/iTunes превью.", tag: "Плеер" },
-        { no: "02", title: "Кітапхана", text: "Плейлисттер, альбомдар, жанрлар — аккаунтқа байланыған.", tag: "Кітапхана" },
-        { no: "03", title: "Локализация ru / kk / en", text: "Толық аударма; тіл ауыстыру сценарийді бұзбайды.", tag: "i18n" },
-        { no: "04", title: "Artist Studio", text: "Әртісті тіркеу, трек жүктеу, модерация, аналитика.", tag: "Әртістерге" },
-        { no: "05", title: "Premium және Family", text: "Lossless, офлайн, жарнамасыз, отбасылық тариф.", tag: "Тарифтер" },
-        { no: "06", title: "Бейімделгіштік", text: "Қараңғы/жарық тема, responsive, GitHub Pages.", tag: "UX" },
+        { no: "01", title: "Музыкалық плеер", text: "Стриминг, кезек, лайктар — Jamendo, iTunes және әртістер тректері." },
+        { no: "02", title: "Кітапхана", text: "Плейлисттер, альбомдар, жанрлар — аккаунтқа байланыған." },
+        { no: "03", title: "ru / kk / en", text: "Үш тілде толық интерфейс, сценарий үзілмейді." },
+        { no: "04", title: "Artist Studio", text: "Трек жүктеу, модерация және аналитика." },
+        { no: "05", title: "Premium және Family", text: "Lossless, офлайн, жарнамасыз, отбасылық тариф." },
       ],
       stats: [
-        { value: "71", label: "API эндпоинт" },
-        { value: "3", label: "Тіл — EN · RU · KK" },
-        { value: "24", label: "БД кестелері" },
-        { value: "2", label: "Модерация рөлі" },
+        { value: "71", label: "REST API" },
+        { value: "3", label: "UI тілі" },
+        { value: "24", label: "БД кестесі" },
+        { value: "2", label: "модерация рөлі" },
       ],
     },
     finale: {

@@ -64,9 +64,9 @@ function FooterColumn({ title, sectionId, items, selectedItem, onItemClick }) {
 }
 
 const SOCIAL_LINKS = [
-  { icon: FacebookOutlined, label: "Facebook", href: "#" },
-  { icon: InstagramOutlined, label: "Instagram", href: "#" },
-  { icon: XOutlined, label: "X", href: "#" },
+  { icon: FacebookOutlined, label: "Facebook", href: "https://www.facebook.com" },
+  { icon: InstagramOutlined, label: "Instagram", href: "https://www.instagram.com" },
+  { icon: XOutlined, label: "X", href: "https://twitter.com" },
   { icon: MailOutlined, label: "Email", href: "/contact" },
 ];
 

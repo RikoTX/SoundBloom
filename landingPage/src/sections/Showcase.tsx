@@ -121,7 +121,7 @@ export function Showcase() {
           </h2>
         </Reveal>
         <Reveal delay={0.08}>
-          <p className="mt-4 max-w-md text-lg text-bone/50">{c.showcase.subtitle}</p>
+          <p className="mt-4 max-w-md text-lg text-bone/70">{c.showcase.subtitle}</p>
         </Reveal>
       </Container>
 
@@ -161,7 +161,7 @@ export function Showcase() {
                       <div className="flex-1">
                         <h3
                           className={`font-display text-2xl font-semibold transition-colors duration-300 sm:text-3xl ${
-                            isActive ? "text-bone" : "text-bone/40"
+                            isActive ? "text-bone" : "text-bone/55"
                           }`}
                         >
                           {step.title}
@@ -175,7 +175,7 @@ export function Showcase() {
                           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                           className="overflow-hidden"
                         >
-                          <p className="pt-2 mt-2 max-w-sm text-bone/55">
+                          <p className="pt-2 mt-2 max-w-sm text-bone/70">
                             {step.text}
                           </p>
                         </motion.div>

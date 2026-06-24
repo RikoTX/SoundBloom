@@ -41,14 +41,14 @@ export function Hero() {
         <div className="max-w-5xl">
           <div className="hero-eyebrow flex items-center gap-3">
             <Equalizer className="h-3.5" bars={5} />
-            <span className="overline text-bone/55">{c.hero.eyebrow}</span>
+            <span className="overline text-bone/75">{c.hero.eyebrow}</span>
           </div>
 
-          <h1 className="text-shield mt-7 font-display font-semibold">
-            <span className="wt-line block text-[clamp(3.2rem,13vw,10rem)] leading-[0.95] text-bone">
+          <h1 className="relative z-20 mt-7 font-display font-semibold">
+            <span className="text-shield wt-line block text-[clamp(3.2rem,13vw,10rem)] leading-[0.95] text-bone">
               <WaveText text={c.hero.titleTop} immediate />
             </span>
-            <span className="wt-line mt-1 block text-[clamp(3.2rem,13vw,10rem)] leading-[0.95]">
+            <span className="text-accent-pink wt-line mt-1 block text-[clamp(3.2rem,13vw,10rem)] leading-[0.95]">
               <WaveText
                 text={c.hero.titleBottom}
                 gradient
@@ -58,7 +58,7 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="hero-sub mt-8 max-w-xl text-lg leading-relaxed text-bone/55 sm:text-xl">
+          <p className="hero-sub mt-8 max-w-xl text-lg leading-relaxed text-bone/75 sm:text-xl">
             {c.hero.subtitle}
           </p>
 

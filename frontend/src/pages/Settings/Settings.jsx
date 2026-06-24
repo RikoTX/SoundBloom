@@ -807,12 +807,6 @@ export default function Settings() {
             checked={prefs.reduceMotion}
             onChange={(v) => updatePref("reduceMotion", v)}
           />
-          <ToggleRow
-            label={t("settings.appearance.headerNews")}
-            hint={t("settings.appearance.headerNewsHint")}
-            checked={prefs.showHeaderNews}
-            onChange={(v) => updatePref("showHeaderNews", v)}
-          />
         </SettingsSection>
 
 

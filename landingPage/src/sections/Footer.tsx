@@ -18,7 +18,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="text-sm text-bone/40 sm:text-right">
+        <div className="text-sm text-bone/65 sm:text-right">
           <p>{c.footer.madeWith}</p>
           <p className="mt-1">{c.footer.copyright}</p>
         </div>

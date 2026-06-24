@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 export function ScrollCue({ label }: { label: string }) {
   return (
     <motion.div
-      className="flex items-center gap-3 text-bone/45"
+      className="flex items-center gap-3 text-bone/65"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 2.4, duration: 1.2 }}

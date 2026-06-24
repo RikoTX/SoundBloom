@@ -19,7 +19,7 @@ export function About() {
             </h2>
           </Reveal>
 
-          <div className="space-y-6 self-end text-lg leading-relaxed text-bone/55 lg:col-span-4">
+          <div className="space-y-6 self-end text-lg leading-relaxed text-bone/70 lg:col-span-4">
             {c.about.paragraphs.map((p, i) => (
               <Reveal key={i} delay={0.08 * i}>
                 <p>{p}</p>
@@ -28,7 +28,7 @@ export function About() {
           </div>
         </div>
 
-        <div className="text-shield mt-[clamp(4rem,11vh,9rem)]">
+        <div className="text-accent-pink text-shield mt-[clamp(4rem,11vh,9rem)]">
           <WaveText
             as="p"
             text={c.about.pull}

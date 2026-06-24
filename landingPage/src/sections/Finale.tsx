@@ -25,18 +25,18 @@ export function Finale() {
           </Reveal>
 
           <Reveal>
-            <h2 className="text-shield w-full font-display font-semibold">
-              <span className="wt-line block text-[clamp(2.4rem,8.5vw,6.5rem)] leading-[1.08] text-bone">
+            <h2 className="relative z-20 w-full font-display font-semibold">
+              <span className="text-shield wt-line block text-[clamp(2.4rem,8.5vw,6.5rem)] leading-[1.08] text-bone">
                 <WaveText text={c.finale.titleTop} />
               </span>
-              <span className="wt-line mt-2 block text-[clamp(2.4rem,8.5vw,6.5rem)] leading-[1.08]">
+              <span className="text-accent-pink wt-line mt-2 block text-[clamp(2.4rem,8.5vw,6.5rem)] leading-[1.08]">
                 <WaveText text={c.finale.titleBottom} gradient delay={0.12} />
               </span>
             </h2>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <p className="mx-auto max-w-md text-lg leading-relaxed text-bone/55">
+            <p className="mx-auto max-w-md text-lg leading-relaxed text-bone/75">
               {c.finale.subtitle}
             </p>
           </Reveal>
@@ -46,7 +46,7 @@ export function Finale() {
               <CTAButton href={APP_URL} className="px-9 py-4 text-base">
                 {c.finale.cta}
               </CTAButton>
-              <p className="text-xs text-bone/35">{c.finale.note}</p>
+              <p className="text-sm text-bone/60">{c.finale.note}</p>
             </div>
           </Reveal>
         </div>

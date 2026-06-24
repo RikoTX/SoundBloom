@@ -96,7 +96,7 @@ export function ProblemSolution() {
                       exit={{ opacity: 0, y: -22, filter: "blur(6px)" }}
                       transition={{ duration: 0.5, ease: EASE_BLOOM }}
                     >
-                      <p className="overline text-bone/40">{c.problem.problemTitle}</p>
+                      <p className="overline text-bone/65">{c.problem.problemTitle}</p>
                       <ul className="mt-6 space-y-4">
                         {c.problem.problems.map((p) => (
                           <li

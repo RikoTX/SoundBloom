@@ -50,7 +50,7 @@ export function Nav() {
               key={link.id}
               type="button"
               onClick={() => scrollTo(`#${link.id}`)}
-              className="text-sm text-bone/55 transition-colors duration-300 hover:text-bone"
+              className="text-sm text-bone/75 transition-colors duration-300 hover:text-bone"
             >
               {link.label}
             </button>

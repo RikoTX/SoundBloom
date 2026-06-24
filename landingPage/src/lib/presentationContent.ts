@@ -232,7 +232,7 @@ export const PRESENTATION: Record<Lang, PresentationContent> = {
     },
     conclusion: {
       eyebrow: "Заключение",
-      heading: "Цель достигнута: платформа развёрнута и работает",
+      heading: "",
       rows: [
         {
           text: "Backend: ASP.NET Core, каталог и стриминг, библиотека, подписки, admin/operator, i18n API.",

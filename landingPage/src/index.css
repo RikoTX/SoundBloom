@@ -100,27 +100,45 @@
     font-family: var(--font-display);
   }
 
+  .text-shield {
+    position: relative;
+    z-index: 1;
+    text-shadow:
+      0 2px 24px rgba(0, 0, 0, 0.85),
+      0 0 2px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Мягкий акцент — читается на тёмном фоне, не режет глаза */
+  .text-accent-pink {
+    color: var(--color-magenta);
+  }
+
   .text-gradient {
     background: linear-gradient(
       100deg,
-      var(--color-bone) 0%,
-      var(--color-magenta) 55%,
-      var(--color-azure) 100%
+      #f5dce8 0%,
+      #ee10b0 55%,
+      #b8ddf5 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 12px rgba(238, 16, 176, 0.16));
   }
 
   .text-spectrum {
     background: linear-gradient(
       92deg,
-      var(--color-magenta) 0%,
-      var(--color-azure) 100%
+      #f0b4d4 0%,
+      var(--color-magenta) 48%,
+      #7ec4ef 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 8px rgba(238, 16, 176, 0.12));
   }
 
   /* eyebrow / overline label */
@@ -132,7 +150,7 @@
     text-transform: uppercase;
   }
 
-  /* faint film grain to kill the flat "AI gradient" look */
+  /* faint film grain */
   .grain::after {
     content: "";
     position: fixed;
@@ -142,14 +160,6 @@
     opacity: 0.04;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  .text-shield {
-    position: relative;
-    z-index: 1;
-    text-shadow:
-      0 4px 48px rgba(5, 5, 7, 0.95),
-      0 1px 2px rgba(5, 5, 7, 0.8);
   }
 
   .edge-fade-b {
@@ -188,13 +198,18 @@
 }
 .wt-grad {
   background-image: linear-gradient(
-    95deg,
-    var(--color-magenta),
-    var(--color-azure)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+    102deg,
+    #f5dce8 0%,
+    #f0a8cc 32%,
+    var(--color-magenta) 68%,
+    #c5e4f7 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 2px 14px rgba(238, 16, 176, 0.18));
+  text-shadow: none !important;
 }
 @keyframes sb-floaty {
   0%,
